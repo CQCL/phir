@@ -1,20 +1,19 @@
-PECOS High-level Intermediate Representation (PHIR) Specification
-=================================================================
+# PECOS High-level Intermediate Representation (PHIR) Specification
 
-PHIR (PECOS High-level Intermediate Representation), pronounced "fire," is a JSON-based format created specifically for 
+PHIR (PECOS High-level Intermediate Representation), pronounced "fire," is a JSON-based format created specifically for
 PECOS. Its primary purpose is to represent hybrid quantum-classical programs. This structure allows for capturing both
-quantum/classical instructions as well as the nuances of machine state and noise, thereby enabling PECOS to offer a 
-realistic simulation experience. 
+quantum/classical instructions as well as the nuances of machine state and noise, thereby enabling PECOS to offer a
+realistic simulation experience.
 
-This document sets out to outline the near-term implementation of PHIR, detailing its relationship with extended 
+This document sets out to outline the near-term implementation of PHIR, detailing its relationship with extended
 OpenQASM 2.0 and its associated execution model.
 
 ## Program-level Structure
 
-PHIR's top-level structure is represented as a dictionary, encompassing program-level metadata, version, and the actual 
+PHIR's top-level structure is represented as a dictionary, encompassing program-level metadata, version, and the actual
 sequence of operations the program encapsulates.
 
-```json
+```json5
 {
   "format": "PHIR/JSON",
   "version": "0.1.0",
@@ -27,41 +26,40 @@ sequence of operations the program encapsulates.
 }
 ```
 
-- `"format"`: Signifies the utilization of the PHIR/JSON format. 
-- `"version"`: Represents the semantic version number adhering to the PHIR spec. 
-- `"metadata"`: An optional segment where users can incorporate additional details. This segment holds potential for 
+- `"format"`: Signifies the utilization of the PHIR/JSON format.
+- `"version"`: Represents the semantic version number adhering to the PHIR spec.
+- `"metadata"`: An optional segment where users can incorporate additional details. This segment holds potential for
 future expansion, possibly to guid compilation processes and error modeling.
-- `"ops": [{...}, ...]`: A linear sequence denoting the operations and blocks that constitute the program. 
-
+- `"ops": [{...}, ...]`: A linear sequence denoting the operations and blocks that constitute the program.
 
 ## Comments
 
-All entries in PHIR, whether instructions or blocks, adopt the dictionary format `{...}`. For enhanced readability, one 
-can intersperse comments in the form of strings prefixed with `"//"` that are inserted into a sequence of 
+All entries in PHIR, whether instructions or blocks, adopt the dictionary format `{...}`. For enhanced readability, one
+can intersperse comments in the form of strings prefixed with `"//"` that are inserted into a sequence of
 operations/blocks `[{...}, ...]`
 
 ## General operation structure
 
 Within the sequence of represented by the segment `"ops": {...}`, each operation and block has the form:
 
-```json
+```json5
 {
   "type": "op_name",
   "metadata": {...},  // optional
-  "additional_keys": "values" | [{...}, ...],  // Such as inputs to a gate 
+  "additional_keys": "values" | [{...}, ...],  // Such as inputs to a gate
   ...
 }
 ```
 
 Operations/blocks themselves may hold sequences or blocks, thus allowing for nesting.
 
-At present, the principal types encompass: `"data"`, `"cop"`, `"qop"`, and `"block"`. Future iterations might include other types, 
+At present, the principal types encompass: `"data"`, `"cop"`, `"qop"`, and `"block"`. Future iterations might include other types,
 especially to bolster error modeling. Here's a quick breakdown of the `"type"`s:
 
 - `"data"`: Directives specifically related to data handling such as the creation of variables.
-- `"cop"`: Refers to classical operations. This includes actions like defining/assigning classical variables or 
+- `"cop"`: Refers to classical operations. This includes actions like defining/assigning classical variables or
 executing Boolean/arithmetic expressions.
-- `"qop"`: Denotes quantum operations. These encompass actions like executing unitaries, measurements, and initializing 
+- `"qop"`: Denotes quantum operations. These encompass actions like executing unitaries, measurements, and initializing
 states.
 - `"mop"`: A machine operation, which represents changes in the machine state. For example, idling, transport, etc.
 - `"block"`: Facilitates grouping and control flow of the encapsulated blocks/operations.
@@ -70,21 +68,21 @@ A comprehensive explanation of these operations and blocks is given in the follo
 
 ## Data Management
 
-These operations deal with data/variable handling such as data definition and exporting, helping to structure the 
-information flow in the program. In the future, the `"data"` type may be utilized to create and manipulate data 
-types/structures such as arrays, data de-allocation, scoping, etc.  
+These operations deal with data/variable handling such as data definition and exporting, helping to structure the
+information flow in the program. In the future, the `"data"` type may be utilized to create and manipulate data
+types/structures such as arrays, data de-allocation, scoping, etc.
 
 ### Defining Classical Variables
 
-In the current implementation, classical variables are defined as globally accessible, meaning they exist in the 
-top-level scope. The lifespan of a classical variable extends until the program concludes. Once a classical variable and 
+In the current implementation, classical variables are defined as globally accessible, meaning they exist in the
+top-level scope. The lifespan of a classical variable extends until the program concludes. Once a classical variable and
 its associated symbol are created, they remain accessible through the entirety of the program. The symbol consistently
-refers to the same memory location. By default, classical variables are represented as i64s. The value of these 
+refers to the same memory location. By default, classical variables are represented as i64s. The value of these
 variables can be modified through assignment operations.
 
 To define or create a variable, the following structure is employed:
 
-```json
+```json5
 {
   "data": "cvar_define",
   "data_type": str,  // Currently, should be "i64"
@@ -93,26 +91,26 @@ To define or create a variable, the following structure is employed:
 }
 ```
 
-- `"variable"`: Represents the symbol tied to the classical variable. By default, all variables are initialized with a 
-value of 0. 
-- `"size"`: Even though every variable is internally represented as an i64, a size can be specified. This correlates 
-with the size in OpenQASM 2.0's `creg sym[size];`. If omitted, `"size"` defaults to the bitsize of the integer 
-representation (e.g., 32 for i32, 64 for i64, etc.). During classical computations, all variables behave as complete 
-i64s. However, when assigned, the bits are restricted to the number defined by `"size"`. For instance, in OpenQASM 2.0, 
-executing `creg a[2]; a = 5;` results in `a` holding the value 3 (`0b111` becomes `0b011` since `a` is restricted to 2 
+- `"variable"`: Represents the symbol tied to the classical variable. By default, all variables are initialized with a
+value of 0.
+- `"size"`: Even though every variable is internally represented as an i64, a size can be specified. This correlates
+with the size in OpenQASM 2.0's `creg sym[size];`. If omitted, `"size"` defaults to the bitsize of the integer
+representation (e.g., 32 for i32, 64 for i64, etc.). During classical computations, all variables behave as complete
+i64s. However, when assigned, the bits are restricted to the number defined by `"size"`. For instance, in OpenQASM 2.0,
+executing `creg a[2]; a = 5;` results in `a` holding the value 3 (`0b111` becomes `0b011` since `a` is restricted to 2
 bits).
 
-To prevent runtime errors, ensure a classical variable is defined prior to its usage. Given their gloval scope and the 
+To prevent runtime errors, ensure a classical variable is defined prior to its usage. Given their gloval scope and the
 necessity for prior definition, it's advisable to declare variables at the program's onset.
 
 ### Exporting Classical Variables
 
-At the conclusion of a simulation or quantum computation, you might want to extract or "export" certain classical 
+At the conclusion of a simulation or quantum computation, you might want to extract or "export" certain classical
 variables. This mechanism allows users to retrieve selected results from their computations. This mechanism also allows
-a program to have an internal representation of variables and/or scratch space/helper variables and to then present the 
+a program to have an internal representation of variables and/or scratch space/helper variables and to then present the
 user with only the information they requested. In PHIR, the structure to accomplish this is:
 
-```json
+```json5
 {
   "data": "cvar_export",
   "variables": [str, ...],  // List of classical variable symbols to export.
@@ -127,7 +125,7 @@ These will be made available in the user's final results dictionary post-simulat
 
 To define a set of qubits and associate them with quantum variables:
 
-```json
+```json5
 {
   "data": "qvar_define",
   "data_type": "qubits",  // Optional
@@ -136,21 +134,21 @@ To define a set of qubits and associate them with quantum variables:
 }
 ```
 
-Much like classical variables, quantum variables exist in the top-level scope. These are accessible throughout the 
+Much like classical variables, quantum variables exist in the top-level scope. These are accessible throughout the
 program and defined for its entirety. An individual qubit is denoted by the qubit ID `[variable_str, qubit_index]`. For
 instance, the 1st qubit of the quantum variable `"q"` is represented as `["q", 1]`.
 
 ## Classical operations
 
-Classical operations are all those operations that manipulate classical information. In the current PECOS 
-implementation, all classical variables are implemented as 32-bit signed integers (i64). 
+Classical operations are all those operations that manipulate classical information. In the current PECOS
+implementation, all classical variables are implemented as 32-bit signed integers (i64).
 
-#### Assigning values to Classical Variables
+### Assigning values to Classical Variables
 
 Assigning a value to a classical variable involves updating the underlying i64 to a new integer value. The structure for
-this assignement in PHIR is:
+this assignment in PHIR is:
 
-```json
+```json5
 {
   "cop": "=",
   "args": [int | int_expression],
@@ -158,15 +156,15 @@ this assignement in PHIR is:
 }
 ```
 
-Currently, only one variable can be assigned at a time; however, the `"args"` and `"returns"` sytnax with a corresponding 
-list of variables is used to be consistent with the measurement and foreign function syntax discussed below, as well as 
-to leave open the possibility of supporting destructuring of tuples/arrays in the future. 
+Currently, only one variable can be assigned at a time; however, the `"args"` and `"returns"` syntax with a corresponding
+list of variables is used to be consistent with the measurement and foreign function syntax discussed below, as well as
+to leave open the possibility of supporting destructuring of tuples/arrays in the future.
 
-In PHIR, specific bits of an integer can be addressed in an array-like syntax, mirrionr the `a[0]` notation in OpenQASM 
-2.0. To refenence a bit of a variable in PHIR, use the structure `["variable_symbol", bit_index]`. The assignment 
+In PHIR, specific bits of an integer can be addressed in an array-like syntax, mirrionr the `a[0]` notation in OpenQASM
+2.0. To reference a bit of a variable in PHIR, use the structure `["variable_symbol", bit_index]`. The assignment
 structure then appears as:
 
-```json
+```json5
 {
   "cop": "=",
   "args": [int | int_expression],
@@ -174,59 +172,60 @@ structure then appears as:
 }
 ```
 
-Regardless of assigned `"value"`, when updating a single bit, only the least significant bit (0th bit) of the value is 
+Regardless of assigned `"value"`, when updating a single bit, only the least significant bit (0th bit) of the value is
 taken into consideration.
 
-The term `int_expression` has been introduced and will be elaborted upon in the upcoming sections. Essentially, 
+The term `int_expression` has been introduced and will be elaborted upon in the upcoming sections. Essentially,
 `int_expression` encompasses classical operations that ultimately yield an integer value.
 
 ### Integer Expressions
 
 In PHIR, an integer expression encompasses any combination of arithmetic, comparison, or bitwise operations, including
-classical variables or integer literals, that results in an integer value. While future iterations of PHIR and PECOS may 
-introduce other expression types (e.g., floating-point expressions), the current version strictly supports integer 
-expressions. The tabel provided below (Table I) details the list of supported classical operations (`cops`) tha can be
+classical variables or integer literals, that results in an integer value. While future iterations of PHIR and PECOS may
+introduce other expression types (e.g., floating-point expressions), the current version strictly supports integer
+expressions. The table provided below (Table I) details the list of supported classical operations (`cops`) that can be
 used within these expressions as well as assignment operations.
 
 Constructing these expressions follow an Abstract Syntax Tree (AST) style, utilizing the below formats:
 
-#### General  Operations:
+#### General  Operations
 
-```json
+```json5
 {
   "cop": "op_name",
   "args": [cvariable | [cvariable, bit_index] | int | {int_expression...}, ...]
 }
 ```
 
-#### Unary Operations:
+#### Unary Operations
 
-```json
+```json5
 {
   "cop": "op_name",
   "args": [cvariable | [cvariable, bit_index] | int | {int_expression...}]
 }
 ```
 
-#### Binary Operations:
+#### Binary Operations
 
-```json
+```json5
 {
   "cop": "op_name",
   "args": [
-    cvariable | [cvariable, bit_index] | int | {int_expression...}, 
+    cvariable | [cvariable, bit_index] | int | {int_expression...},
     cvariable | [cvariable, bit_index] | int | {int_expression...}
   ]
 }
 ```
 
-**Important NOTE:** While PECOS is designed to handle comparison operations within expressions, extended OpenQASM is 
-not. Consequently, when translating from extedened OpenQASM 2.0 to PHIR, restrict expressions to only arithmetic and 
-bitwise operations. For instance, `a = b ^ c;` is valid, whereas `a = b < c` is not. In OpenQASM 2.0's `if()` 
-statements, a direct comparison between a classical variable or bit and an integer is the only permitted configuration. 
+**Important NOTE:** While PECOS is designed to handle comparison operations within expressions, extended OpenQASM is
+not. Consequently, when translating from extedened OpenQASM 2.0 to PHIR, restrict expressions to only arithmetic and
+bitwise operations. For instance, `a = b ^ c;` is valid, whereas `a = b < c` is not. In OpenQASM 2.0's `if()`
+statements, a direct comparison between a classical variable or bit and an integer is the only permitted configuration.
 In PECOS implements true comparisons to evaluate to 1 and false ones to evaluate to 0.
 
 #### Table I - Cop Assignment, arithmetic, comparison, & bitwise operations
+
 | name   | # args | sub-type   | description            |
 |--------|--------|------------|------------------------|
 | `"="`  | 2      | Assignment | Assign                 |
@@ -250,13 +249,14 @@ In PECOS implements true comparisons to evaluate to 1 and false ones to evaluate
 #### Integer Expression and Assignment Example
 
 For illustrative purposes, let's explore how `b = (c[2] ^ d) | (e - 2 + (f == g));` would be represented in PHIR:
-```json
+
+```json5
 {
-  "cop": "=", 
+  "cop": "=",
   "args": [
-    {"cop": "|", 
+    {"cop": "|",
     "args": [
-      {"cop": "^", "args": [["c", 2], "d"]}, 
+      {"cop": "^", "args": [["c", 2], "d"]},
       {"cop": "+", "args": [
         {"cop": "-", "args": ["e", 2]},
         {"cop": "==", "args": ["f", "g"]}
@@ -272,44 +272,44 @@ This example elucidates how intricate expressions are structured in a hierarchic
 
 ### Calling External Classical Functions
 
-In PECOS, it's possible to invoke external classical functions, especially using entities like WebAssembly (Wasm) 
-modules. This functionality broadens the expressive power of PECOS by tapping into the capabilities beyond quantum 
+In PECOS, it's possible to invoke external classical functions, especially using entities like WebAssembly (Wasm)
+modules. This functionality broadens the expressive power of PECOS by tapping into the capabilities beyond quantum
 operations. The structure for representing such "foreign function calls" in PHIR is:
 
 PECOS can make foreign function calls utilizing objects such as Wasm modules. The structure is:
 
-```json
+```json5
 {
   "cop": "ffcall",
   "function": str,  // Name of the function to invoke
   "args": [...],  // List of input classical variables or bits
   "returns": [...],  // Optional; List of classical variables or bits to store the return values.
   "metadata": { // Optional
-    "ff_object":  str, // Optional; hints at specific objects or modules providing the external function. 
+    "ff_object":  str, // Optional; hints at specific objects or modules providing the external function.
     ...
-  }  
+  }
 }
 ```
 
-When interacting with external classical functions in PHIR/PECOS, it's crucial to recognize that these external object 
-can maintain state. This means their behavior might depend on prior interactions, or they might retain information 
+When interacting with external classical functions in PHIR/PECOS, it's crucial to recognize that these external object
+can maintain state. This means their behavior might depend on prior interactions, or they might retain information
 between different calls. Here are some important considerations about such stateful interactions.
 
 - *Stateful Operations in extended OpenQASM 2.0:* Extended OpenQASM 2.0 and its implementation recognizes the potential
 statefulness of these objects. Therefore, foreign function calls in this environment are designed to be flexible. They
-don't always mandate a return value. For instance, a QASM program can interact with the state of an external classical 
+don't always mandate a return value. For instance, a QASM program can interact with the state of an external classical
 object, possibly changing that state, without necessarily fetching any resultant data.
 - *Asynchronous Processing:* These classical objects can process function calls asynchronously, operating alognside the
 primary quantum or classical computation. This allows for efficient, non-blocking interactions.
-- *Synchronization Points:* If a return value is eventually requested from a stateful object, it acts as a 
-synchronization point. The primary program will pause, ensuring that all preceding asynchronous calls to the external 
+- *Synchronization Points:* If a return value is eventually requested from a stateful object, it acts as a
+synchronization point. The primary program will pause, ensuring that all preceding asynchronous calls to the external
 object have fully resolved and that any required data is available before processing.
 
 ## Quantum operations
 
 The generic qop gate structure is:
 
-```json
+```json5
 {
   "qop": str,
   "angles": [float...],  // Include if gate has one or more angles.
@@ -323,26 +323,26 @@ Table II details the available qops.
 
 For qops like `H q[0]; H q[1]; H q[4];` in QASM, it is translated as:
 
-```json
+```json5
 {
   "qop": "H",
   "args": [
-    ["q", 0], 
+    ["q", 0],
     ["q", 1],
     ["q", 4]
     ]
 }
 ```
 
-However, mutlti qubit gates, such as `CX`, use a list of lists of qubit IDs. E.g., 
+However, mutlti qubit gates, such as `CX`, use a list of lists of qubit IDs. E.g.,
 `CX q[0], q[1]; CX q[3], q[6]; CX q[2], q[7];` in QASM, can be represented as:
 
-```json
+```json5
 {
   "qop": "CX",
   "args": [
-    [["q", 0], ["q", 1]], 
-    [["q", 3], ["q", 6]], 
+    [["q", 0], ["q", 1]],
+    [["q", 3], ["q", 6]],
     [["q", 2], ["q", 7]]
     ]
 }
@@ -352,23 +352,23 @@ PECOS ensures all qubit IDs in `"args"` are unique, meaning gates don't overlap 
 
 For gates with one or multiple angles, angles are denoted as floats in the `"angles"` list:
 
-```json
+```json5
 {
   "qop": "RZZ",
   "angles": [0.173],
-  "args": [ 
-    [ ["q", 0], ["q", 1] ], 
+  "args": [
+    [ ["q", 0], ["q", 1] ],
     [ ["q", 2], ["q", 3] ]
   ],
   "metadata": {"duration": 100}
 }
 ```
 
-```json
+```json5
 {
   "qop": "U1q",
   "angles": [0.524, 1.834],
-  "args": [ 
+  "args": [
     [ ["q", 0], ["q", 1], ["q", 2], ["q", 3] ]
   ],
   "metadata": {"duration":  40}
@@ -377,7 +377,7 @@ For gates with one or multiple angles, angles are denoted as floats in the `"ang
 
 For a Z basis measurement on multiple qubits:
 
-```json
+```json5
 {
   "qop": "Measure",
   "args": [ ["q", 0], ["q", 1], ["q", 2], ["q", 3] ],
@@ -386,6 +386,7 @@ For a Z basis measurement on multiple qubits:
 ```
 
 ### Table II - Quantum operations
+
 | name         | alt. names        | # angles | # qubits | matrix | description              |
 |--------------|-------------------|----------|----------|--------|--------------------------|
 | `"Init"`     |                   | 0        | 1        | ...    | Initialize qubit to \|0> |
@@ -432,7 +433,7 @@ indirectly influencing the noise being applied via the error model.
 
 The general form of `"mop"`s is:
 
-```json
+```json5
 {
   "mop": str,  // identifying name
   "args": [qubit_id, ... | [qubit_id, ... ], ...],  // optional
@@ -441,10 +442,10 @@ The general form of `"mop"`s is:
 ```
 
 Currently, `"mop"`s are more defined by the implementation of the Machine and ErrorModel classes in PECOS. Therefore,
-the `"metadata"` tag is heavily depended on up to supply values that these classes expect. An example of indicating 
+the `"metadata"` tag is heavily depended on up to supply values that these classes expect. An example of indicating
 idling and transport include:
 
-```json
+```json5
 {
   "mop": "Idle",
   "args": [["q", 0], ["q", 5], ["w", 1] ],
@@ -452,7 +453,7 @@ idling and transport include:
 }
 ```
 
-```json
+```json5
 {
   "mop": "Transport",
   // potentially using "args" to indicate what qubits are being transported
@@ -460,18 +461,18 @@ idling and transport include:
 }
 ```
 
-
 ## Blocks
 
-In the present version of PHIR/PECOS, blocks serve a dual purpose: they group operations and other blocks, and they 
-signify conditional operations and/or blocks. In the future, blocks may be utilized to represent more advanced control 
-flow. A notable aspect of blocks, is that they can encompass any other operation or block, offering a capability for 
+In the present version of PHIR/PECOS, blocks serve a dual purpose: they group operations and other blocks, and they
+signify conditional operations and/or blocks. In the future, blocks may be utilized to represent more advanced control
+flow. A notable aspect of blocks, is that they can encompass any other operation or block, offering a capability for
 nesting.
 
 ### Basic block
 
 The foundation block simply sequences operations and other blocks
-```json
+
+```json5
 {
   "block": "sequence",
   "ops": [{...}, ...],
@@ -483,7 +484,7 @@ The foundation block simply sequences operations and other blocks
 
 An if-else block:
 
-```json
+```json5
 {
   "block": "if",
   "condition": {},
@@ -492,17 +493,17 @@ An if-else block:
 }
 ```
 
-The `"condition"` field houses a classical expression representable in PHIR. However, it's noteworthy that the extended 
+The `"condition"` field houses a classical expression representable in PHIR. However, it's noteworthy that the extended
 OpenQASM 2.0 restricts conditions to direct comparisons between classical variables or bits and integer literals. For
-instance, when translating from extended OPenQASM 2.0, acceptable conditions would be `if(a > 3) ops` or 
-`if(a[0]>=1) ops;`. The extended OpenQASM 2.0 language explicitly avoids permitting multiple comparisons or 
-bitwise/logical operations, or comparisons between two variables and/or bits. In execution, if a comparison evaluates to 
+instance, when translating from extended OPenQASM 2.0, acceptable conditions would be `if(a > 3) ops` or
+`if(a[0]>=1) ops;`. The extended OpenQASM 2.0 language explicitly avoids permitting multiple comparisons or
+bitwise/logical operations, or comparisons between two variables and/or bits. In execution, if a comparison evaluates to
 0, PECOS will initiate the `"false_branch"`; otherwise, the `"true_branch"` will be triggered.
 
 *Note:* While PHIR/PECOS can effectively manage nested if/else statements, extended OpenQASM 2.0 strictly permits only
 non-nested if statements. Consequently, such nesting should be sidestepped when converting from OpenQASM 2.0 to PHIR.
 
-# Overall PHIR Example with Quantinuum's Extended OpenQASM 2.0
+## Overall PHIR Example with Quantinuum's Extended OpenQASM 2.0
 
 A simple quantum program might look like:
 
@@ -533,7 +534,7 @@ c = 3;
 a[0] = add(b, c);  // FF call, e.g., Wasm call
 if(m==1) a = (c[2] ^ d) | (e - 2 + (f & g));
 
-if(m==2) sub(d, e);  // Conditioned void FF call. Void calls are assumed to update a separate classical state running 
+if(m==2) sub(d, e);  // Conditioned void FF call. Void calls are assumed to update a separate classical state running
 // asynchronously/in parallel.
 
 if(a > 2) c = 7;
@@ -549,7 +550,7 @@ measure d -> f;
 
 Here is an equivalent version of the program using PHIR.
 
-```json
+```json5
 {
   "format": "PHIR/JSON",
   "version": "0.1.0",
@@ -558,7 +559,7 @@ Here is an equivalent version of the program using PHIR.
     "description": "Program showing off PHIR",
     "num_qubits": 10
   },
-  
+
   "ops": [
     "// qreg q[2];",
     "// qreg w[3];",
@@ -570,18 +571,18 @@ Here is an equivalent version of the program using PHIR.
       "size": 2
     },
     {
-      "data": "qvar_define", 
-      "data_type": "qubits", 
+      "data": "qvar_define",
+      "data_type": "qubits",
       "variable": "w",
       "size": 3
     },
     {
       "data": "qvar_define",
-      "data_type": "qubits", 
+      "data_type": "qubits",
       "variable": "d",
       "size": 5
     },
-    
+
     "// creg m[2];",
     "// creg a[32];",
     "// creg b[32];",
@@ -595,7 +596,7 @@ Here is an equivalent version of the program using PHIR.
       "data_type": "i64",
       "variable": "m",
       "size": 2
-    }, 
+    },
     {
       "data": "cvar_define",
       "data_type": "i64",
@@ -638,51 +639,51 @@ Here is an equivalent version of the program using PHIR.
       "variable": "g",
       "size": 32
     },
-    
+
     "// h q[0];",
     {
-      "qop": "H", 
+      "qop": "H",
       "args": [ ["q", 0] ]
     },
-    
+
     "// CX q[0], q[1];",
     {
-      "qop": "CX", 
+      "qop": "CX",
       "args": [ [["q", 0], ["q", 1]] ]
-    }, 
-    
+    },
+
     "// measure q -> m;",
     {
-      "qop": "Measure", 
-      "args": [ ["q", 0], ["q", 1] ], 
+      "qop": "Measure",
+      "args": [ ["q", 0], ["q", 1] ],
       "returns": [ ["m", 0], ["m", 1] ]
     },
-    
-    "// b = 5;", 
+
+    "// b = 5;",
     {"cop": "=", "args": [5], "returns": ["b"]},
-    
-    "// c = 3;", 
+
+    "// c = 3;",
     {"cop": "=", "args": [3], "returns": ["c"]},
-    
+
     "// a[0] = add(b, c);  // FF call, e.g., Wasm call",
     {
-      "cop": "ffcall", 
-      "function": "add", 
-      "args": ["b", "c"], 
+      "cop": "ffcall",
+      "function": "add",
+      "args": ["b", "c"],
       "returns": [ ["a", 0] ]
     },
-    
-    "// if(m==1) a = (c[2] ^ d) | (e - 2 + (f & g));", 
+
+    "// if(m==1) a = (c[2] ^ d) | (e - 2 + (f & g));",
     {
       "block": "if",
       "condition": {"cop": "==", "args": ["m", 1]},
       "true_branch": [{
-        "cop": "=", 
-        "args": [{"cop": "|", 
+        "cop": "=",
+        "args": [{"cop": "|",
           "args": [
-            {"cop": "^", "args": [["c", 2], "d"]}, 
+            {"cop": "^", "args": [["c", 2], "d"]},
             {"cop": "+", "args": [
-              {"cop": "-", "args": ["e", 2]}, 
+              {"cop": "-", "args": ["e", 2]},
               {"cop": "&", "args": ["f", "g"]}
             ]}
           ]
@@ -690,19 +691,19 @@ Here is an equivalent version of the program using PHIR.
         "returns": ["a"]
       }]
     },
-    
+
     "// if(m==2) sub(d, e);  // Conditioned void FF call. Void calls are assumed to update a separate classical state running asynchronously/in parallel.",
     {
       "block": "if",
       "condition": {"cop": "==", "args": ["m", 2]},
       "true_branch": [{
         "cop": "ffcall",
-        "function": "sub", 
+        "function": "sub",
         "args": ["d", "e"]
       }]
     },
-    
-    
+
+
     "// if(a > 2) c = 7;",
     "// if(a > 2) x w[0];",
     "// if(a > 2) h w[1];",
@@ -731,36 +732,36 @@ Here is an equivalent version of the program using PHIR.
           "args": [ [["w", 1], ["w", 2]] ]
         },
         {
-          "qop": "Measure", 
-          "args": [ ["w", 1], ["w", 2] ], 
+          "qop": "Measure",
+          "args": [ ["w", 1], ["w", 2] ],
           "returns": [ ["g", 0], ["g", 1] ]
         }
       ]
     },
 
-    
+
     "// if(a[3]==1) h d;",
     {
       "block": "if",
       "condition": {"cop": "==", "args": [ ["a", 3], 1]},
       "true_branch": [
         {
-          "qop": "H", 
+          "qop": "H",
           "args": [ ["d", 0], ["d", 1], ["d", 2], ["d", 3], ["d", 4] ]
         }
       ]
     },
-    
+
     "// measure d -> f;",
     {
-      "qop": "Measure", 
+      "qop": "Measure",
       "args": [ ["d", 0], ["d", 1], ["d", 2], ["d", 3], ["d", 4] ],
       "returns": [ ["f", 0], ["f", 1], ["f", 2], ["f", 3], ["f", 4] ]
     },
-    
-    
+
+
     {
-      "data": "cvar_export", 
+      "data": "cvar_export",
       "variables": ["m", "a", "b", "c", "d", "e", "f", "g"]
     }
   ]
