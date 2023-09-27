@@ -63,6 +63,7 @@ especially to bolster error modeling. Here's a quick breakdown of the `"type"`s:
 executing Boolean/arithmetic expressions.
 - `"qop"`: Denotes quantum operations. These encompass actions like executing unitaries, measurements, and initializing 
 states.
+- `"mop"`: A machine operation, which represents changes in the machine state. For example, idling, transport, etc.
 - `"block"`: Facilitates grouping and control flow of the encapsulated blocks/operations.
 
 A comprehensive explanation of these operations and blocks is given in the following sections.
@@ -78,7 +79,7 @@ types/structures such as arrays, data de-allocation, scoping, etc.
 In the current implementation, classical variables are defined as globally accessible, meaning they exist in the 
 top-level scope. The lifespan of a classical variable extends until the program concludes. Once a classical variable and 
 its associated symbol are created, they remain accessible through the entirety of the program. The symbol consistently
-refers to the same memory location. By default, classical variables are represented as i32s. The value of these 
+refers to the same memory location. By default, classical variables are represented as i64s. The value of these 
 variables can be modified through assignment operations.
 
 To define or create a variable, the following structure is employed:
@@ -86,7 +87,7 @@ To define or create a variable, the following structure is employed:
 ```json
 {
   "data": "cvar_define",
-  "data_type": str,  // Currently, should be "i32"
+  "data_type": str,  // Currently, should be "i64"
   "variable": str,  // The variable symbol
   "size": int  // Optional
 }
@@ -94,11 +95,12 @@ To define or create a variable, the following structure is employed:
 
 - `"variable"`: Represents the symbol tied to the classical variable. By default, all variables are initialized with a 
 value of 0. 
-- `"size"`: Even though every variable is internally represented as an i32, a size can be specified. This correlates 
-with the size in OpenQASM 2.0's `creg sym[size];`. If omitted, `"size"` defaults to 32. Durring classical computations, 
-all variables behave as complete i32s. However, when assigned, the bits are restricted to the number defined by 
-`"size"`. For instance, in OpenQASM 2.0, executing `creg a[2]; a = 5;` results in `a` holding the value 3 (`0b111` 
-becomes `0b011` since `a` is restricted to 2 bits).
+- `"size"`: Even though every variable is internally represented as an i64, a size can be specified. This correlates 
+with the size in OpenQASM 2.0's `creg sym[size];`. If omitted, `"size"` defaults to the bitsize of the integer 
+representation (e.g., 32 for i32, 64 for i64, etc.). During classical computations, all variables behave as complete 
+i64s. However, when assigned, the bits are restricted to the number defined by `"size"`. For instance, in OpenQASM 2.0, 
+executing `creg a[2]; a = 5;` results in `a` holding the value 3 (`0b111` becomes `0b011` since `a` is restricted to 2 
+bits).
 
 To prevent runtime errors, ensure a classical variable is defined prior to its usage. Given their gloval scope and the 
 necessity for prior definition, it's advisable to declare variables at the program's onset.
@@ -141,22 +143,22 @@ instance, the 1st qubit of the quantum variable `"q"` is represented as `["q", 1
 ## Classical operations
 
 Classical operations are all those operations that manipulate classical information. In the current PECOS 
-implementation, all classical variables are implemented as 32-bit signed integers (i32). 
+implementation, all classical variables are implemented as 32-bit signed integers (i64). 
 
 #### Assigning values to Classical Variables
 
-Assigning a value to a classical variable involves updating the underlying i32 to a new integer value. The structure for
+Assigning a value to a classical variable involves updating the underlying i64 to a new integer value. The structure for
 this assignement in PHIR is:
 
 ```json
 {
   "cop": "=",
   "args": [int | int_expression],
-  "return": [str]  // variable symbol
+  "returns": [str]  // variable symbol
 }
 ```
 
-Currently, only one variable can be assigned at a time; however, the `"args"` and `"return"` sytnax with a corresponding 
+Currently, only one variable can be assigned at a time; however, the `"args"` and `"returns"` sytnax with a corresponding 
 list of variables is used to be consistent with the measurement and foreign function syntax discussed below, as well as 
 to leave open the possibility of supporting destructuring of tuples/arrays in the future. 
 
@@ -168,7 +170,7 @@ structure then appears as:
 {
   "cop": "=",
   "args": [int | int_expression],
-  "return": [ [str, int] ]  // bit_id -> [str, int]
+  "returns": [ [str, int] ]  // bit_id -> [str, int]
 }
 ```
 
@@ -262,7 +264,7 @@ For illustrative purposes, let's explore how `b = (c[2] ^ d) | (e - 2 + (f == g)
     ]
     }
   ],
-  "return": ["b"]
+  "returns": ["b"]
 }
 ```
 
@@ -281,7 +283,7 @@ PECOS can make foreign function calls utilizing objects such as Wasm modules. Th
   "cop": "ffcall",
   "function": str,  // Name of the function to invoke
   "args": [...],  // List of input classical variables or bits
-  "return": [...],  // Optional; List of classical variables or bits to store the return values.
+  "returns": [...],  // Optional; List of classical variables or bits to store the return values.
   "metadata": { // Optional
     "ff_object":  str, // Optional; hints at specific objects or modules providing the external function. 
     ...
@@ -305,7 +307,7 @@ object have fully resolved and that any required data is available before proces
 
 ## Quantum operations
 
-The generic qop gate strucutre is:
+The generic qop gate structure is:
 
 ```json
 {
@@ -313,7 +315,7 @@ The generic qop gate strucutre is:
   "angles": [float...],  // Include if gate has one or more angles.
   "args": [qubit_id, ... | [qubit_id, ... ], ...],  // Can be a list of qubit IDs or a list of lists for multi-qubit gates.
   "metadata": {}, // Optional metadata for potential auxiliary info or to be utilized by error models.
-  "return": [[str, int], ...]  // Include if gate produces output, e.g., a measurement.
+  "returns": [[str, int], ...]  // Include if gate produces output, e.g., a measurement.
 }
 ```
 
@@ -379,7 +381,7 @@ For a Z basis measurement on multiple qubits:
 {
   "qop": "Measure",
   "args": [ ["q", 0], ["q", 1], ["q", 2], ["q", 3] ],
-  "return": [ ["m", 0], ["m", 1], ["m", 2], ["m", 3] ]
+  "returns": [ ["m", 0], ["m", 1], ["m", 2], ["m", 3] ]
 }
 ```
 
@@ -421,6 +423,43 @@ For a Z basis measurement on multiple qubits:
 | `"SZZ"`      | `"ZZ"`, `"ZZMax"` | 0        | 2        | ...    | Sqrt. of ZZ              |
 | `"SZZdg"`    |                   | 0        | 2        | ...    | Adjoint of sqrt. of ZZ   |
 | `"SWAP"`     |                   | 0        | 2        | ...    | Swaps two qubits         |
+
+## Machine operations
+
+Machine operations (`"mop"`s) are operations that represent changes to the machine state such as the physical passage of time or
+the movement of qubits as well as other aspects that are more directly related to a physical device although potentially
+indirectly influencing the noise being applied via the error model.
+
+The general form of `"mop"`s is:
+
+```json
+{
+  "mop": str,  // identifying name
+  "args": [qubit_id, ... | [qubit_id, ... ], ...],  // optional
+  "metadata": {} // Optional metadata for potential auxiliary info or to be utilized by error models.
+}
+```
+
+Currently, `"mop"`s are more defined by the implementation of the Machine and ErrorModel classes in PECOS. Therefore,
+the `"metadata"` tag is heavily depended on up to supply values that these classes expect. An example of indicating 
+idling and transport include:
+
+```json
+{
+  "mop": "Idle",
+  "args": [["q", 0], ["q", 5], ["w", 1] ],
+  "metadata": {"duration": 0.000123 } // typically in seconds
+}
+```
+
+```json
+{
+  "mop": "Transport",
+  // potentially using "args" to indicate what qubits are being transported
+  "metadata": {"duration": 0.0005 } // ponteitally including what positions to and from qubits moved between or what path taken
+}
+```
+
 
 ## Blocks
 
@@ -553,49 +592,49 @@ Here is an equivalent version of the program using PHIR.
     "// creg g[32];",
     {
       "data": "cvar_define",
-      "data_type": "i32",
+      "data_type": "i64",
       "variable": "m",
       "size": 2
     }, 
     {
       "data": "cvar_define",
-      "data_type": "i32",
+      "data_type": "i64",
       "variable": "a",
       "size": 32
     },
     {
       "data": "cvar_define",
-      "data_type": "i32",
+      "data_type": "i64",
       "variable": "b",
       "size": 32
     },
     {
       "data": "cvar_define",
-      "data_type": "i32",
+      "data_type": "i64",
       "variable": "c",
       "size": 12
     },
     {
       "data": "cvar_define",
-      "data_type": "i32",
+      "data_type": "i64",
       "variable": "d",
       "size": 10
     },
     {
       "data": "cvar_define",
-      "data_type": "i32",
+      "data_type": "i64",
       "variable": "e",
       "size": 30
     },
     {
       "data": "cvar_define",
-      "data_type": "i32",
+      "data_type": "i64",
       "variable": "f",
       "size": 5
     },
     {
       "data": "cvar_define",
-      "data_type": "i32",
+      "data_type": "i64",
       "variable": "g",
       "size": 32
     },
@@ -616,21 +655,21 @@ Here is an equivalent version of the program using PHIR.
     {
       "qop": "Measure", 
       "args": [ ["q", 0], ["q", 1] ], 
-      "return": [ ["m", 0], ["m", 1] ]
+      "returns": [ ["m", 0], ["m", 1] ]
     },
     
     "// b = 5;", 
-    {"cop": "=", "args": [5], "return": ["b"]},
+    {"cop": "=", "args": [5], "returns": ["b"]},
     
     "// c = 3;", 
-    {"cop": "=", "args": [3], "return": ["c"]},
+    {"cop": "=", "args": [3], "returns": ["c"]},
     
     "// a[0] = add(b, c);  // FF call, e.g., Wasm call",
     {
       "cop": "ffcall", 
       "function": "add", 
       "args": ["b", "c"], 
-      "return": [ ["a", 0] ]
+      "returns": [ ["a", 0] ]
     },
     
     "// if(m==1) a = (c[2] ^ d) | (e - 2 + (f & g));", 
@@ -648,7 +687,7 @@ Here is an equivalent version of the program using PHIR.
             ]}
           ]
         }],
-        "return": ["a"]
+        "returns": ["a"]
       }]
     },
     
@@ -677,7 +716,7 @@ Here is an equivalent version of the program using PHIR.
         {
           "cop": "=",
           "args": ["c"],
-          "return": [7]
+          "returns": [7]
         },
         {
           "qop": "X",
@@ -694,7 +733,7 @@ Here is an equivalent version of the program using PHIR.
         {
           "qop": "Measure", 
           "args": [ ["w", 1], ["w", 2] ], 
-          "return": [ ["g", 0], ["g", 1] ]
+          "returns": [ ["g", 0], ["g", 1] ]
         }
       ]
     },
@@ -716,7 +755,7 @@ Here is an equivalent version of the program using PHIR.
     {
       "qop": "Measure", 
       "args": [ ["d", 0], ["d", 1], ["d", 2], ["d", 3], ["d", 4] ],
-      "return": [ ["f", 0], ["f", 1], ["f", 2], ["f", 3], ["f", 4] ]
+      "returns": [ ["f", 0], ["f", 1], ["f", 2], ["f", 3], ["f", 4] ]
     },
     
     
