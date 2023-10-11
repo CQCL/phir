@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phir"
+version = "0.0.1"
+description = "A python library"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "Kartik Singhal", email = "kartik.singhal@quantinuum.com" }]
+
+[project.optional-dependencies]
+tests = ["pytest"]
+
+docs = ["sphinx", "sphinx-rtd-theme"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[project.urls]
+Repository = "https://github.com/CQCL/phir.git"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]
