@@ -9,6 +9,7 @@ description = "A python library"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{name = "Kartik Singhal", email = "kartik.singhal@quantinuum.com" }]
+dependencies = ["pydantic"]
 
 [project.optional-dependencies]
 tests = ["pytest"]

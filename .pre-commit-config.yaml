@@ -43,6 +43,7 @@ repos:
       pass_filenames: false
       args: [--package=phir, --package=tests]
       additional_dependencies: [
+        pydantic,
         pytest,
         types-setuptools,
       ]
