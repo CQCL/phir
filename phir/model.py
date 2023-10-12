@@ -1,6 +1,5 @@
 """PHIR model lives here."""
 
-import json
 
 from pydantic import BaseModel
 
@@ -120,15 +119,10 @@ class IfBlock(Block):
     metadata: dict | None = None
 
 
-class PHIR(BaseModel):
+class PHIRModel(BaseModel):
     """PHIR model object."""
 
     format_: str = "PHIR/JSON"
     version: str = "0.1.0"
     metadata: dict | None = None
     ops: list[Data | Op | Block]
-
-
-print(  # noqa: T201
-    json.dumps(PHIR.model_json_schema(), indent=2),  # type: ignore [misc]
-)
