@@ -20,22 +20,25 @@ class Data(BaseModel, abc.ABC):
 class VarDefine(Data, abc.ABC):
     """Defining Variables."""
 
-    data_type: str | type
     data: str
     variable: str
-    size: int
+    size: int | None
 
 
 class CVarDefine(VarDefine):
     """Defining Classical Variables."""
 
     data: Literal["cvar_define"]
+    size: int | None
+    data_type: str = "i64"
 
 
 class QVarDefine(VarDefine):
     """Defining Quantum Variables."""
 
     data: Literal["qvar_define"]
+    size: int = Field(gt=0)
+    data_type: str | None = "qubits"
 
 
 class ExportVar(Data):
@@ -119,7 +122,6 @@ class SeqBlock(Block):
     """A generic sequence block."""
 
     block: Literal["sequence"]
-
     ops: list[OpType | BlockType]
 
 
@@ -127,7 +129,6 @@ class IfBlock(Block):
     """If/else block."""
 
     block: Literal["if"]
-
     condition: COp
     true_branch: list[OpType]
     false_branch: list[OpType] | None = None
