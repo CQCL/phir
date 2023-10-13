@@ -23,9 +23,8 @@ release = "0.0.1"
 
 extensions = [
     "sphinx.ext.doctest",
-    "sphinx.ext.autodoc",
-    "sphinx.ext.autosummary",
     "sphinx.ext.napoleon",
+    "sphinxcontrib.autodoc_pydantic",
 ]
 
 exclude_patterns = []
@@ -34,4 +33,4 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "alabaster"
+html_theme = "pydata_sphinx_theme"

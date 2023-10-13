@@ -127,6 +127,7 @@ class IfBlock(Block):
 
 
 BlockType: TypeAlias = SeqBlock | IfBlock
+SeqBlock.model_rebuild()  # type: ignore [misc]
 
 
 class PHIRModel(BaseModel):

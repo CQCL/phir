@@ -16,7 +16,11 @@ dependencies = ["pydantic", "rich"]
 
 [project.optional-dependencies]
 tests = ["pytest"]
-docs  = ["sphinx", "sphinx-rtd-theme"]
+docs  = [
+  "autodoc-pydantic",
+  "pydata_sphinx_theme",
+  "sphinx",
+]
 
 [project.scripts]
 phir = "phir.cli:main"
