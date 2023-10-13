@@ -11,6 +11,8 @@ repos:
       - id: check-ast
       - id: check-docstring-first
       - id: debug-statements
+      # JSON-specific
+      - id: check-json
 
   - repo: https://github.com/crate-ci/typos
     rev: v1.16.18

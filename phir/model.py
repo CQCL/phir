@@ -137,6 +137,16 @@ class IfBlock(Block):
 BlockType: TypeAlias = SeqBlock | IfBlock
 SeqBlock.model_rebuild()  # type: ignore [misc]
 
+# Comments
+
+
+class Comment(BaseModel):
+    """Optional comment."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    c: str = Field(..., alias="//")
+
 
 class PHIRModel(BaseModel):
     """PHIR model object."""
@@ -148,4 +158,4 @@ class PHIRModel(BaseModel):
     format_: str = Field("PHIR/JSON", alias="format")
     version: str = "0.1.0"
     metadata: dict[str, Any] | None = None
-    ops: list[DataMgmt | OpType | BlockType]
+    ops: list[DataMgmt | OpType | BlockType | Comment]

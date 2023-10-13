@@ -34,8 +34,8 @@ future expansion, possibly to guid compilation processes and error modeling.
 
 ## Comments
 
-All entries in PHIR, whether instructions or blocks, adopt the dictionary format `{...}`. For enhanced readability, one
-can intersperse comments in the form of strings prefixed with `"//"` that are inserted into a sequence of
+All entries in PHIR, whether instructions or blocks, adopt the dictionary format `{...}`. One
+can intersperse comments in the form of `{"//": str }` that are inserted into a sequence of
 operations/blocks `[{...}, ...]`
 
 ## General operation structure
@@ -100,7 +100,7 @@ i64s. However, when assigned, the bits are restricted to the number defined by `
 executing `creg a[2]; a = 5;` results in `a` holding the value 3 (`0b111` becomes `0b011` since `a` is restricted to 2
 bits).
 
-To prevent runtime errors, ensure a classical variable is defined prior to its usage. Given their gloval scope and the
+To prevent runtime errors, ensure a classical variable is defined prior to its usage. Given their global scope and the
 necessity for prior definition, it's advisable to declare variables at the program's onset.
 
 ### Exporting Classical Variables
@@ -160,7 +160,7 @@ Currently, only one variable can be assigned at a time; however, the `"args"` an
 list of variables is used to be consistent with the measurement and foreign function syntax discussed below, as well as
 to leave open the possibility of supporting destructuring of tuples/arrays in the future.
 
-In PHIR, specific bits of an integer can be addressed in an array-like syntax, mirrionr the `a[0]` notation in OpenQASM
+In PHIR, specific bits of an integer can be addressed in an array-like syntax, mirroring the `a[0]` notation in OpenQASM
 2.0. To reference a bit of a variable in PHIR, use the structure `["variable_symbol", bit_index]`. The assignment
 structure then appears as:
 
@@ -175,7 +175,7 @@ structure then appears as:
 Regardless of assigned `"value"`, when updating a single bit, only the least significant bit (0th bit) of the value is
 taken into consideration.
 
-The term `int_expression` has been introduced and will be elaborted upon in the upcoming sections. Essentially,
+The term `int_expression` has been introduced and will be elaborated upon in the upcoming sections. Essentially,
 `int_expression` encompasses classical operations that ultimately yield an integer value.
 
 ### Integer Expressions
@@ -219,7 +219,7 @@ Constructing these expressions follow an Abstract Syntax Tree (AST) style, utili
 ```
 
 **Important NOTE:** While PECOS is designed to handle comparison operations within expressions, extended OpenQASM is
-not. Consequently, when translating from extedened OpenQASM 2.0 to PHIR, restrict expressions to only arithmetic and
+not. Consequently, when translating from extended OpenQASM 2.0 to PHIR, restrict expressions to only arithmetic and
 bitwise operations. For instance, `a = b ^ c;` is valid, whereas `a = b < c` is not. In OpenQASM 2.0's `if()`
 statements, a direct comparison between a classical variable or bit and an integer is the only permitted configuration.
 In PECOS implements true comparisons to evaluate to 1 and false ones to evaluate to 0.
@@ -299,7 +299,7 @@ between different calls. Here are some important considerations about such state
 statefulness of these objects. Therefore, foreign function calls in this environment are designed to be flexible. They
 don't always mandate a return value. For instance, a QASM program can interact with the state of an external classical
 object, possibly changing that state, without necessarily fetching any resultant data.
-- *Asynchronous Processing:* These classical objects can process function calls asynchronously, operating alognside the
+- *Asynchronous Processing:* These classical objects can process function calls asynchronously, operating alongside the
 primary quantum or classical computation. This allows for efficient, non-blocking interactions.
 - *Synchronization Points:* If a return value is eventually requested from a stateful object, it acts as a
 synchronization point. The primary program will pause, ensuring that all preceding asynchronous calls to the external
@@ -334,7 +334,7 @@ For qops like `H q[0]; H q[1]; H q[4];` in QASM, it is translated as:
 }
 ```
 
-However, mutlti qubit gates, such as `CX`, use a list of lists of qubit IDs. E.g.,
+However, multi-qubit gates, such as `CX`, use a list of lists of qubit IDs. E.g.,
 `CX q[0], q[1]; CX q[3], q[6]; CX q[2], q[7];` in QASM, can be represented as:
 
 ```json5
@@ -457,7 +457,7 @@ idling and transport include:
 {
   "mop": "Transport",
   // potentially using "args" to indicate what qubits are being transported
-  "metadata": {"duration": 0.0005 } // ponteitally including what positions to and from qubits moved between or what path taken
+  "metadata": {"duration": 0.0005 } // potentially including what positions to and from qubits moved between or what path taken
 }
 ```
 
@@ -561,9 +561,9 @@ Here is an equivalent version of the program using PHIR.
   },
 
   "ops": [
-    "// qreg q[2];",
-    "// qreg w[3];",
-    "// qreg d[5];",
+    {"//": "qreg q[2];"},
+    {"//": "qreg w[3];"},
+    {"//": "qreg d[5];"},
     {
       "data": "qvar_define",
       "data_type": "qubits",
@@ -583,14 +583,14 @@ Here is an equivalent version of the program using PHIR.
       "size": 5
     },
 
-    "// creg m[2];",
-    "// creg a[32];",
-    "// creg b[32];",
-    "// creg c[12];",
-    "// creg d[10];",
-    "// creg e[30];",
-    "// creg f[5];",
-    "// creg g[32];",
+    {"//": "creg m[2];"},
+    {"//": "creg a[32];"},
+    {"//": "creg b[32];"},
+    {"//": "creg c[12];"},
+    {"//": "creg d[10];"},
+    {"//": "creg e[30];"},
+    {"//": "creg f[5];"},
+    {"//": "creg g[32];"},
     {
       "data": "cvar_define",
       "data_type": "i64",
@@ -640,32 +640,32 @@ Here is an equivalent version of the program using PHIR.
       "size": 32
     },
 
-    "// h q[0];",
+    {"//": "h q[0];"},
     {
       "qop": "H",
       "args": [ ["q", 0] ]
     },
 
-    "// CX q[0], q[1];",
+    {"//": "CX q[0], q[1];"},
     {
       "qop": "CX",
       "args": [ [["q", 0], ["q", 1]] ]
     },
 
-    "// measure q -> m;",
+    {"//": "measure q -> m;"},
     {
       "qop": "Measure",
       "args": [ ["q", 0], ["q", 1] ],
       "returns": [ ["m", 0], ["m", 1] ]
     },
 
-    "// b = 5;",
+    {"//": "b = 5;"},
     {"cop": "=", "args": [5], "returns": ["b"]},
 
-    "// c = 3;",
+    {"//": "c = 3;"},
     {"cop": "=", "args": [3], "returns": ["c"]},
 
-    "// a[0] = add(b, c);  // FF call, e.g., Wasm call",
+    {"//": "a[0] = add(b, c);  // FF call, e.g., Wasm call"},
     {
       "cop": "ffcall",
       "function": "add",
@@ -673,7 +673,7 @@ Here is an equivalent version of the program using PHIR.
       "returns": [ ["a", 0] ]
     },
 
-    "// if(m==1) a = (c[2] ^ d) | (e - 2 + (f & g));",
+    {"//": "if(m==1) a = (c[2] ^ d) | (e - 2 + (f & g));"},
     {
       "block": "if",
       "condition": {"cop": "==", "args": ["m", 1]},
@@ -692,7 +692,7 @@ Here is an equivalent version of the program using PHIR.
       }]
     },
 
-    "// if(m==2) sub(d, e);  // Conditioned void FF call. Void calls are assumed to update a separate classical state running asynchronously/in parallel.",
+    {"//": "if(m==2) sub(d, e);  // Conditioned void FF call. Void calls are assumed to update a separate classical state running asynchronously/in parallel."},
     {
       "block": "if",
       "condition": {"cop": "==", "args": ["m", 2]},
@@ -704,12 +704,12 @@ Here is an equivalent version of the program using PHIR.
     },
 
 
-    "// if(a > 2) c = 7;",
-    "// if(a > 2) x w[0];",
-    "// if(a > 2) h w[1];",
-    "// if(a > 2) CX w[1], w[2];",
-    "// if(a > 2) measure w[1] -> g[0];",
-    "// if(a > 2) measure w[2] -> g[1];",
+    {"//": "if(a > 2) c = 7;"},
+    {"//": "if(a > 2) x w[0];"},
+    {"//": "if(a > 2) h w[1];"},
+    {"//": "if(a > 2) CX w[1], w[2];"},
+    {"//": "if(a > 2) measure w[1] -> g[0];"},
+    {"//": "if(a > 2) measure w[2] -> g[1];"},
     {
       "block": "if",
       "condition": {"cop": ">", "args": ["a", 2]},
@@ -740,7 +740,7 @@ Here is an equivalent version of the program using PHIR.
     },
 
 
-    "// if(a[3]==1) h d;",
+    {"//": "if(a[3]==1) h d;"},
     {
       "block": "if",
       "condition": {"cop": "==", "args": [ ["a", 3], 1]},
@@ -752,7 +752,7 @@ Here is an equivalent version of the program using PHIR.
       ]
     },
 
-    "// measure d -> f;",
+    {"//": "measure d -> f;"},
     {
       "qop": "Measure",
       "args": [ ["d", 0], ["d", 1], ["d", 2], ["d", 3], ["d", 4] ],
