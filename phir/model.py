@@ -143,7 +143,9 @@ SeqBlock.model_rebuild()  # type: ignore [misc]
 class Comment(BaseModel):
     """Optional comment."""
 
-    comment: str
+    model_config = ConfigDict(extra="forbid")
+
+    c: str = Field(..., alias="//")
 
 
 class PHIRModel(BaseModel):

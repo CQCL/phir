@@ -35,7 +35,7 @@ future expansion, possibly to guid compilation processes and error modeling.
 ## Comments
 
 All entries in PHIR, whether instructions or blocks, adopt the dictionary format `{...}`. One
-can intersperse comments in the form of `{"comment": str }` that are inserted into a sequence of
+can intersperse comments in the form of `{"//": str }` that are inserted into a sequence of
 operations/blocks `[{...}, ...]`
 
 ## General operation structure
@@ -561,9 +561,9 @@ Here is an equivalent version of the program using PHIR.
   },
 
   "ops": [
-    {"comment": "qreg q[2];"},
-    {"comment": "qreg w[3];"},
-    {"comment": "qreg d[5];"},
+    {"//": "qreg q[2];"},
+    {"//": "qreg w[3];"},
+    {"//": "qreg d[5];"},
     {
       "data": "qvar_define",
       "data_type": "qubits",
@@ -583,14 +583,14 @@ Here is an equivalent version of the program using PHIR.
       "size": 5
     },
 
-    {"comment": "creg m[2];"},
-    {"comment": "creg a[32];"},
-    {"comment": "creg b[32];"},
-    {"comment": "creg c[12];"},
-    {"comment": "creg d[10];"},
-    {"comment": "creg e[30];"},
-    {"comment": "creg f[5];"},
-    {"comment": "creg g[32];"},
+    {"//": "creg m[2];"},
+    {"//": "creg a[32];"},
+    {"//": "creg b[32];"},
+    {"//": "creg c[12];"},
+    {"//": "creg d[10];"},
+    {"//": "creg e[30];"},
+    {"//": "creg f[5];"},
+    {"//": "creg g[32];"},
     {
       "data": "cvar_define",
       "data_type": "i64",
@@ -640,32 +640,32 @@ Here is an equivalent version of the program using PHIR.
       "size": 32
     },
 
-    {"comment": "h q[0];"},
+    {"//": "h q[0];"},
     {
       "qop": "H",
       "args": [ ["q", 0] ]
     },
 
-    {"comment": "CX q[0], q[1];"},
+    {"//": "CX q[0], q[1];"},
     {
       "qop": "CX",
       "args": [ [["q", 0], ["q", 1]] ]
     },
 
-    {"comment": "measure q -> m;"},
+    {"//": "measure q -> m;"},
     {
       "qop": "Measure",
       "args": [ ["q", 0], ["q", 1] ],
       "returns": [ ["m", 0], ["m", 1] ]
     },
 
-    {"comment": "b = 5;"},
+    {"//": "b = 5;"},
     {"cop": "=", "args": [5], "returns": ["b"]},
 
-    {"comment": "c = 3;"},
+    {"//": "c = 3;"},
     {"cop": "=", "args": [3], "returns": ["c"]},
 
-    {"comment": "a[0] = add(b, c);  // FF call, e.g., Wasm call"},
+    {"//": "a[0] = add(b, c);  // FF call, e.g., Wasm call"},
     {
       "cop": "ffcall",
       "function": "add",
@@ -673,7 +673,7 @@ Here is an equivalent version of the program using PHIR.
       "returns": [ ["a", 0] ]
     },
 
-    {"comment": "if(m==1) a = (c[2] ^ d) | (e - 2 + (f & g));"},
+    {"//": "if(m==1) a = (c[2] ^ d) | (e - 2 + (f & g));"},
     {
       "block": "if",
       "condition": {"cop": "==", "args": ["m", 1]},
@@ -692,7 +692,7 @@ Here is an equivalent version of the program using PHIR.
       }]
     },
 
-    {"comment": "if(m==2) sub(d, e);  // Conditioned void FF call. Void calls are assumed to update a separate classical state running asynchronously/in parallel."},
+    {"//": "if(m==2) sub(d, e);  // Conditioned void FF call. Void calls are assumed to update a separate classical state running asynchronously/in parallel."},
     {
       "block": "if",
       "condition": {"cop": "==", "args": ["m", 2]},
@@ -704,12 +704,12 @@ Here is an equivalent version of the program using PHIR.
     },
 
 
-    {"comment": "if(a > 2) c = 7;"},
-    {"comment": "if(a > 2) x w[0];"},
-    {"comment": "if(a > 2) h w[1];"},
-    {"comment": "if(a > 2) CX w[1], w[2];"},
-    {"comment": "if(a > 2) measure w[1] -> g[0];"},
-    {"comment": "if(a > 2) measure w[2] -> g[1];"},
+    {"//": "if(a > 2) c = 7;"},
+    {"//": "if(a > 2) x w[0];"},
+    {"//": "if(a > 2) h w[1];"},
+    {"//": "if(a > 2) CX w[1], w[2];"},
+    {"//": "if(a > 2) measure w[1] -> g[0];"},
+    {"//": "if(a > 2) measure w[2] -> g[1];"},
     {
       "block": "if",
       "condition": {"cop": ">", "args": ["a", 2]},
@@ -740,7 +740,7 @@ Here is an equivalent version of the program using PHIR.
     },
 
 
-    {"comment": "if(a[3]==1) h d;"},
+    {"//": "if(a[3]==1) h d;"},
     {
       "block": "if",
       "condition": {"cop": "==", "args": [ ["a", 3], 1]},
@@ -752,7 +752,7 @@ Here is an equivalent version of the program using PHIR.
       ]
     },
 
-    {"comment": "measure d -> f;"},
+    {"//": "measure d -> f;"},
     {
       "qop": "Measure",
       "args": [ ["d", 0], ["d", 1], ["d", 2], ["d", 3], ["d", 4] ],
