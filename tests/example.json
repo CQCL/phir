@@ -1,0 +1,148 @@
+{
+    "format": "PHIR/JSON",
+    "version": "0.1.0",
+    "metadata": {
+        "program_name": "example_prog",
+        "description": "Program showing off PHIR",
+        "num_qubits": 10
+    },
+    "ops": [
+        {
+            "data": "qvar_define",
+            "data_type": "qubits",
+            "variable": "q",
+            "size": 2
+        },
+        {
+            "data": "qvar_define",
+            "data_type": "qubits",
+            "variable": "w",
+            "size": 3
+        },
+        {
+            "data": "qvar_define",
+            "data_type": "qubits",
+            "variable": "d",
+            "size": 5
+        },
+        {"data": "cvar_define", "data_type": "i64", "variable": "m", "size": 2},
+        {
+            "data": "cvar_define",
+            "data_type": "i64",
+            "variable": "a",
+            "size": 32
+        },
+        {
+            "data": "cvar_define",
+            "data_type": "i64",
+            "variable": "b",
+            "size": 32
+        },
+        {
+            "data": "cvar_define",
+            "data_type": "i64",
+            "variable": "c",
+            "size": 12
+        },
+        {
+            "data": "cvar_define",
+            "data_type": "i64",
+            "variable": "d",
+            "size": 10
+        },
+        {
+            "data": "cvar_define",
+            "data_type": "i64",
+            "variable": "e",
+            "size": 30
+        },
+        {"data": "cvar_define", "data_type": "i64", "variable": "f", "size": 5},
+        {
+            "data": "cvar_define",
+            "data_type": "i64",
+            "variable": "g",
+            "size": 32
+        },
+        {"qop": "H", "args": [["q", 0]]},
+        {"qop": "CX", "args": [[["q", 0], ["q", 1]]]},
+        {
+            "qop": "Measure",
+            "args": [["q", 0], ["q", 1]],
+            "returns": [["m", 0], ["m", 1]]
+        },
+        {"cop": "=", "args": [5], "returns": ["b"]},
+        {"cop": "=", "args": [3], "returns": ["c"]},
+        {
+            "cop": "ffcall",
+            "function": "add",
+            "args": ["b", "c"],
+            "returns": [["a", 0]]
+        },
+        {
+            "block": "if",
+            "condition": {"cop": "==", "args": ["m", 1]},
+            "true_branch": [
+                {
+                    "cop": "=",
+                    "args": [
+                        {
+                            "cop": "|",
+                            "args": [
+                                {"cop": "^", "args": [["c", 2], "d"]},
+                                {
+                                    "cop": "+",
+                                    "args": [
+                                        {"cop": "-", "args": ["e", 2]},
+                                        {"cop": "&", "args": ["f", "g"]}
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "returns": ["a"]
+                }
+            ]
+        },
+        {
+            "block": "if",
+            "condition": {"cop": "==", "args": ["m", 2]},
+            "true_branch": [
+                {"cop": "ffcall", "function": "sub", "args": ["d", "e"]}
+            ]
+        },
+        {
+            "block": "if",
+            "condition": {"cop": ">", "args": ["a", 2]},
+            "true_branch": [
+                {"cop": "=", "args": ["c"], "returns": [7]},
+                {"qop": "X", "args": [["w", 0]]},
+                {"qop": "H", "args": [["w", 1]]},
+                {"qop": "CX", "args": [[["w", 1], ["w", 2]]]},
+                {
+                    "qop": "Measure",
+                    "args": [["w", 1], ["w", 2]],
+                    "returns": [["g", 0], ["g", 1]]
+                }
+            ]
+        },
+        {
+            "block": "if",
+            "condition": {"cop": "==", "args": [["a", 3], 1]},
+            "true_branch": [
+                {
+                    "qop": "H",
+                    "args": [["d", 0], ["d", 1], ["d", 2], ["d", 3], ["d", 4]]
+                }
+            ]
+        },
+        {
+            "qop": "Measure",
+            "args": [["d", 0], ["d", 1], ["d", 2], ["d", 3], ["d", 4]],
+            "returns": [["f", 0], ["f", 1], ["f", 2], ["f", 3], ["f", 4]]
+        },
+        {
+            "data": "cvar_export",
+            "variables": ["m", "a", "b", "c", "d", "e", "f", "g"]
+        }
+    ]
+}

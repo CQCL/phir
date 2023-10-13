@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phir"
+version = "0.0.1"
+description = "A data model and validation tool for PHIR (PECOS High-level Intermediate Representation)."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  {name = "Ciarán Ryan-Anderson", email = "ciaran.ryan-anderson@quantinuum.com" },
+  {name = "Kartik Singhal", email = "kartik.singhal@quantinuum.com" },
+]
+dependencies = ["pydantic", "rich"]
+
+[project.optional-dependencies]
+tests = ["pytest"]
+docs  = ["sphinx", "sphinx-rtd-theme"]
+
+[project.scripts]
+phir = "phir.cli:main"
+
+[project.urls]
+Repository = "https://github.com/CQCL/phir.git"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]
