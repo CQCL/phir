@@ -1,0 +1,603 @@
+{
+  "$defs": {
+    "COp": {
+      "additionalProperties": false,
+      "description": "Classical operation.",
+      "properties": {
+        "args": {
+          "items": {},
+          "title": "Args",
+          "type": "array"
+        },
+        "returns": {
+          "anyOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Returns"
+        },
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "cop": {
+          "title": "Cop",
+          "type": "string"
+        }
+      },
+      "required": [
+        "args",
+        "cop"
+      ],
+      "title": "COp",
+      "type": "object"
+    },
+    "CVarDefine": {
+      "additionalProperties": false,
+      "description": "Defining Classical Variables.",
+      "properties": {
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "variable": {
+          "title": "Variable",
+          "type": "string"
+        },
+        "data": {
+          "const": "cvar_define",
+          "title": "Data"
+        },
+        "size": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Size"
+        },
+        "data_type": {
+          "default": "i64",
+          "title": "Data Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "variable",
+        "data",
+        "size"
+      ],
+      "title": "CVarDefine",
+      "type": "object"
+    },
+    "Comment": {
+      "additionalProperties": false,
+      "description": "Optional comment.",
+      "properties": {
+        "//": {
+          "minLength": 3,
+          "title": "//",
+          "type": "string"
+        }
+      },
+      "required": [
+        "//"
+      ],
+      "title": "Comment",
+      "type": "object"
+    },
+    "ExportVar": {
+      "additionalProperties": false,
+      "description": "Exporting Classical Variables.",
+      "properties": {
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "data": {
+          "const": "cvar_export",
+          "title": "Data"
+        },
+        "variables": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Variables",
+          "type": "array"
+        },
+        "to": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "To"
+        }
+      },
+      "required": [
+        "data",
+        "variables"
+      ],
+      "title": "ExportVar",
+      "type": "object"
+    },
+    "FFCall": {
+      "additionalProperties": false,
+      "description": "External Classical Function Call.",
+      "properties": {
+        "args": {
+          "items": {},
+          "title": "Args",
+          "type": "array"
+        },
+        "returns": {
+          "anyOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Returns"
+        },
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "cop": {
+          "const": "ffcall",
+          "title": "Cop"
+        },
+        "function": {
+          "title": "Function",
+          "type": "string"
+        }
+      },
+      "required": [
+        "args",
+        "cop",
+        "function"
+      ],
+      "title": "FFCall",
+      "type": "object"
+    },
+    "IfBlock": {
+      "additionalProperties": false,
+      "description": "If/else block.",
+      "properties": {
+        "block": {
+          "const": "if",
+          "title": "Block"
+        },
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "condition": {
+          "$ref": "#/$defs/COp"
+        },
+        "true_branch": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/FFCall"
+              },
+              {
+                "$ref": "#/$defs/COp"
+              },
+              {
+                "$ref": "#/$defs/QOp"
+              },
+              {
+                "$ref": "#/$defs/MOp"
+              }
+            ]
+          },
+          "title": "True Branch",
+          "type": "array"
+        },
+        "false_branch": {
+          "anyOf": [
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/FFCall"
+                  },
+                  {
+                    "$ref": "#/$defs/COp"
+                  },
+                  {
+                    "$ref": "#/$defs/QOp"
+                  },
+                  {
+                    "$ref": "#/$defs/MOp"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "False Branch"
+        }
+      },
+      "required": [
+        "block",
+        "condition",
+        "true_branch"
+      ],
+      "title": "IfBlock",
+      "type": "object"
+    },
+    "MOp": {
+      "additionalProperties": false,
+      "description": "Machine operation.",
+      "properties": {
+        "args": {
+          "anyOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Args"
+        },
+        "returns": {
+          "anyOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Returns"
+        },
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "mop": {
+          "title": "Mop",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mop"
+      ],
+      "title": "MOp",
+      "type": "object"
+    },
+    "QOp": {
+      "additionalProperties": false,
+      "description": "Quantum operation.",
+      "properties": {
+        "args": {
+          "items": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "minimum": 0,
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "minimum": 0,
+                        "type": "integer"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "title": "Args",
+          "type": "array"
+        },
+        "returns": {
+          "anyOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Returns"
+        },
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "qop": {
+          "title": "Qop",
+          "type": "string"
+        }
+      },
+      "required": [
+        "args",
+        "qop"
+      ],
+      "title": "QOp",
+      "type": "object"
+    },
+    "QVarDefine": {
+      "additionalProperties": false,
+      "description": "Defining Quantum Variables.",
+      "properties": {
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "variable": {
+          "title": "Variable",
+          "type": "string"
+        },
+        "data": {
+          "const": "qvar_define",
+          "title": "Data"
+        },
+        "size": {
+          "exclusiveMinimum": 0,
+          "title": "Size",
+          "type": "integer"
+        },
+        "data_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "qubits",
+          "title": "Data Type"
+        }
+      },
+      "required": [
+        "variable",
+        "data",
+        "size"
+      ],
+      "title": "QVarDefine",
+      "type": "object"
+    },
+    "SeqBlock": {
+      "additionalProperties": false,
+      "description": "A generic sequence block.",
+      "properties": {
+        "block": {
+          "const": "sequence",
+          "title": "Block"
+        },
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "ops": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/FFCall"
+              },
+              {
+                "$ref": "#/$defs/COp"
+              },
+              {
+                "$ref": "#/$defs/QOp"
+              },
+              {
+                "$ref": "#/$defs/MOp"
+              },
+              {
+                "$ref": "#/$defs/SeqBlock"
+              },
+              {
+                "$ref": "#/$defs/IfBlock"
+              }
+            ]
+          },
+          "title": "Ops",
+          "type": "array"
+        }
+      },
+      "required": [
+        "block",
+        "ops"
+      ],
+      "title": "SeqBlock",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "PHIR model object.",
+  "properties": {
+    "format": {
+      "default": "PHIR/JSON",
+      "title": "Format",
+      "type": "string"
+    },
+    "version": {
+      "default": "0.1.0",
+      "title": "Version",
+      "type": "string"
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Metadata"
+    },
+    "ops": {
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/CVarDefine"
+          },
+          {
+            "$ref": "#/$defs/QVarDefine"
+          },
+          {
+            "$ref": "#/$defs/ExportVar"
+          },
+          {
+            "$ref": "#/$defs/FFCall"
+          },
+          {
+            "$ref": "#/$defs/COp"
+          },
+          {
+            "$ref": "#/$defs/QOp"
+          },
+          {
+            "$ref": "#/$defs/MOp"
+          },
+          {
+            "$ref": "#/$defs/SeqBlock"
+          },
+          {
+            "$ref": "#/$defs/IfBlock"
+          },
+          {
+            "$ref": "#/$defs/Comment"
+          }
+        ]
+      },
+      "title": "Ops",
+      "type": "array"
+    }
+  },
+  "required": [
+    "ops"
+  ],
+  "title": "PHIRModel",
+  "type": "object"
+}

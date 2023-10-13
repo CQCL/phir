@@ -45,7 +45,7 @@ def main() -> None:
         sys.exit(1)
 
     if args.jsonfile:
-        with open(Path(args.jsonfile)) as f:
+        with Path(args.jsonfile).open() as f:
             data = json.load(f)
 
         try:
