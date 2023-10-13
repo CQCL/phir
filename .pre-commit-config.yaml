@@ -45,5 +45,6 @@ repos:
       additional_dependencies: [
         pydantic,
         pytest,
+        rich,
         types-setuptools,
       ]

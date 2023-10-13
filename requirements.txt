@@ -4,6 +4,7 @@ mypy==1.6.0
 pre-commit==3.4.0
 pydantic==2.4.2
 pytest==7.4.2
+rich==13.6.0
 ruff==0.0.292
 sphinx==7.2.6
 wheel==0.41.2
