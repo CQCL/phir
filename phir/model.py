@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import abc
-from typing import Any, Literal, TypeAlias
+from typing import Annotated, Any, Literal, TypeAlias
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -20,16 +20,14 @@ class Data(BaseModel, abc.ABC):
 class VarDefine(Data, abc.ABC):
     """Defining Variables."""
 
-    data: str
     variable: str
-    size: int | None
 
 
 class CVarDefine(VarDefine):
     """Defining Classical Variables."""
 
     data: Literal["cvar_define"]
-    size: int | None
+    size: Annotated[int, Field(gt=0)] | None
     data_type: str = "i64"
 
 
@@ -68,7 +66,10 @@ class QOp(Op):
     """Quantum operation."""
 
     qop: str
-    args: list[list[str | int] | list[list[str | int]]]
+    args: list[
+        list[str | Annotated[int, Field(ge=0)]]
+        | list[list[str | Annotated[int, Field(ge=0)]]]
+    ]
 
 
 class COp(Op):
@@ -145,7 +146,7 @@ class Comment(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    c: str = Field(..., alias="//")
+    c: str = Field(..., alias="//", min_length=3)
 
 
 class PHIRModel(BaseModel):
