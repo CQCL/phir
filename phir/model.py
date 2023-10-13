@@ -1,21 +1,23 @@
 """PHIR model lives here."""
-
 from __future__ import annotations
 
+import abc
 from typing import Any, Literal, TypeAlias
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field
 
 # Data Management
 
 
-class Data(BaseModel):
+class Data(BaseModel, abc.ABC):
     """Data Management Base Class."""
+
+    model_config = ConfigDict(extra="forbid")
 
     metadata: dict[str, Any] | None = None
 
 
-class VarDefine(Data):
+class VarDefine(Data, abc.ABC):
     """Defining Variables."""
 
     data_type: str | type
@@ -39,6 +41,7 @@ class QVarDefine(VarDefine):
 class ExportVar(Data):
     """Exporting Classical Variables."""
 
+    data: Literal["cvar_export"]
     variables: list[str]
     to: list[str] | None = None
 
@@ -48,8 +51,10 @@ DataMgmt: TypeAlias = CVarDefine | QVarDefine | ExportVar
 # Operations
 
 
-class Op(BaseModel):
+class Op(BaseModel, abc.ABC):
     """Operation Base Class."""
+
+    model_config = ConfigDict(extra="forbid")
 
     args: list[Any] | None = None
     returns: list[Any] | None = None
@@ -101,8 +106,10 @@ OpType: TypeAlias = FFCall | COp | QOp | MOp
 # Blocks
 
 
-class Block(BaseModel):
+class Block(BaseModel, abc.ABC):
     """General block type."""
+
+    model_config = ConfigDict(extra="forbid")
 
     block: str
     metadata: dict[str, Any] | None = None
@@ -133,7 +140,11 @@ SeqBlock.model_rebuild()  # type: ignore [misc]
 class PHIRModel(BaseModel):
     """PHIR model object."""
 
-    format_: str = "PHIR/JSON"
+    # Enabled for extra validation, but can change to 'allow' to preserve data
+    # See https://docs.pydantic.dev/latest/concepts/models/#extra-fields
+    model_config = ConfigDict(extra="forbid")
+
+    format_: str = Field("PHIR/JSON", alias="format")
     version: str = "0.1.0"
     metadata: dict[str, Any] | None = None
     ops: list[DataMgmt | OpType | BlockType]
