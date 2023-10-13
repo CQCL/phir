@@ -5,10 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "phir"
 version = "0.0.1"
-description = "A python library"
+description = "A data model and validation tool for PHIR (PECOS High-level Intermediate Representation)."
 readme = "README.md"
 requires-python = ">=3.10"
-authors = [{name = "Kartik Singhal", email = "kartik.singhal@quantinuum.com" }]
+authors = [
+  {name = "Ciarán Ryan-Anderson", email = "ciaran.ryan-anderson@quantinuum.com" },
+  {name = "Kartik Singhal", email = "kartik.singhal@quantinuum.com" },
+]
 dependencies = ["pydantic", "rich"]
 
 [project.optional-dependencies]
