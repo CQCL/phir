@@ -29,15 +29,11 @@ class CVarDefine(VarDefine):
 
     data: Literal["cvar_define"]
 
-    cvar_id: int | None = None
-
 
 class QVarDefine(VarDefine):
     """Defining Quantum Variables."""
 
     data: Literal["qvar_define"]
-
-    qubit_ids: list[int] | None = None
 
 
 class ExportVar(Data):
