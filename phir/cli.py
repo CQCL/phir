@@ -52,3 +52,7 @@ def main() -> None:
             print(PHIRModel.model_validate(data, strict=True))
         except ValidationError as e:
             print(e)
+
+    if len(sys.argv) == 1:
+        parser.print_help(sys.stderr)
+        sys.exit(1)
