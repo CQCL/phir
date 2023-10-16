@@ -3,9 +3,9 @@
 # mypy: disable-error-code="misc"
 
 import argparse
-import importlib.metadata
 import json
 import sys
+from importlib.metadata import version
 from pathlib import Path
 
 from pydantic import ValidationError
@@ -17,7 +17,7 @@ from phir.model import PHIRModel
 def main() -> None:
     """CLI Entrypoint."""
     parser = argparse.ArgumentParser(
-        prog="phir",
+        prog="phir-cli",
         description="Validates and pretty prints valid PHIR",
     )
     parser.add_argument(
@@ -36,7 +36,7 @@ def main() -> None:
         "-v",
         "--version",
         action="version",
-        version=f'{importlib.metadata.version("phir")}',
+        version=f'{version("phir")}',
     )
     args = parser.parse_args()
 

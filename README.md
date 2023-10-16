@@ -24,9 +24,11 @@ See `Makefile` for other useful commands.
 
 ## phir CLI
 
+The package includes a CLI for directly validating PHIR JSON files using the command line.
+
 ```sh
-❯ phir -h
-usage: phir [-h] [-s] [-v] [jsonfile]
+❯ phir-cli -h
+usage: phir-cli [-h] [-s] [-v] [jsonfile]
 
 Validates and pretty prints valid PHIR
 

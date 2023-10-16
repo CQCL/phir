@@ -7,6 +7,7 @@
 # add these directories to sys.path here.
 import pathlib
 import sys
+from importlib.metadata import version as get_version
 
 sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 
@@ -14,9 +15,9 @@ sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "phir"
-project_copyright = "2023, Author"
-author = "Author"
-release = "0.0.1"
+project_copyright = "2023, Quantinuum LLC"
+author = "Quantinuum LLC"
+release: str = get_version("phir").split("+", 1)[0]  # strip the git hash
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
