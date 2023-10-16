@@ -42,7 +42,7 @@ def main() -> None:
 
     if args.schema:
         print(json.dumps(PHIRModel.model_json_schema(), indent=2))
-        sys.exit(1)
+        sys.exit(0)
 
     if args.jsonfile:
         with Path(args.jsonfile).open() as f:

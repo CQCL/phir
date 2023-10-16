@@ -1,4 +1,4 @@
-.PHONY: install dev tests lint docs clean build
+.PHONY: install dev tests lint docs clean build updateschema
 
 install:
 	pip install .
@@ -21,3 +21,6 @@ clean:
 
 build: clean
 	python -m build --sdist -n
+
+updateschema:
+	phir -s > schema.json
