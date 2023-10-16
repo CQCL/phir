@@ -17,26 +17,22 @@ class Data(BaseModel, abc.ABC):
     metadata: dict[str, Any] | None = None
 
 
-class VarDefine(Data, abc.ABC):
-    """Defining Variables."""
-
-    variable: str
-
-
-class CVarDefine(VarDefine):
+class CVarDefine(Data):
     """Defining Classical Variables."""
 
     data: Literal["cvar_define"]
-    size: Annotated[int, Field(gt=0)] | None
     data_type: str = "i64"
+    variable: str
+    size: Annotated[int, Field(gt=0)] | None
 
 
-class QVarDefine(VarDefine):
+class QVarDefine(Data):
     """Defining Quantum Variables."""
 
     data: Literal["qvar_define"]
-    size: int = Field(gt=0)
     data_type: str | None = "qubits"
+    variable: str
+    size: int = Field(gt=0)
 
 
 class ExportVar(Data):
@@ -57,9 +53,9 @@ class Op(BaseModel, abc.ABC):
 
     model_config = ConfigDict(extra="forbid")
 
-    args: list[Any] | None = None
-    returns: list[Any] | None = None
     metadata: dict[str, Any] | None = None
+    returns: list[Any] | None = None
+    args: list[Any] | None = None
 
 
 class QOp(Op):
@@ -92,18 +88,6 @@ class MOp(Op):
     mop: str
 
 
-class EMOp(Op):
-    """Error model operation."""
-
-    # NOTE: unused
-
-
-class SOp(Op):
-    """Simulation model."""
-
-    # NOTE: unused
-
-
 OpType: TypeAlias = FFCall | COp | QOp | MOp
 
 
@@ -115,8 +99,8 @@ class Block(BaseModel, abc.ABC):
 
     model_config = ConfigDict(extra="forbid")
 
-    block: str
     metadata: dict[str, Any] | None = None
+    block: str
 
 
 class SeqBlock(Block):

@@ -4,10 +4,17 @@
       "additionalProperties": false,
       "description": "Classical operation.",
       "properties": {
-        "args": {
-          "items": {},
-          "title": "Args",
-          "type": "array"
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
         },
         "returns": {
           "anyOf": [
@@ -22,17 +29,10 @@
           "default": null,
           "title": "Returns"
         },
-        "metadata": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Metadata"
+        "args": {
+          "items": {},
+          "title": "Args",
+          "type": "array"
         },
         "cop": {
           "title": "Cop",
@@ -62,13 +62,18 @@
           "default": null,
           "title": "Metadata"
         },
-        "variable": {
-          "title": "Variable",
-          "type": "string"
-        },
         "data": {
           "const": "cvar_define",
           "title": "Data"
+        },
+        "data_type": {
+          "default": "i64",
+          "title": "Data Type",
+          "type": "string"
+        },
+        "variable": {
+          "title": "Variable",
+          "type": "string"
         },
         "size": {
           "anyOf": [
@@ -81,16 +86,11 @@
             }
           ],
           "title": "Size"
-        },
-        "data_type": {
-          "default": "i64",
-          "title": "Data Type",
-          "type": "string"
         }
       },
       "required": [
-        "variable",
         "data",
+        "variable",
         "size"
       ],
       "title": "CVarDefine",
@@ -166,10 +166,17 @@
       "additionalProperties": false,
       "description": "External Classical Function Call.",
       "properties": {
-        "args": {
-          "items": {},
-          "title": "Args",
-          "type": "array"
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
         },
         "returns": {
           "anyOf": [
@@ -184,17 +191,10 @@
           "default": null,
           "title": "Returns"
         },
-        "metadata": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Metadata"
+        "args": {
+          "items": {},
+          "title": "Args",
+          "type": "array"
         },
         "cop": {
           "const": "ffcall",
@@ -217,10 +217,6 @@
       "additionalProperties": false,
       "description": "If/else block.",
       "properties": {
-        "block": {
-          "const": "if",
-          "title": "Block"
-        },
         "metadata": {
           "anyOf": [
             {
@@ -232,6 +228,10 @@
           ],
           "default": null,
           "title": "Metadata"
+        },
+        "block": {
+          "const": "if",
+          "title": "Block"
         },
         "condition": {
           "$ref": "#/$defs/COp"
@@ -297,18 +297,17 @@
       "additionalProperties": false,
       "description": "Machine operation.",
       "properties": {
-        "args": {
+        "metadata": {
           "anyOf": [
             {
-              "items": {},
-              "type": "array"
+              "type": "object"
             },
             {
               "type": "null"
             }
           ],
           "default": null,
-          "title": "Args"
+          "title": "Metadata"
         },
         "returns": {
           "anyOf": [
@@ -323,17 +322,18 @@
           "default": null,
           "title": "Returns"
         },
-        "metadata": {
+        "args": {
           "anyOf": [
             {
-              "type": "object"
+              "items": {},
+              "type": "array"
             },
             {
               "type": "null"
             }
           ],
           "default": null,
-          "title": "Metadata"
+          "title": "Args"
         },
         "mop": {
           "title": "Mop",
@@ -350,6 +350,31 @@
       "additionalProperties": false,
       "description": "Quantum operation.",
       "properties": {
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "returns": {
+          "anyOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Returns"
+        },
         "args": {
           "items": {
             "anyOf": [
@@ -389,31 +414,6 @@
           "title": "Args",
           "type": "array"
         },
-        "returns": {
-          "anyOf": [
-            {
-              "items": {},
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Returns"
-        },
-        "metadata": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Metadata"
-        },
         "qop": {
           "title": "Qop",
           "type": "string"
@@ -442,18 +442,9 @@
           "default": null,
           "title": "Metadata"
         },
-        "variable": {
-          "title": "Variable",
-          "type": "string"
-        },
         "data": {
           "const": "qvar_define",
           "title": "Data"
-        },
-        "size": {
-          "exclusiveMinimum": 0,
-          "title": "Size",
-          "type": "integer"
         },
         "data_type": {
           "anyOf": [
@@ -466,11 +457,20 @@
           ],
           "default": "qubits",
           "title": "Data Type"
+        },
+        "variable": {
+          "title": "Variable",
+          "type": "string"
+        },
+        "size": {
+          "exclusiveMinimum": 0,
+          "title": "Size",
+          "type": "integer"
         }
       },
       "required": [
-        "variable",
         "data",
+        "variable",
         "size"
       ],
       "title": "QVarDefine",
@@ -480,10 +480,6 @@
       "additionalProperties": false,
       "description": "A generic sequence block.",
       "properties": {
-        "block": {
-          "const": "sequence",
-          "title": "Block"
-        },
         "metadata": {
           "anyOf": [
             {
@@ -495,6 +491,10 @@
           ],
           "default": null,
           "title": "Metadata"
+        },
+        "block": {
+          "const": "sequence",
+          "title": "Block"
         },
         "ops": {
           "items": {
