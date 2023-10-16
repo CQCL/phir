@@ -2,6 +2,7 @@
 target-version = "py310"
 
 line-length = 88
+preview = true
 
 select = [
   "E",    # pycodestyle Errors
