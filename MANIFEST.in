@@ -1,0 +1,11 @@
+include *.json
+include *.md
+include *.txt
+include Makefile
+recursive-include docs *.rst
+recursive-include docs Makefile
+recursive-include tests *.json
+
+exclude .pre-commit-config.yaml
+exclude mypy.ini
+exclude ruff.toml

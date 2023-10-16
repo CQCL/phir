@@ -22,6 +22,23 @@ pip install -e .
 
 See `Makefile` for other useful commands.
 
+## phir CLI
+
+```sh
+❯ phir -h
+usage: phir [-h] [-s] [-v] [jsonfile]
+
+Validates and pretty prints valid PHIR
+
+positional arguments:
+  jsonfile       json file to validate against PHIR spec
+
+options:
+  -h, --help     show this help message and exit
+  -s, --schema   dump JSON schema of the PHIR model and exit
+  -v, --version  show program's version number and exit
+```
+
 ## Testing
 
 Just issue `pytest` from the root directory.
