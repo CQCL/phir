@@ -77,6 +77,7 @@ class QOp(Op):
     qop: str
     returns: list[Bit] | None = None
     args: list[Bit | list[Bit]]
+    angles: list[float] | None = None
 
 
 class COp(Op):
@@ -140,7 +141,7 @@ SeqBlock.model_rebuild()  # type: ignore [misc]
 class Comment(BaseModel):
     """Optional comment."""
 
-    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+    model_config = ConfigDict(extra="forbid")
 
     c: str = Field(..., alias="//", min_length=3)
 
