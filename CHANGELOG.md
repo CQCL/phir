@@ -25,3 +25,4 @@ First release.
 
 [unreleased]: https://github.com/CQCL/phir/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/CQCL/phir/commits/v0.1.0
+[0.1.1]: https://github.com/CQCL/phir/compare/v0.1.0...v0.1.1
