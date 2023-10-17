@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2023-10-17
+
+### Changed
+
+- Add optional "angles" field to quantum operations.
+
 ## [0.1.1] - 2023-10-17
 
 ### Changed
@@ -26,3 +32,4 @@ First release.
 [unreleased]: https://github.com/CQCL/phir/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/CQCL/phir/commits/v0.1.0
 [0.1.1]: https://github.com/CQCL/phir/compare/v0.1.0...v0.1.1
+[0.1.2]: https://github.com/CQCL/phir/compare/v0.1.1...v0.1.2
