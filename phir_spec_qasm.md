@@ -716,8 +716,8 @@ Here is an equivalent version of the program using PHIR.
       "true_branch": [
         {
           "cop": "=",
-          "args": ["c"],
-          "returns": [7]
+          "args": [7],
+          "returns": ["c"]
         },
         {
           "qop": "X",
