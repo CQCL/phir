@@ -1,3 +1,14 @@
+##############################################################################
+#
+# (c) 2023 @ Quantinuum LLC. All Rights Reserved.
+# This software and all information and expression are the property of
+# Quantinuum LLC, are Quantinuum LLC Confidential & Proprietary,
+# contain trade secrets and may not, in whole or in part, be licensed,
+# used, duplicated, disclosed, or reproduced for any purpose without prior
+# written permission of Quantinuum LLC.
+#
+##############################################################################
+
 """PHIR model lives here."""
 from __future__ import annotations
 
