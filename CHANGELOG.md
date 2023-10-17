@@ -16,5 +16,5 @@ First release.
 - Pydantic model and JSON schema of the PHIR Specification.
 - `phir-cli` for validation against that model and pretty printing on the command line.
 
-[unreleased]: https://github.com/CQCL/phir/v0.1.0...HEAD
+[unreleased]: https://github.com/CQCL/phir/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/CQCL/phir/commits/v0.1.0
