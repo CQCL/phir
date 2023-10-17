@@ -22,5 +22,5 @@ clean:
 build: clean
 	python -m build --sdist -n
 
-updateschema:
-	phir -s > schema.json
+updateschema: install
+	phir-cli -s > schema.json

@@ -16,10 +16,35 @@
           "default": null,
           "title": "Metadata"
         },
+        "cop": {
+          "title": "Cop",
+          "type": "string"
+        },
         "returns": {
           "anyOf": [
             {
-              "items": {},
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "minimum": 0,
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    "maxItems": 2,
+                    "type": "array"
+                  }
+                ]
+              },
               "type": "array"
             },
             {
@@ -30,18 +55,41 @@
           "title": "Returns"
         },
         "args": {
-          "items": {},
+          "items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/COp"
+              },
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "minimum": 0,
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "maxItems": 2,
+                "type": "array"
+              }
+            ]
+          },
           "title": "Args",
           "type": "array"
-        },
-        "cop": {
-          "title": "Cop",
-          "type": "string"
         }
       },
       "required": [
-        "args",
-        "cop"
+        "cop",
+        "args"
       ],
       "title": "COp",
       "type": "object"
@@ -178,10 +226,35 @@
           "default": null,
           "title": "Metadata"
         },
+        "cop": {
+          "const": "ffcall",
+          "title": "Cop"
+        },
         "returns": {
           "anyOf": [
             {
-              "items": {},
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "minimum": 0,
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    "maxItems": 2,
+                    "type": "array"
+                  }
+                ]
+              },
               "type": "array"
             },
             {
@@ -192,13 +265,36 @@
           "title": "Returns"
         },
         "args": {
-          "items": {},
+          "items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/COp"
+              },
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "minimum": 0,
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "maxItems": 2,
+                "type": "array"
+              }
+            ]
+          },
           "title": "Args",
           "type": "array"
-        },
-        "cop": {
-          "const": "ffcall",
-          "title": "Cop"
         },
         "function": {
           "title": "Function",
@@ -206,8 +302,8 @@
         }
       },
       "required": [
-        "args",
         "cop",
+        "args",
         "function"
       ],
       "title": "FFCall",
@@ -309,32 +405,6 @@
           "default": null,
           "title": "Metadata"
         },
-        "returns": {
-          "anyOf": [
-            {
-              "items": {},
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Returns"
-        },
-        "args": {
-          "anyOf": [
-            {
-              "items": {},
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Args"
-        },
         "mop": {
           "title": "Mop",
           "type": "string"
@@ -362,10 +432,28 @@
           "default": null,
           "title": "Metadata"
         },
+        "qop": {
+          "title": "Qop",
+          "type": "string"
+        },
         "returns": {
           "anyOf": [
             {
-              "items": {},
+              "items": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "minimum": 0,
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "maxItems": 2,
+                "type": "array"
+              },
               "type": "array"
             },
             {
@@ -390,6 +478,7 @@
                     }
                   ]
                 },
+                "maxItems": 2,
                 "type": "array"
               },
               {
@@ -405,6 +494,7 @@
                       }
                     ]
                   },
+                  "maxItems": 2,
                   "type": "array"
                 },
                 "type": "array"
@@ -413,15 +503,11 @@
           },
           "title": "Args",
           "type": "array"
-        },
-        "qop": {
-          "title": "Qop",
-          "type": "string"
         }
       },
       "required": [
-        "args",
-        "qop"
+        "qop",
+        "args"
       ],
       "title": "QOp",
       "type": "object"

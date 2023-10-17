@@ -17,6 +17,10 @@ from typing import Annotated, Any, Literal, TypeAlias
 
 from pydantic import BaseModel, ConfigDict, Field
 
+Idx: TypeAlias = Annotated[int, Field(ge=0)]
+Sym: TypeAlias = str
+Bit: TypeAlias = Annotated[list[Sym | Idx], Field(max_length=2)]
+
 # Data Management
 
 
@@ -33,7 +37,7 @@ class CVarDefine(Data):
 
     data: Literal["cvar_define"]
     data_type: str = "i64"
-    variable: str
+    variable: Sym
     size: Annotated[int, Field(gt=0)] | None
 
 
@@ -42,7 +46,7 @@ class QVarDefine(Data):
 
     data: Literal["qvar_define"]
     data_type: str | None = "qubits"
-    variable: str
+    variable: Sym
     size: int = Field(gt=0)
 
 
@@ -50,8 +54,8 @@ class ExportVar(Data):
     """Exporting Classical Variables."""
 
     data: Literal["cvar_export"]
-    variables: list[str]
-    to: list[str] | None = None
+    variables: list[Sym]
+    to: list[Sym] | None = None
 
 
 DataMgmt: TypeAlias = CVarDefine | QVarDefine | ExportVar
@@ -65,25 +69,22 @@ class Op(BaseModel, abc.ABC):
     model_config = ConfigDict(extra="forbid")
 
     metadata: dict[str, Any] | None = None
-    returns: list[Any] | None = None
-    args: list[Any] | None = None
 
 
 class QOp(Op):
     """Quantum operation."""
 
     qop: str
-    args: list[
-        list[str | Annotated[int, Field(ge=0)]]
-        | list[list[str | Annotated[int, Field(ge=0)]]]
-    ]
+    returns: list[Bit] | None = None
+    args: list[Bit | list[Bit]]
 
 
 class COp(Op):
     """Classical operation."""
 
     cop: str
-    args: list[Any]
+    returns: list[Sym | Bit] | None = None
+    args: list[int | Sym | COp | Bit]
 
 
 class FFCall(COp):
