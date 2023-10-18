@@ -25,7 +25,7 @@ sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 project = "phir"
 project_copyright = "2023, Quantinuum LLC"
 author = "Quantinuum LLC"
-release: str = get_version("phir").split("+", 1)[0]  # strip the git hash
+release: str = ".".join(get_version("phir").split(".")[:2])
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
