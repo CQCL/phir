@@ -16,6 +16,7 @@ select = [
   "C4",   # flake8-comprehensions
   "C90",  # mccabe
   "COM",  # flake8-commas
+  "CPY",  # flake8-copyright
   "D",    # pydocstyle
   "EM",   # flake8-errmsg
   "ERA",  # eradicate
@@ -62,7 +63,7 @@ select = [
 ]
 
 [per-file-ignores]
-"__init__.py" = ["F401"]    # module imported but unused
+"__init__.py" = ["F401", "CPY001"]
 "docs/*"      = [
     "D100",     # Missing docstring in public module
     "INP001",   # File * is part of an implicit namespace package. Add an `__init__.py`.
@@ -73,3 +74,6 @@ select = [
 
 [pydocstyle]
 convention = "google"
+
+[flake8-copyright]
+author = "Quantinuum LLC"
