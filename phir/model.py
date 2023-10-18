@@ -146,6 +146,9 @@ class Comment(BaseModel):
     c: str = Field(..., alias="//", min_length=3)
 
 
+Cmd: TypeAlias = DataMgmt | OpType | BlockType | Comment
+
+
 class PHIRModel(BaseModel):
     """PHIR model object."""
 
@@ -156,4 +159,4 @@ class PHIRModel(BaseModel):
     format_: str = Field("PHIR/JSON", alias="format")
     version: str = "0.1.0"
     metadata: dict[str, Any] | None = None
-    ops: list[DataMgmt | OpType | BlockType | Comment]
+    ops: list[Cmd]
