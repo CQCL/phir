@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2023-10-18
+
+### Added
+
+- phir package now comes with type information.
+
+## Fixed
+
+- phir version in the docs site.
+
 ## [0.1.2] - 2023-10-17
 
 ### Changed
@@ -29,7 +39,8 @@ First release.
 - Pydantic model and JSON schema of the PHIR Specification.
 - `phir-cli` for validation against that model and pretty printing on the command line.
 
-[unreleased]: https://github.com/CQCL/phir/compare/v0.1.0...HEAD
+[unreleased]: https://github.com/CQCL/phir/compare/v0.1.3...HEAD
 [0.1.0]: https://github.com/CQCL/phir/commits/v0.1.0
 [0.1.1]: https://github.com/CQCL/phir/compare/v0.1.0...v0.1.1
 [0.1.2]: https://github.com/CQCL/phir/compare/v0.1.1...v0.1.2
+[0.1.3]: https://github.com/CQCL/phir/compare/v0.1.2...v0.1.3
