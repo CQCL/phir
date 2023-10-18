@@ -13,8 +13,8 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = {file = "LICENSE"}
 authors = [
-  {name = "Ciarán Ryan-Anderson", email = "ciaran.ryan-anderson@quantinuum.com" },
   {name = "Kartik Singhal", email = "kartik.singhal@quantinuum.com" },
+  {name = "Ciarán Ryan-Anderson", email = "ciaran.ryan-anderson@quantinuum.com" },
 ]
 dynamic = ["version"]
 dependencies = ["pydantic", "rich"]
