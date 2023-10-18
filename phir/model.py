@@ -12,9 +12,9 @@ from __future__ import annotations
 import abc
 from typing import Annotated, Any, Literal, TypeAlias
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, PositiveInt
 
-Idx: TypeAlias = Annotated[int, Field(ge=0)]
+Idx: TypeAlias = Annotated[int, Field(strict=True, ge=0)]
 Sym: TypeAlias = str
 Bit: TypeAlias = Annotated[list[Sym | Idx], Field(max_length=2)]
 
@@ -35,7 +35,7 @@ class CVarDefine(Data):
     data: Literal["cvar_define"]
     data_type: str = "i64"
     variable: Sym
-    size: Annotated[int, Field(gt=0)] | None
+    size: PositiveInt | None
 
 
 class QVarDefine(Data):
@@ -44,7 +44,7 @@ class QVarDefine(Data):
     data: Literal["qvar_define"]
     data_type: str | None = "qubits"
     variable: Sym
-    size: int = Field(gt=0)
+    size: PositiveInt
 
 
 class ExportVar(Data):
@@ -130,7 +130,6 @@ class IfBlock(Block):
 
 
 BlockType: TypeAlias = SeqBlock | IfBlock
-SeqBlock.model_rebuild()  # type: ignore [misc]
 
 # Comments
 
@@ -157,3 +156,7 @@ class PHIRModel(BaseModel):
     version: str = "0.1.0"
     metadata: dict[str, Any] | None = None
     ops: list[Cmd]
+
+
+COp.model_rebuild()  # type: ignore [misc]
+SeqBlock.model_rebuild()  # type: ignore [misc]
