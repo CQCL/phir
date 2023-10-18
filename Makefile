@@ -20,7 +20,7 @@ clean:
 	rm -rf *.egg-info dist build docs/build
 
 build: clean
-	python -m build --sdist -n
+	python -m build --sdist --wheel -n
 
 updateschema: install
 	phir-cli -s > schema.json
