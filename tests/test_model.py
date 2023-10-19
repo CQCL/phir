@@ -19,4 +19,4 @@ def test_spec_example() -> None:  # noqa: D103
     with Path("tests/example.json").open() as f:
         data = json.load(f)  # type: ignore [misc]
 
-    PHIRModel.model_validate(data, strict=True)  # type: ignore [misc]
+    PHIRModel.model_validate(data)  # type: ignore [misc]

@@ -29,18 +29,17 @@
                     "type": "string"
                   },
                   {
-                    "items": {
-                      "anyOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "minimum": 0,
-                          "type": "integer"
-                        }
-                      ]
-                    },
                     "maxItems": 2,
+                    "minItems": 2,
+                    "prefixItems": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "minimum": 0,
+                        "type": "integer"
+                      }
+                    ],
                     "type": "array"
                   }
                 ]
@@ -67,18 +66,17 @@
                 "$ref": "#/$defs/COp"
               },
               {
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "minimum": 0,
-                      "type": "integer"
-                    }
-                  ]
-                },
                 "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                ],
                 "type": "array"
               }
             ]
@@ -212,7 +210,7 @@
     },
     "FFCall": {
       "additionalProperties": false,
-      "description": "External Classical Function Call.",
+      "description": "External Classical (Foreign) Function Call.",
       "properties": {
         "metadata": {
           "anyOf": [
@@ -239,18 +237,17 @@
                     "type": "string"
                   },
                   {
-                    "items": {
-                      "anyOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "minimum": 0,
-                          "type": "integer"
-                        }
-                      ]
-                    },
                     "maxItems": 2,
+                    "minItems": 2,
+                    "prefixItems": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "minimum": 0,
+                        "type": "integer"
+                      }
+                    ],
                     "type": "array"
                   }
                 ]
@@ -277,18 +274,17 @@
                 "$ref": "#/$defs/COp"
               },
               {
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "minimum": 0,
-                      "type": "integer"
-                    }
-                  ]
-                },
                 "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                ],
                 "type": "array"
               }
             ]
@@ -440,18 +436,17 @@
           "anyOf": [
             {
               "items": {
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "minimum": 0,
-                      "type": "integer"
-                    }
-                  ]
-                },
                 "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                ],
                 "type": "array"
               },
               "type": "array"
@@ -467,8 +462,24 @@
           "items": {
             "anyOf": [
               {
+                "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                ],
+                "type": "array"
+              },
+              {
                 "items": {
-                  "anyOf": [
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "prefixItems": [
                     {
                       "type": "string"
                     },
@@ -476,25 +487,7 @@
                       "minimum": 0,
                       "type": "integer"
                     }
-                  ]
-                },
-                "maxItems": 2,
-                "type": "array"
-              },
-              {
-                "items": {
-                  "items": {
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "minimum": 0,
-                        "type": "integer"
-                      }
-                    ]
-                  },
-                  "maxItems": 2,
+                  ],
                   "type": "array"
                 },
                 "type": "array"
