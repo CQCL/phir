@@ -86,7 +86,7 @@ class COp(Op):
 
 
 class FFCall(COp):
-    """External Classical (Foreign) Function Call."""
+    """(Classical) Foreign Function Call."""
 
     cop: Literal["ffcall"]
     function: str

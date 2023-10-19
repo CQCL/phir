@@ -210,7 +210,7 @@
     },
     "FFCall": {
       "additionalProperties": false,
-      "description": "External Classical (Foreign) Function Call.",
+      "description": "(Classical) Foreign Function Call.",
       "properties": {
         "metadata": {
           "anyOf": [
