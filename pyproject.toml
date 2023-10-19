@@ -1,8 +1,8 @@
 [build-system]
 requires = [
-    "setuptools>=64",
-    "setuptools_scm>=8",
-    "wheel",
+  "setuptools>=64",
+  "setuptools_scm>=8",
+  "wheel",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -15,6 +15,17 @@ license = {file = "LICENSE"}
 authors = [
   {name = "Kartik Singhal", email = "kartik.singhal@quantinuum.com" },
   {name = "Ciarán Ryan-Anderson", email = "ciaran.ryan-anderson@quantinuum.com" },
+]
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Typing :: Typed",
 ]
 dynamic = ["version"]
 dependencies = ["pydantic", "rich"]
@@ -31,7 +42,9 @@ tests = ["pytest"]
 phir-cli = "phir.cli:main"
 
 [project.urls]
-Repository = "https://github.com/CQCL/phir.git"
+Changelog = "https://github.com/CQCL/phir/blob/main/CHANGELOG.md"
+Documentation = "https://cqcl.github.io/phir/"
+Repository = "https://github.com/CQCL/phir"
 
 [tool.setuptools.packages.find]
 where = ["."]
