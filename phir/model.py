@@ -68,13 +68,17 @@ class Op(BaseModel, abc.ABC):
     metadata: dict[str, Any] | None = None
 
 
+Radian: TypeAlias = float
+PiRadian = NewType("PiRadian", tuple[float, Literal["pi"]])
+
+
 class QOp(Op):
     """Quantum operation."""
 
     qop: str
     returns: list[Bit] | None = None
     args: list[Bit | list[Bit]]
-    angles: list[float] | None = None
+    angles: list[Radian | PiRadian] | None = None
 
 
 class COp(Op):
@@ -92,10 +96,14 @@ class FFCall(COp):
     function: str
 
 
+Duration = NewType("Duration", tuple[float, Literal["s", "ms", "us", "ns"]])
+
+
 class MOp(Op):
     """Machine operation."""
 
     mop: str
+    duration: Duration | None = None
 
 
 OpType: TypeAlias = FFCall | COp | QOp | MOp
