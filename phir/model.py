@@ -10,13 +10,13 @@
 from __future__ import annotations
 
 import abc
-from typing import Annotated, Any, Literal, TypeAlias
+from typing import Any, Literal, NewType, TypeAlias
 
-from pydantic import BaseModel, ConfigDict, Field, PositiveInt
+from pydantic import BaseModel, ConfigDict, Field, NonNegativeInt, PositiveInt
 
-Idx: TypeAlias = Annotated[int, Field(strict=True, ge=0)]
 Sym: TypeAlias = str
-Bit: TypeAlias = Annotated[list[Sym | Idx], Field(max_length=2)]
+Idx = NewType("Idx", NonNegativeInt)
+Bit = NewType("Bit", tuple[Sym, Idx])
 
 # Data Management
 
@@ -86,7 +86,7 @@ class COp(Op):
 
 
 class FFCall(COp):
-    """External Classical Function Call."""
+    """(Classical) Foreign Function Call."""
 
     cop: Literal["ffcall"]
     function: str

@@ -57,7 +57,7 @@ def main() -> None:
             data = json.load(f)
 
         try:
-            print(PHIRModel.model_validate(data, strict=True))
+            print(PHIRModel.model_validate(data))
         except ValidationError as e:
             print(e)
 
