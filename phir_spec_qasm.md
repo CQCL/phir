@@ -352,7 +352,7 @@ However, multi-qubit gates, such as `CX`, use a list of lists of qubit IDs. E.g.
 
 PECOS ensures all qubit IDs in `"args"` are unique, meaning gates don't overlap on the same qubits.
 
-For gates with one or multiple angles, angles are denoted as floats and a unit in the `"angles"` list:
+For gates with one or multiple angles, angles are denoted as a list of floats and a unit in the `"angles"` field:
 
 ```json5
 {
