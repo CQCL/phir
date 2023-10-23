@@ -404,6 +404,34 @@
         "mop": {
           "title": "Mop",
           "type": "string"
+        },
+        "duration": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "enum": [
+                    "s",
+                    "ms",
+                    "us",
+                    "ns"
+                  ],
+                  "type": "string"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration"
         }
       },
       "required": [
@@ -500,9 +528,23 @@
         "angles": {
           "anyOf": [
             {
-              "items": {
-                "type": "number"
-              },
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "items": {
+                    "type": "number"
+                  },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    "rad",
+                    "pi"
+                  ],
+                  "type": "string"
+                }
+              ],
               "type": "array"
             },
             {

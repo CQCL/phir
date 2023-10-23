@@ -312,12 +312,14 @@ The generic qop gate structure is:
 ```json5
 {
   "qop": str,
-  "angles": [float...],  // Include if gate has one or more angles.
+  "angles": [[float...], "rad" | "pi"],  // Include if gate has one or more angles.
   "args": [qubit_id, ... | [qubit_id, ... ], ...],  // Can be a list of qubit IDs or a list of lists for multi-qubit gates.
   "metadata": {}, // Optional metadata for potential auxiliary info or to be utilized by error models.
   "returns": [[str, int], ...]  // Include if gate produces output, e.g., a measurement.
 }
 ```
+
+`"angles"` is a tuple of a list of `float`s and a unit. The units supported are radians (preferred) and multiples of ᴨ (pi radians).
 
 Table II details the available qops.
 
@@ -350,12 +352,12 @@ However, multi-qubit gates, such as `CX`, use a list of lists of qubit IDs. E.g.
 
 PECOS ensures all qubit IDs in `"args"` are unique, meaning gates don't overlap on the same qubits.
 
-For gates with one or multiple angles, angles are denoted as floats in the `"angles"` list:
+For gates with one or multiple angles, angles are denoted as a list of floats and a unit in the `"angles"` field:
 
 ```json5
 {
   "qop": "RZZ",
-  "angles": [0.173],
+  "angles": [[0.173], "rad"],
   "args": [
     [ ["q", 0], ["q", 1] ],
     [ ["q", 2], ["q", 3] ]
@@ -367,7 +369,7 @@ For gates with one or multiple angles, angles are denoted as floats in the `"ang
 ```json5
 {
   "qop": "U1q",
-  "angles": [0.524, 1.834],
+  "angles": [[0.524, 1.834], "rad"],
   "args": [
     [ ["q", 0], ["q", 1], ["q", 2], ["q", 3] ]
   ],
@@ -437,19 +439,22 @@ The general form of `"mop"`s is:
 {
   "mop": str,  // identifying name
   "args": [qubit_id, ... | [qubit_id, ... ], ...],  // optional
+  "duration": [float, "s"|"ms"|"us"|"ns"],  // optional
   "metadata": {} // Optional metadata for potential auxiliary info or to be utilized by error models.
 }
 ```
 
+The `"duration"` field supports seconds (s), milliseconds (ms), microseconds (us), and nanoseconds (ns) as its units.
+
 Currently, `"mop"`s are more defined by the implementation of the Machine and ErrorModel classes in PECOS. Therefore,
-the `"metadata"` tag is heavily depended on up to supply values that these classes expect. An example of indicating
+the `"metadata"` tag is heavily depended upon to supply values that these classes expect. An example of indicating
 idling and transport include:
 
 ```json5
 {
   "mop": "Idle",
   "args": [["q", 0], ["q", 5], ["w", 1] ],
-  "metadata": {"duration": 0.000123 } // typically in seconds
+  "duration": [0.000123, "s"] // typically in seconds
 }
 ```
 
@@ -457,7 +462,8 @@ idling and transport include:
 {
   "mop": "Transport",
   // potentially using "args" to indicate what qubits are being transported
-  "metadata": {"duration": 0.0005 } // potentially including what positions to and from qubits moved between or what path taken
+  "duration": [0.5, "ms"]
+  "metadata": {...} // potentially including what positions to and from qubits moved between or what path taken
 }
 ```
 
