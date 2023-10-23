@@ -528,26 +528,23 @@
         "angles": {
           "anyOf": [
             {
-              "items": {
-                "anyOf": [
-                  {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "items": {
                     "type": "number"
                   },
-                  {
-                    "maxItems": 2,
-                    "minItems": 2,
-                    "prefixItems": [
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "const": "pi"
-                      }
-                    ],
-                    "type": "array"
-                  }
-                ]
-              },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    "rad",
+                    "pi"
+                  ],
+                  "type": "string"
+                }
+              ],
               "type": "array"
             },
             {

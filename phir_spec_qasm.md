@@ -312,15 +312,14 @@ The generic qop gate structure is:
 ```json5
 {
   "qop": str,
-  "angles": [float | [float, "pi"] ...],  // Include if gate has one or more angles.
+  "angles": [[float...], "rad" | "pi"],  // Include if gate has one or more angles.
   "args": [qubit_id, ... | [qubit_id, ... ], ...],  // Can be a list of qubit IDs or a list of lists for multi-qubit gates.
   "metadata": {}, // Optional metadata for potential auxiliary info or to be utilized by error models.
   "returns": [[str, int], ...]  // Include if gate produces output, e.g., a measurement.
 }
 ```
 
-`"angles"` list is expected to be in radians, ie, `float`. For convenience, multiples of ᴨ (pi radians) are also supported in the
-form of tuples `[float, "pi"]`.
+`"angles"` is a tuple of a list of `float`s and a unit. The units supported are radians (preferred) and multiples of ᴨ (pi radians).
 
 Table II details the available qops.
 
@@ -353,12 +352,12 @@ However, multi-qubit gates, such as `CX`, use a list of lists of qubit IDs. E.g.
 
 PECOS ensures all qubit IDs in `"args"` are unique, meaning gates don't overlap on the same qubits.
 
-For gates with one or multiple angles, angles are denoted as floats (or pi radians, not shown) in the `"angles"` list:
+For gates with one or multiple angles, angles are denoted as floats and a unit in the `"angles"` list:
 
 ```json5
 {
   "qop": "RZZ",
-  "angles": [0.173],
+  "angles": [[0.173], "rad"],
   "args": [
     [ ["q", 0], ["q", 1] ],
     [ ["q", 2], ["q", 3] ]
@@ -370,7 +369,7 @@ For gates with one or multiple angles, angles are denoted as floats (or pi radia
 ```json5
 {
   "qop": "U1q",
-  "angles": [0.524, 1.834],
+  "angles": [[0.524, 1.834], "rad"],
   "args": [
     [ ["q", 0], ["q", 1], ["q", 2], ["q", 3] ]
   ],

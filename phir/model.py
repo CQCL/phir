@@ -68,17 +68,13 @@ class Op(BaseModel, abc.ABC):
     metadata: dict[str, Any] | None = None
 
 
-Radian: TypeAlias = float
-PiRadian = NewType("PiRadian", tuple[float, Literal["pi"]])
-
-
 class QOp(Op):
     """Quantum operation."""
 
     qop: str
     returns: list[Bit] | None = None
     args: list[Bit | list[Bit]]
-    angles: list[Radian | PiRadian] | None = None
+    angles: tuple[list[float], Literal["rad", "pi"]] | None = None
 
 
 class COp(Op):
