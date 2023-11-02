@@ -58,3 +58,5 @@ First release.
 [0.1.4]: https://github.com/CQCL/phir/compare/v0.1.3...v0.1.4
 [0.1.5]: https://github.com/CQCL/phir/compare/v0.1.4...v0.1.5
 [unreleased]: https://github.com/CQCL/phir/compare/v0.1.5...HEAD
+
+<!-- markdownlint-configure-file {"MD024": {"siblings_only" : true}} -->
