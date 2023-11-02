@@ -20,6 +20,11 @@ repos:
       - id: typos
         args: []
 
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.10.0
+    hooks:
+    - id: markdownlint-cli2
+
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.27.0
     hooks:

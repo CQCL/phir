@@ -1,5 +1,7 @@
 # PECOS High-level Intermediate Representation (PHIR) Specification
 
+Author: Ciarán Ryan-Anderson
+
 PHIR (PECOS High-level Intermediate Representation), pronounced "fire," is a JSON-based format created specifically for
 PECOS. Its primary purpose is to represent hybrid quantum-classical programs. This structure allows for capturing both
 quantum/classical instructions as well as the nuances of machine state and noise, thereby enabling PECOS to offer a
@@ -53,8 +55,8 @@ Within the sequence of represented by the segment `"ops": {...}`, each operation
 
 Operations/blocks themselves may hold sequences or blocks, thus allowing for nesting.
 
-At present, the principal types encompass: `"data"`, `"cop"`, `"qop"`, and `"block"`. Future iterations might include other types,
-especially to bolster error modeling. Here's a quick breakdown of the `"type"`s:
+At present, the principal types encompass: `"data"`, `"cop"`, `"qop"`, and `"block"`. Future iterations might include
+other types, especially to bolster error modeling. Here's a quick breakdown of the `"type"`s:
 
 - `"data"`: Directives specifically related to data handling such as the creation of variables.
 - `"cop"`: Refers to classical operations. This includes actions like defining/assigning classical variables or
@@ -320,7 +322,8 @@ The generic qop gate structure is:
 }
 ```
 
-`"angles"` is a tuple of a list of `float`s and a unit. The units supported are radians (preferred) and multiples of ᴨ (pi radians).
+`"angles"` is a tuple of a list of `float`s and a unit.
+The units supported are radians (preferred) and multiples of ᴨ (pi radians).
 
 Table II details the available qops.
 
@@ -430,8 +433,8 @@ For a Z basis measurement on multiple qubits:
 
 ## Machine operations
 
-Machine operations (`"mop"`s) are operations that represent changes to the machine state such as the physical passage of time or
-the movement of qubits as well as other aspects that are more directly related to a physical device although potentially
+Machine operations (`"mop"`s) are operations that represent changes to the machine state such as the physical passage of
+time or the movement of qubits as well as other aspects that are more directly related to a physical device although potentially
 indirectly influencing the noise being applied via the error model.
 
 The general form of `"mop"`s is:
@@ -541,8 +544,8 @@ c = 3;
 a[0] = add(b, c);  // FF call, e.g., Wasm call
 if(m==1) a = (c[2] ^ d) | (e - 2 + (f & g));
 
-if(m==2) sub(d, e);  // Conditioned void FF call. Void calls are assumed to update a separate classical state running
-// asynchronously/in parallel.
+if(m==2) sub(d, e);  // Conditioned void FF call. Void calls are assumed to update a separate classical state
+// running asynchronously/in parallel.
 
 if(a > 2) c = 7;
 if(a > 2) x w[0];
@@ -557,6 +560,7 @@ measure d -> f;
 
 Here is an equivalent version of the program using PHIR.
 
+<!-- markdownlint-disable MD013 -->
 ```json5
 {
   "format": "PHIR/JSON",
@@ -774,3 +778,4 @@ Here is an equivalent version of the program using PHIR.
   ]
 }
 ```
+<!-- markdownlint-enable MD013 -->
