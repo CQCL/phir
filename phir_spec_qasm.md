@@ -227,7 +227,7 @@ In PECOS implements true comparisons to evaluate to 1 and false ones to evaluate
 #### Table I - Cop Assignment, arithmetic, comparison, & bitwise operations
 
 | name   | # args | sub-type   | description            |
-|--------|--------|------------|------------------------|
+| ------ | ------ | ---------- | ---------------------- |
 | `"="`  | 2      | Assignment | Assign                 |
 | `"+"`  | 2      | Arithmetic | Addition               |
 | `"-"`  | 1 / 2  | Arithmetic | Negation / Subtraction |
@@ -239,6 +239,7 @@ In PECOS implements true comparisons to evaluate to 1 and false ones to evaluate
 | `">"`  | 2      | Comparison | Greater than           |
 | `"<"`  | 2      | Comparison | Less than              |
 | `">="` | 2      | Comparison | Greater than or equal  |
+| `"<="` | 2      | Comparison | Less than or equal     |
 | `"&"`  | 2      | Bitwise    | AND                    |
 | `"\|"` | 2      | Bitwise    | OR                     |
 | `"^"`  | 2      | Bitwise    | XOR                    |
@@ -390,7 +391,7 @@ For a Z basis measurement on multiple qubits:
 ### Table II - Quantum operations
 
 | name         | alt. names        | # angles | # qubits | matrix | description              |
-|--------------|-------------------|----------|----------|--------|--------------------------|
+| ------------ | ----------------- | -------- | -------- | ------ | ------------------------ |
 | `"Init"`     |                   | 0        | 1        | ...    | Initialize qubit to \|0> |
 | `"Measure"`  |                   | 0        | 1        | ...    | Measure qubit in Z basis |
 | `"I"`        |                   | 0        | 1        | ...    | Identity                 |
