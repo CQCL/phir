@@ -72,8 +72,13 @@ select = [
     "INP001",
     ]
 
+ignore = ["COM812", "ISC001"]  # conflicting with the formatter
+
 [pydocstyle]
 convention = "google"
 
 [flake8-copyright]
 author = "Quantinuum LLC"
+
+[format]
+preview = true
