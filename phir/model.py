@@ -81,7 +81,7 @@ class QOp(Op):
 class COp(Op):
     """Classical operation."""
 
-    # From https://github.com/CQCL/phir/blob/main/phir_spec_qasm.md#table-i---cop-assignment-arithmetic-comparison--bitwise-operations
+    # From https://github.com/CQCL/phir/blob/main/spec.md#table-i---cop-assignment-arithmetic-comparison--bitwise-operations
     cop: Literal[
         "=",
         "+",
