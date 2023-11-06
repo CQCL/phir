@@ -17,6 +17,26 @@
           "title": "Metadata"
         },
         "cop": {
+          "enum": [
+            "=",
+            "+",
+            "-",
+            "*",
+            "/",
+            "%",
+            "==",
+            "!=",
+            ">",
+            "<",
+            ">=",
+            "<=",
+            "&",
+            "|",
+            "^",
+            "~",
+            "<<",
+            ">>"
+          ],
           "title": "Cop",
           "type": "string"
         },
@@ -261,6 +281,10 @@
           "default": null,
           "title": "Returns"
         },
+        "function": {
+          "title": "Function",
+          "type": "string"
+        },
         "args": {
           "items": {
             "anyOf": [
@@ -291,16 +315,12 @@
           },
           "title": "Args",
           "type": "array"
-        },
-        "function": {
-          "title": "Function",
-          "type": "string"
         }
       },
       "required": [
         "cop",
-        "args",
-        "function"
+        "function",
+        "args"
       ],
       "title": "FFCall",
       "type": "object"
