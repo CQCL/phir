@@ -41,9 +41,23 @@ class CVarDefine(Data):
     """Defining Classical Variables."""
 
     data: Literal["cvar_define"]
-    data_type: str = "i64"
+    data_type: Literal["i64", "i32", "u64", "u32"]
     variable: Sym
     size: PositiveInt | None
+
+    @model_validator(mode="after")
+    def check_size(self: CVarDefine) -> CVarDefine:
+        """Checks whether size fits the data_type."""
+        msg = "`size` is greater than what `data_type` can handle"
+        if self.size:
+            match self.data_type:
+                case "i64" | "u64":
+                    if self.size > 64:  # noqa: PLR2004
+                        raise ValueError(msg)
+                case "i32" | "u32":
+                    if self.size > 32:  # noqa: PLR2004
+                        raise ValueError(msg)
+        return self
 
 
 class QVarDefine(Data):

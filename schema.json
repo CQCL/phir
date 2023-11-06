@@ -133,7 +133,12 @@
           "title": "Data"
         },
         "data_type": {
-          "default": "i64",
+          "enum": [
+            "i64",
+            "i32",
+            "u64",
+            "u32"
+          ],
           "title": "Data Type",
           "type": "string"
         },
@@ -156,6 +161,7 @@
       },
       "required": [
         "data",
+        "data_type",
         "variable",
         "size"
       ],
