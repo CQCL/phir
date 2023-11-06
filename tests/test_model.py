@@ -15,7 +15,7 @@ from phir.model import PHIRModel
 
 
 def test_spec_example() -> None:  # noqa: D103
-    # From https://github.com/CQCL/phir/blob/main/phir_spec_qasm.md#overall-phir-example-with-quantinuums-extended-openqasm-20
+    # From https://github.com/CQCL/phir/blob/main/spec.md#overall-phir-example-with-quantinuums-extended-openqasm-20
     with Path("tests/example.json").open() as f:
         data = json.load(f)  # type: ignore [misc]
 

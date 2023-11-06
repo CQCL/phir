@@ -3,7 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/phir.svg)](https://badge.fury.io/py/phir)
 [![Python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://img.shields.io/badge/python-3.9%2C%203.10%2C%203.11-blue.svg)
 
-`phir` models the [PHIR specification](./phir_spec_qasm.md) as a [Pydantic](https://docs.pydantic.dev/latest/) model.
+`phir` models the [PHIR specification](./spec.md) as a [Pydantic](https://docs.pydantic.dev/latest/) model.
 See [our docs](https://cqcl.github.io/phir/).
 Included is the tool `phir-cli` that provides validation and pretty printing on the command line.
 
