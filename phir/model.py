@@ -81,16 +81,38 @@ class QOp(Op):
 class COp(Op):
     """Classical operation."""
 
-    cop: str
+    # From https://github.com/CQCL/phir/blob/main/phir_spec_qasm.md#table-i---cop-assignment-arithmetic-comparison--bitwise-operations
+    cop: Literal[
+        "=",
+        "+",
+        "-",
+        "*",
+        "/",
+        "%",
+        "==",
+        "!=",
+        ">",
+        "<",
+        ">=",
+        "<=",
+        "&",
+        "|",
+        "^",
+        "~",
+        "<<",
+        ">>",
+    ]
     returns: list[Sym | Bit] | None = None
     args: list[int | Sym | COp | Bit]
 
 
-class FFCall(COp):
+class FFCall(Op):
     """(Classical) Foreign Function Call."""
 
     cop: Literal["ffcall"]
+    returns: list[Sym | Bit] | None = None
     function: str
+    args: list[int | Sym | COp | Bit]
 
 
 Duration = NewType("Duration", tuple[float, Literal["s", "ms", "us", "ns"]])
