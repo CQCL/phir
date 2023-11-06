@@ -72,7 +72,44 @@ class Op(BaseModel, abc.ABC):
 class QOp(Op):
     """Quantum operation."""
 
-    qop: str
+    # From https://github.com/CQCL/phir/blob/main/spec.md#table-ii---quantum-operations
+    qop: Literal[
+        "Init",
+        "Measure",
+        "I",
+        "X",
+        "Y",
+        "Z",
+        "RX",
+        "RY",
+        "RZ",
+        "R1XY",
+        "SX",
+        "SXdg",
+        "SY",
+        "SYdg",
+        "SZ",
+        "SZdg",
+        "H",
+        "F",
+        "Fdg",
+        "T",
+        "Tdg",
+        "CX",
+        "CY",
+        "CZ",
+        "RXX",
+        "RYY",
+        "RZZ",
+        "R2XXYYZZ",
+        "SXX",
+        "SXXdg",
+        "SYY",
+        "SYYdg",
+        "SZZ",
+        "SZZdg",
+        "SWAP",
+    ]
     returns: list[Bit] | None = None
     args: list[Bit | list[Bit]]
     angles: tuple[list[float], Literal["rad", "pi"]] | None = None
