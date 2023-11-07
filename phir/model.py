@@ -13,7 +13,14 @@ from __future__ import annotations
 import abc
 from typing import Any, Literal, NewType, TypeAlias
 
-from pydantic import BaseModel, ConfigDict, Field, NonNegativeInt, PositiveInt
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    NonNegativeInt,
+    PositiveInt,
+    model_validator,
+)
 
 Sym: TypeAlias = str
 Idx = NewType("Idx", NonNegativeInt)
@@ -69,13 +76,28 @@ class Op(BaseModel, abc.ABC):
     metadata: dict[str, Any] | None = None
 
 
-class QOp(Op):
-    """Quantum operation."""
+class MeasOp(Op):
+    """Measurement operation."""
+
+    qop: Literal["Measure"]
+    returns: list[Bit]
+    args: list[Bit]
+
+    @model_validator(mode="after")
+    def check_sizes(self: MeasOp) -> MeasOp:
+        """Checks whether returns and args lengths match."""
+        msg = "Lengths of `returns` and `args` do not match."
+        if len(self.returns) != len(self.args):
+            raise ValueError(msg)
+        return self
+
+
+class SQOp(Op):
+    """Single-qubit Quantum operation."""
 
     # From https://github.com/CQCL/phir/blob/main/spec.md#table-ii---quantum-operations
     qop: Literal[
         "Init",
-        "Measure",
         "I",
         "X",
         "Y",
@@ -95,13 +117,39 @@ class QOp(Op):
         "Fdg",
         "T",
         "Tdg",
+    ]
+    angles: tuple[list[float], Literal["rad", "pi"]] | None = None
+    args: list[Bit]
+
+    @model_validator(mode="after")
+    def check_angles(self: SQOp) -> SQOp:
+        """Checks whether correct number of angles are provided for a given gate."""
+        msg = "Incorrect number of angles for the given gate."
+        match self.qop:
+            case "R1XY":
+                if not self.angles or len(self.angles[0]) != 2:  # noqa: PLR2004
+                    raise ValueError(msg)
+            case "RX" | "RY" | "RZ":
+                if not self.angles or len(self.angles[0]) != 1:
+                    raise ValueError(msg)
+            case _:
+                if self.angles:
+                    msg = "This gate takes no angles."
+                    raise ValueError(msg)
+        return self
+
+
+class TQOp(Op):
+    """Two-qubit Quantum operation."""
+
+    # From https://github.com/CQCL/phir/blob/main/spec.md#table-ii---quantum-operations
+    qop: Literal[
         "CX",
         "CY",
         "CZ",
         "RXX",
         "RYY",
         "RZZ",
-        "R2XXYYZZ",
         "SXX",
         "SXXdg",
         "SYY",
@@ -110,9 +158,32 @@ class QOp(Op):
         "SZZdg",
         "SWAP",
     ]
-    returns: list[Bit] | None = None
-    args: list[Bit | list[Bit]]
     angles: tuple[list[float], Literal["rad", "pi"]] | None = None
+    args: list[tuple[Bit, Bit]]
+
+    @model_validator(mode="after")
+    def check_angles(self: TQOp) -> TQOp:
+        """Checks whether correct number of angles are provided for a given gate."""
+        match self.qop:
+            case "RXX" | "RYY" | "RZZ":
+                if not self.angles or len(self.angles[0]) != 1:
+                    msg = "Incorrect number of angles for the given gate."
+                    raise ValueError(msg)
+            case _:
+                if self.angles:
+                    msg = "This gate takes no angles."
+                    raise ValueError(msg)
+        return self
+
+
+class ThreeQOp(Op):
+    """Three-qubit Quantum operation."""
+
+    # From https://github.com/CQCL/phir/blob/main/spec.md#table-ii---quantum-operations
+    # Note: args and angles are specialized for the needs of R2XXYYZZ
+    qop: Literal["R2XXYYZZ"]
+    angles: tuple[tuple[float], Literal["rad", "pi"]]
+    args: list[tuple[Bit, Bit, Bit]]
 
 
 class COp(Op):
@@ -162,6 +233,7 @@ class MOp(Op):
     duration: Duration | None = None
 
 
+QOp: TypeAlias = MeasOp | SQOp | TQOp | ThreeQOp
 OpType: TypeAlias = FFCall | COp | QOp | MOp
 
 
