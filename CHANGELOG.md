@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- fix(model): require `data_type` in `cvar_define` in https://github.com/CQCL/phir/pull/14
+
+## [0.1.6] - 2023-11-07
+
+### Fixed
+
+- fix(spec): include missing `<=` comparison operator
+- fix(model): better validation in https://github.com/CQCL/phir/pull/15
+  - pick classical ops from Table I in the spec
+  - pick quantum ops from Table II in the spec
+  - split QOp into four, validate args/angles
+
+### Changed
+
+- docs: shorten spec file name to `spec.md`
+- ci(markdown): add markdownlint, fix minor issues
+- style(ruff): use `ruff format` instead of black
+
 ## [0.1.5] - 2023-10-23
 
 ### Changed
@@ -57,6 +77,7 @@ First release.
 [0.1.3]: https://github.com/CQCL/phir/compare/v0.1.2...v0.1.3
 [0.1.4]: https://github.com/CQCL/phir/compare/v0.1.3...v0.1.4
 [0.1.5]: https://github.com/CQCL/phir/compare/v0.1.4...v0.1.5
-[unreleased]: https://github.com/CQCL/phir/compare/v0.1.5...HEAD
+[0.1.6]: https://github.com/CQCL/phir/compare/v0.1.5...v0.1.6
+[unreleased]: https://github.com/CQCL/phir/compare/v0.1.6...HEAD
 
-<!-- markdownlint-configure-file {"MD024": {"siblings_only" : true}} -->
+<!-- markdownlint-configure-file {"MD024": {"siblings_only" : true}, "MD034": false} -->
