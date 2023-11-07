@@ -358,7 +358,16 @@
                 "$ref": "#/$defs/COp"
               },
               {
-                "$ref": "#/$defs/QOp"
+                "$ref": "#/$defs/MeasOp"
+              },
+              {
+                "$ref": "#/$defs/SQOp"
+              },
+              {
+                "$ref": "#/$defs/TQOp"
+              },
+              {
+                "$ref": "#/$defs/ThreeQOp"
               },
               {
                 "$ref": "#/$defs/MOp"
@@ -380,7 +389,16 @@
                     "$ref": "#/$defs/COp"
                   },
                   {
-                    "$ref": "#/$defs/QOp"
+                    "$ref": "#/$defs/MeasOp"
+                  },
+                  {
+                    "$ref": "#/$defs/SQOp"
+                  },
+                  {
+                    "$ref": "#/$defs/TQOp"
+                  },
+                  {
+                    "$ref": "#/$defs/ThreeQOp"
                   },
                   {
                     "$ref": "#/$defs/MOp"
@@ -460,9 +478,9 @@
       "title": "MOp",
       "type": "object"
     },
-    "QOp": {
+    "MeasOp": {
       "additionalProperties": false,
-      "description": "Quantum operation.",
+      "description": "Measurement operation.",
       "properties": {
         "metadata": {
           "anyOf": [
@@ -477,146 +495,52 @@
           "title": "Metadata"
         },
         "qop": {
-          "enum": [
-            "Init",
-            "Measure",
-            "I",
-            "X",
-            "Y",
-            "Z",
-            "RX",
-            "RY",
-            "RZ",
-            "R1XY",
-            "SX",
-            "SXdg",
-            "SY",
-            "SYdg",
-            "SZ",
-            "SZdg",
-            "H",
-            "F",
-            "Fdg",
-            "T",
-            "Tdg",
-            "CX",
-            "CY",
-            "CZ",
-            "RXX",
-            "RYY",
-            "RZZ",
-            "R2XXYYZZ",
-            "SXX",
-            "SXXdg",
-            "SYY",
-            "SYYdg",
-            "SZZ",
-            "SZZdg",
-            "SWAP"
-          ],
-          "title": "Qop",
-          "type": "string"
+          "const": "Measure",
+          "title": "Qop"
         },
         "returns": {
-          "anyOf": [
-            {
-              "items": {
-                "maxItems": 2,
-                "minItems": 2,
-                "prefixItems": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "minimum": 0,
-                    "type": "integer"
-                  }
-                ],
-                "type": "array"
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
               },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Returns"
+              {
+                "minimum": 0,
+                "type": "integer"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Returns",
+          "type": "array"
         },
         "args": {
           "items": {
-            "anyOf": [
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
               {
-                "maxItems": 2,
-                "minItems": 2,
-                "prefixItems": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "minimum": 0,
-                    "type": "integer"
-                  }
-                ],
-                "type": "array"
+                "type": "string"
               },
               {
-                "items": {
-                  "maxItems": 2,
-                  "minItems": 2,
-                  "prefixItems": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "minimum": 0,
-                      "type": "integer"
-                    }
-                  ],
-                  "type": "array"
-                },
-                "type": "array"
+                "minimum": 0,
+                "type": "integer"
               }
-            ]
+            ],
+            "type": "array"
           },
           "title": "Args",
           "type": "array"
-        },
-        "angles": {
-          "anyOf": [
-            {
-              "maxItems": 2,
-              "minItems": 2,
-              "prefixItems": [
-                {
-                  "items": {
-                    "type": "number"
-                  },
-                  "type": "array"
-                },
-                {
-                  "enum": [
-                    "rad",
-                    "pi"
-                  ],
-                  "type": "string"
-                }
-              ],
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Angles"
         }
       },
       "required": [
         "qop",
+        "returns",
         "args"
       ],
-      "title": "QOp",
+      "title": "MeasOp",
       "type": "object"
     },
     "QVarDefine": {
@@ -669,6 +593,103 @@
       "title": "QVarDefine",
       "type": "object"
     },
+    "SQOp": {
+      "additionalProperties": false,
+      "description": "Single-qubit Quantum operation.",
+      "properties": {
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "qop": {
+          "enum": [
+            "Init",
+            "I",
+            "X",
+            "Y",
+            "Z",
+            "RX",
+            "RY",
+            "RZ",
+            "R1XY",
+            "SX",
+            "SXdg",
+            "SY",
+            "SYdg",
+            "SZ",
+            "SZdg",
+            "H",
+            "F",
+            "Fdg",
+            "T",
+            "Tdg"
+          ],
+          "title": "Qop",
+          "type": "string"
+        },
+        "angles": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "items": {
+                    "type": "number"
+                  },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    "rad",
+                    "pi"
+                  ],
+                  "type": "string"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Angles"
+        },
+        "args": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "minimum": 0,
+                "type": "integer"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Args",
+          "type": "array"
+        }
+      },
+      "required": [
+        "qop",
+        "args"
+      ],
+      "title": "SQOp",
+      "type": "object"
+    },
     "SeqBlock": {
       "additionalProperties": false,
       "description": "A generic sequence block.",
@@ -699,7 +720,16 @@
                 "$ref": "#/$defs/COp"
               },
               {
-                "$ref": "#/$defs/QOp"
+                "$ref": "#/$defs/MeasOp"
+              },
+              {
+                "$ref": "#/$defs/SQOp"
+              },
+              {
+                "$ref": "#/$defs/TQOp"
+              },
+              {
+                "$ref": "#/$defs/ThreeQOp"
               },
               {
                 "$ref": "#/$defs/MOp"
@@ -721,6 +751,224 @@
         "ops"
       ],
       "title": "SeqBlock",
+      "type": "object"
+    },
+    "TQOp": {
+      "additionalProperties": false,
+      "description": "Two-qubit Quantum operation.",
+      "properties": {
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "qop": {
+          "enum": [
+            "CX",
+            "CY",
+            "CZ",
+            "RXX",
+            "RYY",
+            "RZZ",
+            "SXX",
+            "SXXdg",
+            "SYY",
+            "SYYdg",
+            "SZZ",
+            "SZZdg",
+            "SWAP"
+          ],
+          "title": "Qop",
+          "type": "string"
+        },
+        "angles": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "items": {
+                    "type": "number"
+                  },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    "rad",
+                    "pi"
+                  ],
+                  "type": "string"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Angles"
+        },
+        "args": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                ],
+                "type": "array"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Args",
+          "type": "array"
+        }
+      },
+      "required": [
+        "qop",
+        "args"
+      ],
+      "title": "TQOp",
+      "type": "object"
+    },
+    "ThreeQOp": {
+      "additionalProperties": false,
+      "description": "Three-qubit Quantum operation.",
+      "properties": {
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "qop": {
+          "const": "R2XXYYZZ",
+          "title": "Qop"
+        },
+        "angles": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "maxItems": 1,
+              "minItems": 1,
+              "prefixItems": [
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "enum": [
+                "rad",
+                "pi"
+              ],
+              "type": "string"
+            }
+          ],
+          "title": "Angles",
+          "type": "array"
+        },
+        "args": {
+          "items": {
+            "maxItems": 3,
+            "minItems": 3,
+            "prefixItems": [
+              {
+                "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                ],
+                "type": "array"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Args",
+          "type": "array"
+        }
+      },
+      "required": [
+        "qop",
+        "angles",
+        "args"
+      ],
+      "title": "ThreeQOp",
       "type": "object"
     }
   },
@@ -768,7 +1016,16 @@
             "$ref": "#/$defs/COp"
           },
           {
-            "$ref": "#/$defs/QOp"
+            "$ref": "#/$defs/MeasOp"
+          },
+          {
+            "$ref": "#/$defs/SQOp"
+          },
+          {
+            "$ref": "#/$defs/TQOp"
+          },
+          {
+            "$ref": "#/$defs/ThreeQOp"
           },
           {
             "$ref": "#/$defs/MOp"
