@@ -1,7 +1,7 @@
 # PHIR: _[PECOS](https://github.com/PECOS-packages/PECOS) High-level Intermediate Representation_
 
 [![PyPI version](https://badge.fury.io/py/phir.svg)](https://badge.fury.io/py/phir)
-[![Python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://img.shields.io/badge/python-3.9%2C%203.10%2C%203.11-blue.svg)
+[![Python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://img.shields.io/badge/python-3.10%2C%203.11%2C%203.12-blue.svg)
 
 `phir` models the [PHIR specification](./spec.md) as a [Pydantic](https://docs.pydantic.dev/latest/) model.
 See [our docs](https://cqcl.github.io/phir/).
@@ -46,7 +46,7 @@ pip install -r requirements.txt
 pre-commit install
 ```
 
-Then install the project using:
+Then, install the project using:
 
 ```sh
 pip install -e .
