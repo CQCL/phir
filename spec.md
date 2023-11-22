@@ -87,12 +87,13 @@ To define or create a variable, the following structure is employed:
 ```json5
 {
   "data": "cvar_define",
-  "data_type": str,  // Currently, should be "i64"
+  "data_type": str,  // Preferably "i64"
   "variable": str,  // The variable symbol
   "size": int  // Optional
 }
 ```
 
+- `"data_type"`: One of "i64", "i32", "u64", "u32".
 - `"variable"`: Represents the symbol tied to the classical variable. By default, all variables are initialized with a
 value of 0.
 - `"size"`: Even though every variable is internally represented as an i64, a size can be specified. This correlates
@@ -143,7 +144,7 @@ instance, the 1st qubit of the quantum variable `"q"` is represented as `["q", 1
 ## Classical operations
 
 Classical operations are all those operations that manipulate classical information. In the current PECOS
-implementation, all classical variables are implemented as 32-bit signed integers (i64).
+implementation, all classical variables are implemented as 64-bit signed integers (i64).
 
 ### Assigning values to Classical Variables
 
