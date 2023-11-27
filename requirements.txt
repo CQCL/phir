@@ -9,4 +9,4 @@ rich==13.7.0
 ruff==0.1.6
 setuptools-scm==8.0.4
 sphinx==7.2.6
-wheel==0.41.3
+wheel==0.42.0
