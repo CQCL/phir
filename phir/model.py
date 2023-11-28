@@ -269,6 +269,12 @@ class SeqBlock(Block):
     block: Literal["sequence"]
     ops: list[OpType | BlockType]
 
+class ParallelBlock(Block):
+    """Parallel Operations Block"""
+
+    block: Literal["parallel"]
+    ops: list[OpType]
+
 
 class IfBlock(Block):
     """If/else block."""
