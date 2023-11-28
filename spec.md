@@ -31,7 +31,7 @@ sequence of operations the program encapsulates.
 - `"format"`: Signifies the utilization of the PHIR/JSON format.
 - `"version"`: Represents the semantic version number adhering to the PHIR spec.
 - `"metadata"`: An optional segment where users can incorporate additional details. This segment holds potential for
-future expansion, possibly to guid compilation processes and error modeling.
+future expansion, possibly to guide compilation processes and error modeling.
 - `"ops": [{...}, ...]`: A linear sequence denoting the operations and blocks that constitute the program.
 
 ## Comments
@@ -486,6 +486,18 @@ The foundation block simply sequences operations and other blocks
 ```json5
 {
   "block": "sequence",
+  "ops": [{...}, ...],
+  "metadata": {...}  // Optional
+}
+```
+
+### Parallel block
+
+A grouping of quantum operations to be performed in parallel
+
+```json5
+{
+  "block": "parallel",
   "ops": [{...}, ...],
   "metadata": {...}  // Optional
 }
