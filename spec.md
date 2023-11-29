@@ -36,9 +36,11 @@ future expansion, possibly to guide compilation processes and error modeling.
 
 ### Metadata Options
 
-| parameter               | options                 | description                                                     |
-| ----------------------- | ----------------------- | --------------------------------------------------------------- |
-| `"strict_parallelism"`  | `"true", "false"`       | If `"true"`, interpret "qop"s with multiple arguments outside a parallel block as parallel application of the "qop" to those arguments. If `"false"` (default), the decision about whether to interpret the "qop" as a parallel application of the "qop" to all arguments or a serial application of the "qop" to each argument in turn will be passed down to the simulator or emulator. | {{< mdl-disable "<!-- markdownlint-disable MD013 -->" >}}
+<!-- markdownlint-disable MD013 -->
+| parameter              | options           | description                                                                                                                                                                                                                                                                                                   |
+| ---------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `"strict_parallelism"` | `"true", "false"` | If `"true"`, tell emulator to interpret `"qop"`s with multiple arguments (outside a [parallel block](#parallel-quantum-block)) as parallel application of the `"qop"` to those arguments. If `"false"` (default), the emulator is free to decide how much parallelism to apply to multiple argument `"qop"`s. |
+<!-- markdownlint-enable MD013 -->
 
 ## Comments
 
