@@ -509,6 +509,18 @@ A grouping of quantum operations to be performed in parallel
 }
 ```
 
+#### Parallel quantum block example
+
+```json5
+{
+  "block": "parallel",
+  "ops": [{"qop": "RZ", "angles": [[1.5], "pi"], "args": [["q", 0], ["q", 1]]},
+          {"qop": "RZ", "angles": [[1.0], "pi"], "args": [["q", 2], ["q", 3]]},
+          {"qop": "RZ", "angles": [[0.5], "pi"], "args": [["q", 4], ["q", 5]]}
+          ]
+}
+```
+
 ### If/else block
 
 An if-else block:
