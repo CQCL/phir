@@ -506,7 +506,7 @@ A grouping of quantum operations to be performed in parallel
 ```json5
 {
   "block": "parallel",
-  "ops": [{...}, ...],
+  "qops": [{...}, ...],
   "metadata": {...}  // Optional
 }
 ```
