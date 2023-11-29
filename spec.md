@@ -512,7 +512,8 @@ A grouping of quantum operations to be performed in parallel
 ```
 
 Example:
-This example contains 6 RZ gates. There is 1 "qop" per unique gate angle, and 2 arguments. All gates within the block will be applied in parallel.
+This example contains 6 RZ gates. There is 1 "qop" per unique gate angle, and 2 arguments.
+All gates within the block will be applied in parallel.
 
 ```json5
 {
