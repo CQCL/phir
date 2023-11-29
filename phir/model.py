@@ -269,8 +269,9 @@ class SeqBlock(Block):
     block: Literal["sequence"]
     ops: list[OpType | BlockType]
 
+
 class ParallelBlock(Block):
-    """Parallel Operations Block"""
+    """Parallel operations block."""
 
     block: Literal["parallel"]
     ops: list[OpType]
@@ -285,7 +286,8 @@ class IfBlock(Block):
     false_branch: list[OpType] | None = None
 
 
-BlockType: TypeAlias = SeqBlock | IfBlock
+BlockType: TypeAlias = SeqBlock | ParallelBlock | IfBlock
+
 
 # Comments
 
