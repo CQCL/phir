@@ -511,7 +511,7 @@ A grouping of quantum operations to be performed in parallel
 }
 ```
 
-#### Parallel quantum block example
+Example:
 
 ```json5
 {
