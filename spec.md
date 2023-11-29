@@ -39,11 +39,12 @@ future expansion, possibly to guide compilation processes and error modeling.
 The metadata field takes several parameters that can be used to specify information relevant to the entire program
 
 ### Metadata Options
-| parameter               | options                 | description                                                         |
-| ----------------------- | ----------------------- | ------------------------------------------------------------------- |
-| `"default_time_unit"`   | `"s", "ms", "us", "ns"` | The default unit for time in the "duration" section of qop metadata |
-| `"default_angle_unit"`  | `"rad", "pi"`           | The default unit for angles in the "angles" section of a qop        |
-| `"strict_parallelism"`  | `"true", "false"`       | If true, interperet qops with multiple qubits outside a parallel block as the same gate being executed in parallel on all qubits. If false, interperet qops with multiple qubits outside a parallel block as the same gate being executed serially on each qubit in turn. |
+
+| parameter               | options                 | description                                                     |
+| ----------------------- | ----------------------- | --------------------------------------------------------------- |
+| `"default_time_unit"`   | `"s", "ms", "us", "ns"` | The default time unit in the "duration" section of qop metadata |
+| `"default_angle_unit"`  | `"rad", "pi"`           | The default angle unit in the "angles" section of a qop         |
+| `"strict_parallelism"`  | `"true", "false"`       | If true, interperet qops with multiple qubits outside a parallel block as the same gate being executed in parallel on all qubits. If false, interperet qops with multiple qubits outside a parallel block as the same gate being executed serially on each qubit in turn. | {{< mdl-disable "<!-- markdownlint-disable MD013 -->" >}}
 
 ## Comments
 
