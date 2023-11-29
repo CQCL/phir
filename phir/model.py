@@ -274,7 +274,7 @@ class ParQBlock(Block):
     """Parallel quantum operations block."""
 
     block: Literal["parallel"]
-    ops: list[QOp]
+    qops: list[QOp]
 
 
 class IfBlock(Block):
