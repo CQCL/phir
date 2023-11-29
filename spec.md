@@ -517,7 +517,7 @@ All gates within the block will be applied in parallel.
 ```json5
 {
   "block": "parallel",
-  "ops": [{"qop": "RZ", "angles": [[1.5], "pi"], "args": [["q", 0], ["q", 1]]},
+  "qops": [{"qop": "RZ", "angles": [[1.5], "pi"], "args": [["q", 0], ["q", 1]]},
           {"qop": "RZ", "angles": [[1.0], "pi"], "args": [["q", 2], ["q", 3]]},
           {"qop": "RZ", "angles": [[0.5], "pi"], "args": [["q", 4], ["q", 5]]}
           ]
