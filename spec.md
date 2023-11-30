@@ -501,7 +501,7 @@ The foundation block simply sequences operations and other blocks
 
 ### Parallel block
 
-A grouping of to be performed in parallel. Currently only quantum operations are supported. 
+A grouping of to be performed in parallel. Currently only quantum operations are supported.
 
 ```json5
 {
