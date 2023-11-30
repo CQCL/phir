@@ -39,7 +39,7 @@ future expansion, possibly to guide compilation processes and error modeling.
 <!-- markdownlint-disable MD013 -->
 | parameter              | options           | description                                                                                                                                                                                                                                                                                                   |
 | ---------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `"strict_parallelism"` | `"true", "false"` | If `"true"`, tell emulator to interpret `"qop"`s with multiple arguments (outside a [parallel block](#parallel-quantum-block)) as parallel application of the `"qop"` to those arguments. If `"false"` (default), the emulator is free to decide how much parallelism to apply to multiple argument `"qop"`s. |
+| `"strict_parallelism"` | `"true", "false"` | If `"true"`, tell emulator to interpret `"qop"`s with multiple arguments (outside a [parallel block](#parallel-block)) as parallel application of the `"qop"` to those arguments. If `"false"` (default), the emulator is free to decide how much parallelism to apply to multiple argument `"qop"`s. |
 <!-- markdownlint-enable MD013 -->
 
 ## Comments
@@ -499,14 +499,14 @@ The foundation block simply sequences operations and other blocks
 }
 ```
 
-### Parallel quantum block
+### Parallel block
 
-A grouping of quantum operations to be performed in parallel
+A grouping of to be performed in parallel. Currently only quantum operations are supported. 
 
 ```json5
 {
   "block": "parallel",
-  "qops": [{...}, ...],
+  "ops": [{...}, ...],
   "metadata": {...}  // Optional
 }
 ```
@@ -517,7 +517,7 @@ All gates within the block will be applied in parallel.
 ```json5
 {
   "block": "parallel",
-  "qops": [{"qop": "RZ", "angles": [[1.5], "pi"], "args": [["q", 0], ["q", 1]]},
+  "ops": [{"qop": "RZ", "angles": [[1.5], "pi"], "args": [["q", 0], ["q", 1]]},
           {"qop": "RZ", "angles": [[1.0], "pi"], "args": [["q", 2], ["q", 3]]},
           {"qop": "RZ", "angles": [[0.5], "pi"], "args": [["q", 4], ["q", 5]]}
           ]
