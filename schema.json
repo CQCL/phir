@@ -549,7 +549,7 @@
       "title": "MeasOp",
       "type": "object"
     },
-    "ParQBlock": {
+    "ParBlock": {
       "additionalProperties": false,
       "description": "Parallel quantum operations block.",
       "properties": {
@@ -569,7 +569,7 @@
           "const": "parallel",
           "title": "Block"
         },
-        "qops": {
+        "ops": {
           "items": {
             "anyOf": [
               {
@@ -586,15 +586,15 @@
               }
             ]
           },
-          "title": "Qops",
+          "title": "Ops",
           "type": "array"
         }
       },
       "required": [
         "block",
-        "qops"
+        "ops"
       ],
-      "title": "ParQBlock",
+      "title": "ParBlock",
       "type": "object"
     },
     "QVarDefine": {
@@ -792,7 +792,7 @@
                 "$ref": "#/$defs/SeqBlock"
               },
               {
-                "$ref": "#/$defs/ParQBlock"
+                "$ref": "#/$defs/ParBlock"
               },
               {
                 "$ref": "#/$defs/IfBlock"
@@ -1091,7 +1091,7 @@
             "$ref": "#/$defs/SeqBlock"
           },
           {
-            "$ref": "#/$defs/ParQBlock"
+            "$ref": "#/$defs/ParBlock"
           },
           {
             "$ref": "#/$defs/IfBlock"
