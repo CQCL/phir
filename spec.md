@@ -37,8 +37,8 @@ future expansion, possibly to guide compilation processes and error modeling.
 ### Metadata Options
 
 <!-- markdownlint-disable MD013 -->
-| parameter              | options           | description                                                                                                                                                                                                                                                                                                   |
-| ---------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| parameter              | options           | description                                                                                                                                                                                                                                                                                             |
+| ---------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `"strict_parallelism"` | `"true", "false"` | If `"true"`, tell emulator to interpret `"qop"`s with multiple arguments (outside a [qparallel block](#qparallel-block)) as parallel application of the `"qop"` to those arguments. If `"false"` (default), the emulator is free to decide how much parallelism to apply to multiple argument `"qop"`s. |
 <!-- markdownlint-enable MD013 -->
 
