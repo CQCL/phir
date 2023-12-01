@@ -549,6 +549,54 @@
       "title": "MeasOp",
       "type": "object"
     },
+    "QParBlock": {
+      "additionalProperties": false,
+      "description": "Parallel quantum operations block.",
+      "properties": {
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "block": {
+          "const": "qparallel",
+          "title": "Block"
+        },
+        "ops": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/MeasOp"
+              },
+              {
+                "$ref": "#/$defs/SQOp"
+              },
+              {
+                "$ref": "#/$defs/TQOp"
+              },
+              {
+                "$ref": "#/$defs/ThreeQOp"
+              }
+            ]
+          },
+          "title": "Ops",
+          "type": "array"
+        }
+      },
+      "required": [
+        "block",
+        "ops"
+      ],
+      "title": "QParBlock",
+      "type": "object"
+    },
     "QVarDefine": {
       "additionalProperties": false,
       "description": "Defining Quantum Variables.",
@@ -742,6 +790,9 @@
               },
               {
                 "$ref": "#/$defs/SeqBlock"
+              },
+              {
+                "$ref": "#/$defs/QParBlock"
               },
               {
                 "$ref": "#/$defs/IfBlock"
@@ -1038,6 +1089,9 @@
           },
           {
             "$ref": "#/$defs/SeqBlock"
+          },
+          {
+            "$ref": "#/$defs/QParBlock"
           },
           {
             "$ref": "#/$defs/IfBlock"

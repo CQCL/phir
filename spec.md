@@ -31,8 +31,16 @@ sequence of operations the program encapsulates.
 - `"format"`: Signifies the utilization of the PHIR/JSON format.
 - `"version"`: Represents the semantic version number adhering to the PHIR spec.
 - `"metadata"`: An optional segment where users can incorporate additional details. This segment holds potential for
-future expansion, possibly to guid compilation processes and error modeling.
+future expansion, possibly to guide compilation processes and error modeling.
 - `"ops": [{...}, ...]`: A linear sequence denoting the operations and blocks that constitute the program.
+
+### Metadata Options
+
+<!-- markdownlint-disable MD013 -->
+| parameter              | options           | description                                                                                                                                                                                                                                                                                             |
+| ---------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `"strict_parallelism"` | `"true", "false"` | If `"true"`, tell emulator to interpret `"qop"`s with multiple arguments (outside a [qparallel block](#qparallel-block)) as parallel application of the `"qop"` to those arguments. If `"false"` (default), the emulator is free to decide how much parallelism to apply to multiple argument `"qop"`s. |
+<!-- markdownlint-enable MD013 -->
 
 ## Comments
 
@@ -488,6 +496,31 @@ The foundation block simply sequences operations and other blocks
   "block": "sequence",
   "ops": [{...}, ...],
   "metadata": {...}  // Optional
+}
+```
+
+### QParallel block
+
+A grouping of quantum operations to be performed in parallel.
+
+```json5
+{
+  "block": "qparallel",
+  "ops": [{...}, ...],
+  "metadata": {...}  // Optional
+}
+```
+
+The following example contains 6 RZ gate applications. There is 1 `"qop"` per unique gate angle, each with 2 qubit arguments.
+All gates within the block will be applied in parallel.
+
+```json5
+{
+  "block": "qparallel",
+  "ops": [{"qop": "RZ", "angles": [[1.5], "pi"], "args": [["q", 0], ["q", 1]]},
+          {"qop": "RZ", "angles": [[1.0], "pi"], "args": [["q", 2], ["q", 3]]},
+          {"qop": "RZ", "angles": [[0.5], "pi"], "args": [["q", 4], ["q", 5]]}
+          ]
 }
 ```
 
