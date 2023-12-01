@@ -270,10 +270,10 @@ class SeqBlock(Block):
     ops: list[OpType | BlockType]
 
 
-class ParBlock(Block):
+class QParBlock(Block):
     """Parallel quantum operations block."""
 
-    block: Literal["parallel"]
+    block: Literal["qparallel"]
     ops: list[QOp]
 
 
@@ -286,7 +286,7 @@ class IfBlock(Block):
     false_branch: list[OpType] | None = None
 
 
-BlockType: TypeAlias = SeqBlock | ParBlock | IfBlock
+BlockType: TypeAlias = SeqBlock | QParBlock | IfBlock
 
 
 # Comments
