@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2023-12-06
+
+### Added
+
+- Parallel quantum operations block `qparallel`
+- Boolean metadata parameter `strict_parallelism`
+
 ### Fixed
 
 - fix(model): require `data_type` in `cvar_define` in https://github.com/CQCL/phir/pull/14
