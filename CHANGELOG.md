@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2023-12-12
+
+### Fixed
+
+- spec & model: correct values for R2XXYYZZ gate params and args in https://github.com/CQCL/phir/pull/38
+
 ## [0.2.0] - 2023-12-06
 
 ### Added
@@ -16,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- fix(model): require `data_type` in `cvar_define` in https://github.com/CQCL/phir/pull/14
+- model: require `data_type` in `cvar_define` in https://github.com/CQCL/phir/pull/14
 
 ## [0.1.6] - 2023-11-07
 
@@ -86,6 +92,7 @@ First release.
 [0.1.5]: https://github.com/CQCL/phir/compare/v0.1.4...v0.1.5
 [0.1.6]: https://github.com/CQCL/phir/compare/v0.1.5...v0.1.6
 [0.2.0]: https://github.com/CQCL/phir/compare/v0.1.6...v0.2.0
-[unreleased]: https://github.com/CQCL/phir/compare/v0.2.0...HEAD
+[0.2.1]: https://github.com/CQCL/phir/compare/v0.2.0...v0.2.1
+[unreleased]: https://github.com/CQCL/phir/compare/v0.2.1...HEAD
 
 <!-- markdownlint-configure-file {"MD024": {"siblings_only" : true}, "MD034": false} -->
