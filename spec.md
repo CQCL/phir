@@ -431,7 +431,7 @@ For a Z basis measurement on multiple qubits:
 | `"RXX"`      |                   | 1        | 2        | ...    | Rotation about XX        |
 | `"RYY"`      |                   | 1        | 2        | ...    | Rotation about YY        |
 | `"RZZ"`      | `"ZZPhase"`       | 1        | 2        | ...    | Rotation about ZZ        |
-| `"R2XXYYZZ"` | `"RXXYYZZ"`       | 1        | 3        | ...    | RXX x RYY x RZZ          |
+| `"R2XXYYZZ"` | `"RXXYYZZ"`       | 3        | 2        | ...    | RXX x RYY x RZZ          |
 | `"SXX"`      |                   | 0        | 2        | ...    | Sqrt. of XX              |
 | `"SXXdg"`    |                   | 0        | 2        | ...    | Adjoint of sqrt. of XX   |
 | `"SYY"`      |                   | 0        | 2        | ...    | Sqrt. of YY              |

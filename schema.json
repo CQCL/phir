@@ -373,9 +373,6 @@
                 "$ref": "#/$defs/TQOp"
               },
               {
-                "$ref": "#/$defs/ThreeQOp"
-              },
-              {
                 "$ref": "#/$defs/MOp"
               }
             ]
@@ -402,9 +399,6 @@
                   },
                   {
                     "$ref": "#/$defs/TQOp"
-                  },
-                  {
-                    "$ref": "#/$defs/ThreeQOp"
                   },
                   {
                     "$ref": "#/$defs/MOp"
@@ -580,9 +574,6 @@
               },
               {
                 "$ref": "#/$defs/TQOp"
-              },
-              {
-                "$ref": "#/$defs/ThreeQOp"
               }
             ]
           },
@@ -783,9 +774,6 @@
                 "$ref": "#/$defs/TQOp"
               },
               {
-                "$ref": "#/$defs/ThreeQOp"
-              },
-              {
                 "$ref": "#/$defs/MOp"
               },
               {
@@ -834,6 +822,7 @@
             "RXX",
             "RYY",
             "RZZ",
+            "R2XXYYZZ",
             "SXX",
             "SXXdg",
             "SYY",
@@ -920,113 +909,6 @@
       ],
       "title": "TQOp",
       "type": "object"
-    },
-    "ThreeQOp": {
-      "additionalProperties": false,
-      "description": "Three-qubit Quantum operation.",
-      "properties": {
-        "metadata": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Metadata"
-        },
-        "qop": {
-          "const": "R2XXYYZZ",
-          "title": "Qop"
-        },
-        "angles": {
-          "maxItems": 2,
-          "minItems": 2,
-          "prefixItems": [
-            {
-              "maxItems": 1,
-              "minItems": 1,
-              "prefixItems": [
-                {
-                  "type": "number"
-                }
-              ],
-              "type": "array"
-            },
-            {
-              "enum": [
-                "rad",
-                "pi"
-              ],
-              "type": "string"
-            }
-          ],
-          "title": "Angles",
-          "type": "array"
-        },
-        "args": {
-          "items": {
-            "maxItems": 3,
-            "minItems": 3,
-            "prefixItems": [
-              {
-                "maxItems": 2,
-                "minItems": 2,
-                "prefixItems": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "minimum": 0,
-                    "type": "integer"
-                  }
-                ],
-                "type": "array"
-              },
-              {
-                "maxItems": 2,
-                "minItems": 2,
-                "prefixItems": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "minimum": 0,
-                    "type": "integer"
-                  }
-                ],
-                "type": "array"
-              },
-              {
-                "maxItems": 2,
-                "minItems": 2,
-                "prefixItems": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "minimum": 0,
-                    "type": "integer"
-                  }
-                ],
-                "type": "array"
-              }
-            ],
-            "type": "array"
-          },
-          "title": "Args",
-          "type": "array"
-        }
-      },
-      "required": [
-        "qop",
-        "angles",
-        "args"
-      ],
-      "title": "ThreeQOp",
-      "type": "object"
     }
   },
   "additionalProperties": false,
@@ -1080,9 +962,6 @@
           },
           {
             "$ref": "#/$defs/TQOp"
-          },
-          {
-            "$ref": "#/$defs/ThreeQOp"
           },
           {
             "$ref": "#/$defs/MOp"

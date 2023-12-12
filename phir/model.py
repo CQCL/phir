@@ -164,6 +164,7 @@ class TQOp(Op):
         "RXX",
         "RYY",
         "RZZ",
+        "R2XXYYZZ",
         "SXX",
         "SXXdg",
         "SYY",
@@ -181,23 +182,17 @@ class TQOp(Op):
         match self.qop:
             case "RXX" | "RYY" | "RZZ":
                 if not self.angles or len(self.angles[0]) != 1:
-                    msg = "Incorrect number of angles for the given gate."
+                    msg = f"{self.qop} gate requires exactly one angle parameter."
+                    raise ValueError(msg)
+            case "R2XXYYZZ":
+                if not self.angles or len(self.angles[0]) != 3:  # noqa: PLR2004
+                    msg = f"{self.qop} gate requires three angle parameters."
                     raise ValueError(msg)
             case _:
                 if self.angles:
                     msg = "This gate takes no angles."
                     raise ValueError(msg)
         return self
-
-
-class ThreeQOp(Op):
-    """Three-qubit Quantum operation."""
-
-    # From https://github.com/CQCL/phir/blob/main/spec.md#table-ii---quantum-operations
-    # Note: args and angles are specialized for the needs of R2XXYYZZ
-    qop: Literal["R2XXYYZZ"]
-    angles: tuple[tuple[float], Literal["rad", "pi"]]
-    args: list[tuple[Bit, Bit, Bit]]
 
 
 class COp(Op):
@@ -247,7 +242,7 @@ class MOp(Op):
     duration: Duration | None = None
 
 
-QOp: TypeAlias = MeasOp | SQOp | TQOp | ThreeQOp
+QOp: TypeAlias = MeasOp | SQOp | TQOp
 OpType: TypeAlias = FFCall | COp | QOp | MOp
 
 
