@@ -79,5 +79,8 @@ convention = "google"
 [flake8-copyright]
 author = "Quantinuum LLC"
 
+[flake8-type-checking]
+quote-annotations = true
+
 [format]
 preview = true
