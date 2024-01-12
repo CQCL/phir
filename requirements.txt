@@ -6,7 +6,7 @@ pydantic==2.5.3
 pydata_sphinx_theme==0.15.1
 pytest==7.4.4
 rich==13.7.0
-ruff==0.1.9
+ruff==0.1.13
 setuptools-scm==8.0.4
 sphinx==7.2.6
 wheel==0.42.0
