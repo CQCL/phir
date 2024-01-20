@@ -14,8 +14,14 @@ repos:
       # JSON-specific
       - id: check-json
 
+  - repo: https://github.com/sbrunner/hooks
+    rev: 0.7.0
+    hooks:
+      # Check that the copyright is up to date
+      - id: copyright
+
   - repo: https://github.com/crate-ci/typos
-    rev: v1.17.1
+    rev: v1.17.2
     hooks:
       - id: typos
         args: []
@@ -43,7 +49,7 @@ repos:
         - black==23.10.1
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.13
+    rev: v0.1.14
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
