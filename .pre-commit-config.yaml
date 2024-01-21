@@ -14,12 +14,12 @@ repos:
       # JSON-specific
       - id: check-json
 
-  - repo: https://github.com/sbrunner/hooks
-    rev: 0.7.0
-    hooks:
-      # Check that the copyright is up to date
-      - id: copyright
-        args: ["--verbose"]
+# Uncomment to run locally, false positives on the CI
+  # - repo: https://github.com/sbrunner/hooks
+  #   rev: 0.7.0
+  #   hooks:
+  #     # Check that the copyright is up to date
+  #     - id: copyright
 
   - repo: https://github.com/crate-ci/typos
     rev: v1.17.2
