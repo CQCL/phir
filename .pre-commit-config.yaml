@@ -19,6 +19,7 @@ repos:
     hooks:
       # Check that the copyright is up to date
       - id: copyright
+        args: ["--verbose"]
 
   - repo: https://github.com/crate-ci/typos
     rev: v1.17.2
