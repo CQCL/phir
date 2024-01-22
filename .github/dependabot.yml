@@ -10,8 +10,12 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    groups:
+      python-packages:
+        patterns:
+          - "*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
