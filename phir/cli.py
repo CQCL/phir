@@ -44,7 +44,7 @@ def main() -> None:
         "-v",
         "--version",
         action="version",
-        version=f'{version("phir")}',
+        version=str(version("phir")),
     )
     args = parser.parse_args()
 
