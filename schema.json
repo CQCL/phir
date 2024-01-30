@@ -1,5 +1,39 @@
 {
   "$defs": {
+    "Barrier": {
+      "additionalProperties": false,
+      "description": "Barrier instruction.",
+      "properties": {
+        "meta": {
+          "const": "barrier",
+          "title": "Meta"
+        },
+        "args": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "minimum": 0,
+                "type": "integer"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Args",
+          "type": "array"
+        }
+      },
+      "required": [
+        "meta",
+        "args"
+      ],
+      "title": "Barrier",
+      "type": "object"
+    },
     "COp": {
       "additionalProperties": false,
       "description": "Classical operation.",
@@ -977,6 +1011,9 @@
           },
           {
             "$ref": "#/$defs/Comment"
+          },
+          {
+            "$ref": "#/$defs/Barrier"
           }
         ]
       },

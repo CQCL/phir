@@ -250,7 +250,7 @@ OpType: TypeAlias = FFCall | COp | QOp | MOp
 
 
 class Block(BaseModel, abc.ABC):
-    """General block type."""
+    """Base class for block type."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -295,7 +295,25 @@ class Comment(BaseModel):
     c: str = Field(..., alias="//", min_length=3)
 
 
-Cmd: TypeAlias = DataMgmt | OpType | BlockType | Comment
+# Meta Instructions
+
+
+class Meta(BaseModel, abc.ABC):
+    """Meta instructions base class."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    meta: str
+
+
+class Barrier(Meta):
+    """Barrier instruction."""
+
+    meta: Literal["barrier"]
+    args: list[Bit]
+
+
+Cmd: TypeAlias = DataMgmt | OpType | BlockType | Comment | Barrier
 
 
 class PHIRModel(BaseModel):
