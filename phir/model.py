@@ -79,6 +79,24 @@ class ExportVar(Data):
 
 DataMgmt: TypeAlias = CVarDefine | QVarDefine | ExportVar
 
+# Meta Instructions
+
+
+class Meta(BaseModel, abc.ABC):
+    """Meta instructions base class."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    meta: str
+
+
+class Barrier(Meta):
+    """Barrier instruction."""
+
+    meta: Literal["barrier"]
+    args: list[Bit]
+
+
 # Operations
 
 
@@ -243,7 +261,7 @@ class MOp(Op):
 
 
 QOp: TypeAlias = MeasOp | SQOp | TQOp
-OpType: TypeAlias = FFCall | COp | QOp | MOp
+OpType: TypeAlias = FFCall | COp | QOp | MOp | Barrier
 
 
 # Blocks
@@ -295,25 +313,7 @@ class Comment(BaseModel):
     c: str = Field(..., alias="//", min_length=3)
 
 
-# Meta Instructions
-
-
-class Meta(BaseModel, abc.ABC):
-    """Meta instructions base class."""
-
-    model_config = ConfigDict(extra="forbid")
-
-    meta: str
-
-
-class Barrier(Meta):
-    """Barrier instruction."""
-
-    meta: Literal["barrier"]
-    args: list[Bit]
-
-
-Cmd: TypeAlias = DataMgmt | OpType | BlockType | Comment | Barrier
+Cmd: TypeAlias = DataMgmt | OpType | BlockType | Comment
 
 
 class PHIRModel(BaseModel):
