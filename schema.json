@@ -411,6 +411,15 @@
               },
               {
                 "$ref": "#/$defs/Barrier"
+              },
+              {
+                "$ref": "#/$defs/SeqBlock"
+              },
+              {
+                "$ref": "#/$defs/QParBlock"
+              },
+              {
+                "$ref": "#/$defs/IfBlock"
               }
             ]
           },
@@ -442,6 +451,15 @@
                   },
                   {
                     "$ref": "#/$defs/Barrier"
+                  },
+                  {
+                    "$ref": "#/$defs/SeqBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/QParBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/IfBlock"
                   }
                 ]
               },

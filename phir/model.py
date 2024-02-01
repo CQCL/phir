@@ -295,8 +295,8 @@ class IfBlock(Block):
 
     block: Literal["if"]
     condition: COp
-    true_branch: list[OpType]
-    false_branch: list[OpType] | None = None
+    true_branch: list[OpType | BlockType]
+    false_branch: list[OpType | BlockType] | None = None
 
 
 BlockType: TypeAlias = SeqBlock | QParBlock | IfBlock

@@ -1,0 +1,54 @@
+{
+  "format": "PHIR/JSON",
+  "version": "0.1.0",
+  "metadata": { "strict_parallelism": "true" },
+  "ops": [
+    {
+      "data": "qvar_define",
+      "data_type": "qubits",
+      "variable": "q",
+      "size": 2
+    },
+    { "data": "cvar_define", "data_type": "u32", "variable": "m", "size": 2 },
+    {
+      "block": "sequence",
+      "ops": [
+        {
+          "block": "if",
+          "condition": { "cop": "==", "args": ["m", 0] },
+          "true_branch": [
+            {
+              "meta": "barrier",
+              "args": [
+                ["q", 0],
+                ["q", 1]
+              ]
+            }
+          ]
+        },
+        {
+          "block": "if",
+          "condition": { "cop": "==", "args": ["m", 1] },
+          "true_branch": [
+            {
+              "block": "qparallel",
+              "ops": [
+                { "qop": "SZdg", "args": [["q", 0]] },
+                { "qop": "SZ", "args": [["q", 1]] }
+              ]
+            }
+          ],
+          "false_branch": [
+            {
+              "block": "qparallel",
+              "ops": [
+                { "qop": "SZdg", "args": [["q", 0]] },
+                { "qop": "SZ", "args": [["q", 1]] }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
