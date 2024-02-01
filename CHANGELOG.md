@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2024-02-01
+
+### Added
+
+- Added support for `"barrier"` `"meta"` instruction in https://github.com/CQCL/phir/pull/56
+
 ## [0.2.1] - 2023-12-12
 
 ### Fixed
@@ -93,6 +99,7 @@ First release.
 [0.1.6]: https://github.com/CQCL/phir/compare/v0.1.5...v0.1.6
 [0.2.0]: https://github.com/CQCL/phir/compare/v0.1.6...v0.2.0
 [0.2.1]: https://github.com/CQCL/phir/compare/v0.2.0...v0.2.1
-[unreleased]: https://github.com/CQCL/phir/compare/v0.2.1...HEAD
+[0.3.0]: https://github.com/CQCL/phir/compare/v0.2.0...v0.3.0
+[unreleased]: https://github.com/CQCL/phir/compare/v0.3.0...HEAD
 
 <!-- markdownlint-configure-file {"MD024": {"siblings_only" : true}, "MD034": false} -->
