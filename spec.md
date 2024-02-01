@@ -547,6 +547,24 @@ bitwise/logical operations, or comparisons between two variables and/or bits. In
 *Note:* While PHIR/PECOS can effectively manage nested if/else statements, extended OpenQASM 2.0 strictly permits only
 non-nested if statements. Consequently, such nesting should be sidestepped when converting from OpenQASM 2.0 to PHIR.
 
+## Meta Instructions
+
+Instructions that communicate information such as a compiler hints and debugging commands that have influence beyond
+a quantum program.
+
+### Barrier
+
+A barrier instruction provides a hint to the compiler/emulator that qubits involved in barrier may not be optimized or
+parallelized across the barrier. Effectively, it enforces an ordering in time for how quantum state is manipulated by
+the machine.
+
+```json5
+{
+  "meta": "barrier",
+  "args": [qubit_id, ...] // list of qubit IDs
+}
+```
+
 ## Overall PHIR Example with Quantinuum's Extended OpenQASM 2.0
 
 A simple quantum program might look like:

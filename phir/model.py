@@ -79,6 +79,24 @@ class ExportVar(Data):
 
 DataMgmt: TypeAlias = CVarDefine | QVarDefine | ExportVar
 
+# Meta Instructions
+
+
+class Meta(BaseModel, abc.ABC):
+    """Meta instructions base class."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    meta: str
+
+
+class Barrier(Meta):
+    """Barrier instruction."""
+
+    meta: Literal["barrier"]
+    args: list[Bit]
+
+
 # Operations
 
 
@@ -243,14 +261,14 @@ class MOp(Op):
 
 
 QOp: TypeAlias = MeasOp | SQOp | TQOp
-OpType: TypeAlias = FFCall | COp | QOp | MOp
+OpType: TypeAlias = FFCall | COp | QOp | MOp | Barrier
 
 
 # Blocks
 
 
 class Block(BaseModel, abc.ABC):
-    """General block type."""
+    """Base class for block type."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -277,8 +295,8 @@ class IfBlock(Block):
 
     block: Literal["if"]
     condition: COp
-    true_branch: list[OpType]
-    false_branch: list[OpType] | None = None
+    true_branch: list[OpType | BlockType]
+    false_branch: list[OpType | BlockType] | None = None
 
 
 BlockType: TypeAlias = SeqBlock | QParBlock | IfBlock

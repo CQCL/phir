@@ -6,6 +6,8 @@
 #
 ##############################################################################
 
+# mypy: disable-error-code="misc"
+
 """Basic validation tests."""
 
 import json
@@ -14,9 +16,20 @@ from pathlib import Path
 from phir.model import PHIRModel
 
 
-def test_spec_example() -> None:  # noqa: D103
-    # From https://github.com/CQCL/phir/blob/main/spec.md#overall-phir-example-with-quantinuums-extended-openqasm-20
-    with Path("tests/example.json").open() as f:
-        data = json.load(f)  # type: ignore [misc]
+def test_spec_example() -> None:
+    """From https://github.com/CQCL/phir/blob/main/spec.md .
 
-    PHIRModel.model_validate(data)  # type: ignore [misc]
+    Specifically "Overall PHIR Example with Quantinuum's Extended OpenQASM 2.0"
+    """
+    with Path("tests/example.json").open() as f:
+        data = json.load(f)
+
+    PHIRModel.model_validate(data)
+
+
+def test_conditional_barrier() -> None:
+    """Checks for barriers and qparallel blocks inside conditionals."""
+    with Path("tests/cond_barrier_qparallel.json").open() as f:
+        data = json.load(f)
+
+    PHIRModel.model_validate(data)

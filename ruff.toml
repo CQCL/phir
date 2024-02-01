@@ -61,6 +61,8 @@ select = [
   "YTT",  # flake8-2020
 ]
 
+ignore = ["COM812", "ISC001"]  # conflicting with the formatter
+
 [per-file-ignores]
 "__init__.py" = ["F401", "CPY001"]
 "docs/*"      = [
@@ -70,8 +72,6 @@ select = [
 "tests/*"     = [
     "INP001",
     ]
-
-ignore = ["COM812", "ISC001"]  # conflicting with the formatter
 
 [pydocstyle]
 convention = "google"
