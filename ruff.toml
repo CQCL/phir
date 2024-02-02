@@ -4,7 +4,7 @@ target-version = "py310"
 line-length = 88
 preview = true
 
-select = [
+lint.select = [
   "E",    # pycodestyle Errors
   "W",    # pycodestyle Warnings
 
@@ -61,9 +61,9 @@ select = [
   "YTT",  # flake8-2020
 ]
 
-ignore = ["COM812", "ISC001"]  # conflicting with the formatter
+lint.ignore = ["COM812", "ISC001"]  # conflicting with the formatter
 
-[per-file-ignores]
+[lint.per-file-ignores]
 "__init__.py" = ["F401", "CPY001"]
 "docs/*"      = [
     "D100",     # Missing docstring in public module
@@ -73,13 +73,13 @@ ignore = ["COM812", "ISC001"]  # conflicting with the formatter
     "INP001",
     ]
 
-[pydocstyle]
+[lint.pydocstyle]
 convention = "google"
 
-[flake8-copyright]
+[lint.flake8-copyright]
 author = "Quantinuum LLC"
 
-[flake8-type-checking]
+[lint.flake8-type-checking]
 quote-annotations = true
 
 [format]
