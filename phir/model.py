@@ -213,6 +213,11 @@ class TQOp(Op):
         return self
 
 
+QOp: TypeAlias = MeasOp | SQOp | TQOp
+
+# Classical Operations
+
+
 class COp(Op):
     """Classical operation."""
 
@@ -250,18 +255,44 @@ class FFCall(Op):
     args: list[int | Sym | COp | Bit]
 
 
+# Machine Operations
+
 Duration = NewType("Duration", tuple[float, Literal["s", "ms", "us", "ns"]])
 
 
-class MOp(Op):
+class MOp(Op, abc.ABC):
     """Machine operation."""
 
+    model_config = ConfigDict(extra="forbid")
+
     mop: str
+    args: list[Bit] | None = None
     duration: Duration | None = None
 
 
-QOp: TypeAlias = MeasOp | SQOp | TQOp
-OpType: TypeAlias = FFCall | COp | QOp | MOp | Barrier
+class IdleMOp(MOp):
+    """Idle machine op."""
+
+    mop: Literal["Idle"]
+    args: list[Bit]
+    duration: Duration
+
+
+class TransportMOp(MOp):
+    """Transport machine op."""
+
+    mop: Literal["Transport"]
+    duration: Duration
+
+
+class SkipMOp(MOp):
+    """Skip machine op."""
+
+    mop: Literal["Skip"]
+
+
+MOpType: TypeAlias = IdleMOp | TransportMOp | SkipMOp
+OpType: TypeAlias = FFCall | COp | QOp | MOpType | Barrier
 
 
 # Blocks

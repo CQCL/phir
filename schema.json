@@ -365,6 +365,73 @@
       "title": "FFCall",
       "type": "object"
     },
+    "IdleMOp": {
+      "additionalProperties": false,
+      "description": "Idle machine op.",
+      "properties": {
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "mop": {
+          "const": "Idle",
+          "title": "Mop"
+        },
+        "args": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "minimum": 0,
+                "type": "integer"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Args",
+          "type": "array"
+        },
+        "duration": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "enum": [
+                "s",
+                "ms",
+                "us",
+                "ns"
+              ],
+              "type": "string"
+            }
+          ],
+          "title": "Duration",
+          "type": "array"
+        }
+      },
+      "required": [
+        "mop",
+        "args",
+        "duration"
+      ],
+      "title": "IdleMOp",
+      "type": "object"
+    },
     "IfBlock": {
       "additionalProperties": false,
       "description": "If/else block.",
@@ -407,7 +474,13 @@
                 "$ref": "#/$defs/TQOp"
               },
               {
-                "$ref": "#/$defs/MOp"
+                "$ref": "#/$defs/IdleMOp"
+              },
+              {
+                "$ref": "#/$defs/TransportMOp"
+              },
+              {
+                "$ref": "#/$defs/SkipMOp"
               },
               {
                 "$ref": "#/$defs/Barrier"
@@ -447,7 +520,13 @@
                     "$ref": "#/$defs/TQOp"
                   },
                   {
-                    "$ref": "#/$defs/MOp"
+                    "$ref": "#/$defs/IdleMOp"
+                  },
+                  {
+                    "$ref": "#/$defs/TransportMOp"
+                  },
+                  {
+                    "$ref": "#/$defs/SkipMOp"
                   },
                   {
                     "$ref": "#/$defs/Barrier"
@@ -479,61 +558,6 @@
         "true_branch"
       ],
       "title": "IfBlock",
-      "type": "object"
-    },
-    "MOp": {
-      "additionalProperties": false,
-      "description": "Machine operation.",
-      "properties": {
-        "metadata": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Metadata"
-        },
-        "mop": {
-          "title": "Mop",
-          "type": "string"
-        },
-        "duration": {
-          "anyOf": [
-            {
-              "maxItems": 2,
-              "minItems": 2,
-              "prefixItems": [
-                {
-                  "type": "number"
-                },
-                {
-                  "enum": [
-                    "s",
-                    "ms",
-                    "us",
-                    "ns"
-                  ],
-                  "type": "string"
-                }
-              ],
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Duration"
-        }
-      },
-      "required": [
-        "mop"
-      ],
-      "title": "MOp",
       "type": "object"
     },
     "MeasOp": {
@@ -832,7 +856,13 @@
                 "$ref": "#/$defs/TQOp"
               },
               {
-                "$ref": "#/$defs/MOp"
+                "$ref": "#/$defs/IdleMOp"
+              },
+              {
+                "$ref": "#/$defs/TransportMOp"
+              },
+              {
+                "$ref": "#/$defs/SkipMOp"
               },
               {
                 "$ref": "#/$defs/Barrier"
@@ -857,6 +887,87 @@
         "ops"
       ],
       "title": "SeqBlock",
+      "type": "object"
+    },
+    "SkipMOp": {
+      "additionalProperties": false,
+      "description": "Skip machine op.",
+      "properties": {
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "mop": {
+          "const": "Skip",
+          "title": "Mop"
+        },
+        "args": {
+          "anyOf": [
+            {
+              "items": {
+                "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                ],
+                "type": "array"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Args"
+        },
+        "duration": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "enum": [
+                    "s",
+                    "ms",
+                    "us",
+                    "ns"
+                  ],
+                  "type": "string"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration"
+        }
+      },
+      "required": [
+        "mop"
+      ],
+      "title": "SkipMOp",
       "type": "object"
     },
     "TQOp": {
@@ -970,6 +1081,80 @@
       ],
       "title": "TQOp",
       "type": "object"
+    },
+    "TransportMOp": {
+      "additionalProperties": false,
+      "description": "Transport machine op.",
+      "properties": {
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "mop": {
+          "const": "Transport",
+          "title": "Mop"
+        },
+        "args": {
+          "anyOf": [
+            {
+              "items": {
+                "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                ],
+                "type": "array"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Args"
+        },
+        "duration": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "enum": [
+                "s",
+                "ms",
+                "us",
+                "ns"
+              ],
+              "type": "string"
+            }
+          ],
+          "title": "Duration",
+          "type": "array"
+        }
+      },
+      "required": [
+        "mop",
+        "duration"
+      ],
+      "title": "TransportMOp",
+      "type": "object"
     }
   },
   "additionalProperties": false,
@@ -1025,7 +1210,13 @@
             "$ref": "#/$defs/TQOp"
           },
           {
-            "$ref": "#/$defs/MOp"
+            "$ref": "#/$defs/IdleMOp"
+          },
+          {
+            "$ref": "#/$defs/TransportMOp"
+          },
+          {
+            "$ref": "#/$defs/SkipMOp"
           },
           {
             "$ref": "#/$defs/Barrier"
