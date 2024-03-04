@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2024-03-04
+
+### Added
+
+In https://github.com/CQCL/phir/pull/64:
+
+- spec: introduced `"Skip"` `"mop"`
+- model: added pydantic validation for `Idle`, `Transport` and `Skip` `MOp`s
+
 ## [0.3.0] - 2024-02-01
 
 ### Added
@@ -100,6 +109,7 @@ First release.
 [0.2.0]: https://github.com/CQCL/phir/compare/v0.1.6...v0.2.0
 [0.2.1]: https://github.com/CQCL/phir/compare/v0.2.0...v0.2.1
 [0.3.0]: https://github.com/CQCL/phir/compare/v0.2.0...v0.3.0
-[unreleased]: https://github.com/CQCL/phir/compare/v0.3.0...HEAD
+[0.3.1]: https://github.com/CQCL/phir/compare/v0.3.0...v0.3.1
+[unreleased]: https://github.com/CQCL/phir/compare/v0.3.1...HEAD
 
 <!-- markdownlint-configure-file {"MD024": {"siblings_only" : true}, "MD034": false} -->

@@ -480,6 +480,15 @@ idling and transport include:
 }
 ```
 
+The "Skip" `"mop"` is the empty operation that indicates *do nothing*. It is used in place of operations that will
+have no effect on the machine state, such as the global phase operation.
+
+```json5
+{
+  "mop": "Skip",
+}
+```
+
 ## Blocks
 
 In the present version of PHIR/PECOS, blocks serve a dual purpose: they group operations and other blocks, and they
