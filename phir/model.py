@@ -11,7 +11,7 @@
 from __future__ import annotations
 
 import abc
-from typing import Any, Literal, NewType, TypeAlias
+from typing import Annotated, Any, Literal, NewType, TypeAlias
 
 from pydantic import (
     BaseModel,
@@ -19,11 +19,13 @@ from pydantic import (
     Field,
     NonNegativeInt,
     PositiveInt,
+    StrictFloat,
+    StrictInt,
     model_validator,
 )
 
 Sym: TypeAlias = str
-Idx = NewType("Idx", NonNegativeInt)
+Idx = NewType("Idx", Annotated[NonNegativeInt, Field(strict=True)])
 Bit = NewType("Bit", tuple[Sym, Idx])
 
 # Data Management
@@ -43,7 +45,7 @@ class CVarDefine(Data):
     data: Literal["cvar_define"]
     data_type: Literal["i64", "i32", "u64", "u32"]
     variable: Sym
-    size: PositiveInt | None
+    size: PositiveInt | None = Field(strict=True)
 
     @model_validator(mode="after")
     def check_size(self: CVarDefine) -> CVarDefine:
@@ -66,7 +68,7 @@ class QVarDefine(Data):
     data: Literal["qvar_define"]
     data_type: str | None = "qubits"
     variable: Sym
-    size: PositiveInt
+    size: PositiveInt = Field(strict=True)
 
 
 class ExportVar(Data):
@@ -150,7 +152,7 @@ class SQOp(Op):
         "T",
         "Tdg",
     ]
-    angles: tuple[list[float], Literal["rad", "pi"]] | None = None
+    angles: tuple[list[StrictFloat], Literal["rad", "pi"]] | None = None
     args: list[Bit]
 
     @model_validator(mode="after")
@@ -191,7 +193,7 @@ class TQOp(Op):
         "SZZdg",
         "SWAP",
     ]
-    angles: tuple[list[float], Literal["rad", "pi"]] | None = None
+    angles: tuple[list[StrictFloat], Literal["rad", "pi"]] | None = None
     args: list[tuple[Bit, Bit]]
 
     @model_validator(mode="after")
@@ -243,7 +245,7 @@ class COp(Op):
         ">>",
     ]
     returns: list[Sym | Bit] | None = None
-    args: list[int | Sym | COp | Bit]
+    args: list[StrictInt | Sym | COp | Bit]
 
 
 class FFCall(Op):
@@ -252,12 +254,12 @@ class FFCall(Op):
     cop: Literal["ffcall"]
     returns: list[Sym | Bit] | None = None
     function: str
-    args: list[int | Sym | COp | Bit]
+    args: list[StrictInt | Sym | COp | Bit]
 
 
 # Machine Operations
 
-Duration = NewType("Duration", tuple[float, Literal["s", "ms", "us", "ns"]])
+Duration = NewType("Duration", tuple[StrictFloat, Literal["s", "ms", "us", "ns"]])
 
 
 class MOp(Op, abc.ABC):
