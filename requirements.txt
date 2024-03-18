@@ -1,12 +1,12 @@
-autodoc-pydantic==2.0.1
+autodoc-pydantic==2.1.0
 build==1.1.1
 mypy==1.9.0
 pre-commit==3.6.2
-pydantic==2.6.3
+pydantic==2.6.4
 pydata_sphinx_theme==0.15.2
 pytest==8.1.1
 rich==13.7.1
-ruff==0.3.2
+ruff==0.3.3
 setuptools-scm==8.0.4
 sphinx==7.2.6
-wheel==0.42.0
+wheel==0.43.0
