@@ -45,7 +45,7 @@ class CVarDefine(Data):
     data: Literal["cvar_define"]
     data_type: Literal["i64", "i32", "u64", "u32"]
     variable: Sym
-    size: PositiveInt | None = Field(strict=True)
+    size: PositiveInt | None = Field(default=None, strict=True)
 
     @model_validator(mode="after")
     def check_size(self: CVarDefine) -> CVarDefine:

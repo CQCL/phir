@@ -190,14 +190,14 @@
               "type": "null"
             }
           ],
+          "default": null,
           "title": "Size"
         }
       },
       "required": [
         "data",
         "data_type",
-        "variable",
-        "size"
+        "variable"
       ],
       "title": "CVarDefine",
       "type": "object"
