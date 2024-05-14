@@ -21,7 +21,7 @@ def test_spec_example() -> None:
 
     Specifically "Overall PHIR Example with Quantinuum's Extended OpenQASM 2.0"
     """
-    with Path("tests/example.json").open() as f:
+    with Path("tests/example.json").open(encoding="utf-8") as f:
         data = json.load(f)
 
     PHIRModel.model_validate(data)
@@ -29,7 +29,7 @@ def test_spec_example() -> None:
 
 def test_conditional_barrier() -> None:
     """Checks for barriers and qparallel blocks inside conditionals."""
-    with Path("tests/cond_barrier_qparallel.json").open() as f:
+    with Path("tests/cond_barrier_qparallel.json").open(encoding="utf-8") as f:
         data = json.load(f)
 
     PHIRModel.model_validate(data)

@@ -53,7 +53,7 @@ def main() -> None:
         sys.exit(0)
 
     if args.jsonfile:
-        with Path(args.jsonfile).open() as f:
+        with Path(args.jsonfile).open(encoding="utf-8") as f:
             data = json.load(f)
 
         try:
