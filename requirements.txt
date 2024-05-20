@@ -4,7 +4,7 @@ mypy==1.10.0
 pre-commit==3.7.1
 pydantic==2.7.1
 pydata_sphinx_theme==0.15.2
-pytest==8.2.0
+pytest==8.2.1
 rich==13.7.1
 ruff==0.4.4
 setuptools-scm==8.1.0
