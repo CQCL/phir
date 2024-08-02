@@ -17,7 +17,7 @@ from importlib.metadata import version
 from pathlib import Path
 
 from pydantic import ValidationError
-from rich import print
+from rich import print  # noqa: A004
 
 from phir.model import PHIRModel
 
