@@ -6,7 +6,8 @@
       "properties": {
         "meta": {
           "const": "barrier",
-          "title": "Meta"
+          "title": "Meta",
+          "type": "string"
         },
         "args": {
           "items": {
@@ -164,7 +165,8 @@
         },
         "data": {
           "const": "cvar_define",
-          "title": "Data"
+          "title": "Data",
+          "type": "string"
         },
         "data_type": {
           "enum": [
@@ -236,7 +238,8 @@
         },
         "data": {
           "const": "cvar_export",
-          "title": "Data"
+          "title": "Data",
+          "type": "string"
         },
         "variables": {
           "items": {
@@ -286,7 +289,8 @@
         },
         "cop": {
           "const": "ffcall",
-          "title": "Cop"
+          "title": "Cop",
+          "type": "string"
         },
         "returns": {
           "anyOf": [
@@ -383,7 +387,8 @@
         },
         "mop": {
           "const": "Idle",
-          "title": "Mop"
+          "title": "Mop",
+          "type": "string"
         },
         "args": {
           "items": {
@@ -450,7 +455,8 @@
         },
         "block": {
           "const": "if",
-          "title": "Block"
+          "title": "Block",
+          "type": "string"
         },
         "condition": {
           "$ref": "#/$defs/COp"
@@ -578,7 +584,8 @@
         },
         "qop": {
           "const": "Measure",
-          "title": "Qop"
+          "title": "Qop",
+          "type": "string"
         },
         "returns": {
           "items": {
@@ -643,7 +650,8 @@
         },
         "block": {
           "const": "qparallel",
-          "title": "Block"
+          "title": "Block",
+          "type": "string"
         },
         "ops": {
           "items": {
@@ -688,7 +696,8 @@
         },
         "data": {
           "const": "qvar_define",
-          "title": "Data"
+          "title": "Data",
+          "type": "string"
         },
         "data_type": {
           "anyOf": [
@@ -835,7 +844,8 @@
         },
         "block": {
           "const": "sequence",
-          "title": "Block"
+          "title": "Block",
+          "type": "string"
         },
         "ops": {
           "items": {
@@ -907,7 +917,8 @@
         },
         "mop": {
           "const": "Skip",
-          "title": "Mop"
+          "title": "Mop",
+          "type": "string"
         },
         "args": {
           "anyOf": [
@@ -1100,7 +1111,8 @@
         },
         "mop": {
           "const": "Transport",
-          "title": "Mop"
+          "title": "Mop",
+          "type": "string"
         },
         "args": {
           "anyOf": [
