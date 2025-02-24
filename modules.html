@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>phir &#8212; phir 0.3 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=b489f392"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="phir package" href="phir.html" />
+    <link rel="prev" title="phir" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">phir 0.3 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    phir
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    phir
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="phir.html">phir package</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">phir</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="phir">
+<h1>phir<a class="headerlink" href="#phir" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="phir.html">phir package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="phir.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phir.html#module-phir.cli">phir.cli module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phir.html#module-phir.model">phir.model module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.Barrier"><code class="docutils literal notranslate"><span class="pre">Barrier</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.Barrier.args"><code class="docutils literal notranslate"><span class="pre">Barrier.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.Barrier.meta"><code class="docutils literal notranslate"><span class="pre">Barrier.meta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.Block"><code class="docutils literal notranslate"><span class="pre">Block</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.Block.block"><code class="docutils literal notranslate"><span class="pre">Block.block</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.Block.metadata"><code class="docutils literal notranslate"><span class="pre">Block.metadata</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.COp"><code class="docutils literal notranslate"><span class="pre">COp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.COp.args"><code class="docutils literal notranslate"><span class="pre">COp.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.COp.cop"><code class="docutils literal notranslate"><span class="pre">COp.cop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.COp.returns"><code class="docutils literal notranslate"><span class="pre">COp.returns</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.CVarDefine"><code class="docutils literal notranslate"><span class="pre">CVarDefine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.CVarDefine.data"><code class="docutils literal notranslate"><span class="pre">CVarDefine.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.CVarDefine.data_type"><code class="docutils literal notranslate"><span class="pre">CVarDefine.data_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.CVarDefine.size"><code class="docutils literal notranslate"><span class="pre">CVarDefine.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.CVarDefine.variable"><code class="docutils literal notranslate"><span class="pre">CVarDefine.variable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.CVarDefine.check_size"><code class="docutils literal notranslate"><span class="pre">CVarDefine.check_size</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.Comment"><code class="docutils literal notranslate"><span class="pre">Comment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.Comment.c"><code class="docutils literal notranslate"><span class="pre">Comment.c</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.Data"><code class="docutils literal notranslate"><span class="pre">Data</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.Data.metadata"><code class="docutils literal notranslate"><span class="pre">Data.metadata</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.ExportVar"><code class="docutils literal notranslate"><span class="pre">ExportVar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.ExportVar.data"><code class="docutils literal notranslate"><span class="pre">ExportVar.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.ExportVar.to"><code class="docutils literal notranslate"><span class="pre">ExportVar.to</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.ExportVar.variables"><code class="docutils literal notranslate"><span class="pre">ExportVar.variables</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.FFCall"><code class="docutils literal notranslate"><span class="pre">FFCall</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.FFCall.args"><code class="docutils literal notranslate"><span class="pre">FFCall.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.FFCall.cop"><code class="docutils literal notranslate"><span class="pre">FFCall.cop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.FFCall.function"><code class="docutils literal notranslate"><span class="pre">FFCall.function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.FFCall.returns"><code class="docutils literal notranslate"><span class="pre">FFCall.returns</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.IdleMOp"><code class="docutils literal notranslate"><span class="pre">IdleMOp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.IdleMOp.args"><code class="docutils literal notranslate"><span class="pre">IdleMOp.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.IdleMOp.duration"><code class="docutils literal notranslate"><span class="pre">IdleMOp.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.IdleMOp.mop"><code class="docutils literal notranslate"><span class="pre">IdleMOp.mop</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.IfBlock"><code class="docutils literal notranslate"><span class="pre">IfBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.IfBlock.block"><code class="docutils literal notranslate"><span class="pre">IfBlock.block</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.IfBlock.condition"><code class="docutils literal notranslate"><span class="pre">IfBlock.condition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.IfBlock.false_branch"><code class="docutils literal notranslate"><span class="pre">IfBlock.false_branch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.IfBlock.true_branch"><code class="docutils literal notranslate"><span class="pre">IfBlock.true_branch</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.MOp"><code class="docutils literal notranslate"><span class="pre">MOp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.MOp.args"><code class="docutils literal notranslate"><span class="pre">MOp.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.MOp.duration"><code class="docutils literal notranslate"><span class="pre">MOp.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.MOp.mop"><code class="docutils literal notranslate"><span class="pre">MOp.mop</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.MeasOp"><code class="docutils literal notranslate"><span class="pre">MeasOp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.MeasOp.args"><code class="docutils literal notranslate"><span class="pre">MeasOp.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.MeasOp.qop"><code class="docutils literal notranslate"><span class="pre">MeasOp.qop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.MeasOp.returns"><code class="docutils literal notranslate"><span class="pre">MeasOp.returns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.MeasOp.check_sizes"><code class="docutils literal notranslate"><span class="pre">MeasOp.check_sizes</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.Meta"><code class="docutils literal notranslate"><span class="pre">Meta</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.Meta.meta"><code class="docutils literal notranslate"><span class="pre">Meta.meta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.Op"><code class="docutils literal notranslate"><span class="pre">Op</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.Op.metadata"><code class="docutils literal notranslate"><span class="pre">Op.metadata</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.PHIRModel"><code class="docutils literal notranslate"><span class="pre">PHIRModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.PHIRModel.format_"><code class="docutils literal notranslate"><span class="pre">PHIRModel.format_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.PHIRModel.metadata"><code class="docutils literal notranslate"><span class="pre">PHIRModel.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.PHIRModel.ops"><code class="docutils literal notranslate"><span class="pre">PHIRModel.ops</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.PHIRModel.version"><code class="docutils literal notranslate"><span class="pre">PHIRModel.version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.QParBlock"><code class="docutils literal notranslate"><span class="pre">QParBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.QParBlock.block"><code class="docutils literal notranslate"><span class="pre">QParBlock.block</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.QParBlock.ops"><code class="docutils literal notranslate"><span class="pre">QParBlock.ops</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.QVarDefine"><code class="docutils literal notranslate"><span class="pre">QVarDefine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.QVarDefine.data"><code class="docutils literal notranslate"><span class="pre">QVarDefine.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.QVarDefine.data_type"><code class="docutils literal notranslate"><span class="pre">QVarDefine.data_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.QVarDefine.size"><code class="docutils literal notranslate"><span class="pre">QVarDefine.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.QVarDefine.variable"><code class="docutils literal notranslate"><span class="pre">QVarDefine.variable</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.SQOp"><code class="docutils literal notranslate"><span class="pre">SQOp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.SQOp.angles"><code class="docutils literal notranslate"><span class="pre">SQOp.angles</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.SQOp.args"><code class="docutils literal notranslate"><span class="pre">SQOp.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.SQOp.qop"><code class="docutils literal notranslate"><span class="pre">SQOp.qop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.SQOp.check_angles"><code class="docutils literal notranslate"><span class="pre">SQOp.check_angles</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.SeqBlock"><code class="docutils literal notranslate"><span class="pre">SeqBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.SeqBlock.block"><code class="docutils literal notranslate"><span class="pre">SeqBlock.block</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.SeqBlock.ops"><code class="docutils literal notranslate"><span class="pre">SeqBlock.ops</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.SkipMOp"><code class="docutils literal notranslate"><span class="pre">SkipMOp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.SkipMOp.mop"><code class="docutils literal notranslate"><span class="pre">SkipMOp.mop</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.TQOp"><code class="docutils literal notranslate"><span class="pre">TQOp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.TQOp.angles"><code class="docutils literal notranslate"><span class="pre">TQOp.angles</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.TQOp.args"><code class="docutils literal notranslate"><span class="pre">TQOp.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.TQOp.qop"><code class="docutils literal notranslate"><span class="pre">TQOp.qop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.TQOp.check_angles"><code class="docutils literal notranslate"><span class="pre">TQOp.check_angles</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phir.html#phir.model.TransportMOp"><code class="docutils literal notranslate"><span class="pre">TransportMOp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.TransportMOp.duration"><code class="docutils literal notranslate"><span class="pre">TransportMOp.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phir.html#phir.model.TransportMOp.mop"><code class="docutils literal notranslate"><span class="pre">TransportMOp.mop</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phir.html#module-phir">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">phir</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="phir.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">phir package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/modules.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023-2025, Quantinuum LLC.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
