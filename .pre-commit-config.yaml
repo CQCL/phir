@@ -61,3 +61,6 @@ repos:
         rich,
         types-setuptools,
       ]
+
+ci:
+  autoupdate_schedule: quarterly
