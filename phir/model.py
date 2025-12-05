@@ -129,7 +129,7 @@ class MeasOp(Op):
 class SQOp(Op):
     """Single-qubit Quantum operation."""
 
-    # From https://github.com/CQCL/phir/blob/main/spec.md#table-ii---quantum-operations
+    # From https://github.com/quantinuum/phir/blob/main/spec.md#table-ii---quantum-operations
     qop: Literal[
         "Init",
         "I",
@@ -176,7 +176,7 @@ class SQOp(Op):
 class TQOp(Op):
     """Two-qubit Quantum operation."""
 
-    # From https://github.com/CQCL/phir/blob/main/spec.md#table-ii---quantum-operations
+    # From https://github.com/quantinuum/phir/blob/main/spec.md#table-ii---quantum-operations
     qop: Literal[
         "CX",
         "CY",
@@ -223,7 +223,7 @@ QOp: TypeAlias = MeasOp | SQOp | TQOp
 class COp(Op):
     """Classical operation."""
 
-    # From https://github.com/CQCL/phir/blob/main/spec.md#table-i---cop-assignment-arithmetic-comparison--bitwise-operations
+    # From https://github.com/quantinuum/phir/blob/main/spec.md#table-i---cop-assignment-arithmetic-comparison--bitwise-operations
     cop: Literal[
         "=",
         "+",

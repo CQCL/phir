@@ -1,7 +1,7 @@
 phir
 ====
 
-Documentation for `CQCL phir <https://github.com/CQCL/phir>`_ project.
+Documentation for `quantinuum phir <https://github.com/quantinuum/phir>`_ project.
 
 ----
 
