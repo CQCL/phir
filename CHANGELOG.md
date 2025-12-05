@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-In https://github.com/CQCL/phir/pull/64:
+In https://github.com/quantinuum/phir/pull/64:
 
 - spec: introduced `"Skip"` `"mop"`
 - model: added pydantic validation for `Idle`, `Transport` and `Skip` `MOp`s
@@ -20,13 +20,13 @@ In https://github.com/CQCL/phir/pull/64:
 
 ### Added
 
-- Added support for `"barrier"` `"meta"` instruction in https://github.com/CQCL/phir/pull/56
+- Added support for `"barrier"` `"meta"` instruction in https://github.com/quantinuum/phir/pull/56
 
 ## [0.2.1] - 2023-12-12
 
 ### Fixed
 
-- spec & model: correct values for R2XXYYZZ gate params and args in https://github.com/CQCL/phir/pull/38
+- spec & model: correct values for R2XXYYZZ gate params and args in https://github.com/quantinuum/phir/pull/38
 
 ## [0.2.0] - 2023-12-06
 
@@ -37,14 +37,14 @@ In https://github.com/CQCL/phir/pull/64:
 
 ### Fixed
 
-- model: require `data_type` in `cvar_define` in https://github.com/CQCL/phir/pull/14
+- model: require `data_type` in `cvar_define` in https://github.com/quantinuum/phir/pull/14
 
 ## [0.1.6] - 2023-11-07
 
 ### Fixed
 
 - fix(spec): include missing `<=` comparison operator
-- fix(model): better validation in https://github.com/CQCL/phir/pull/15
+- fix(model): better validation in https://github.com/quantinuum/phir/pull/15
   - pick classical ops from Table I in the spec
   - pick quantum ops from Table II in the spec
   - split QOp into four, validate args/angles
@@ -59,13 +59,13 @@ In https://github.com/CQCL/phir/pull/64:
 
 ### Changed
 
-- feat: [include units for duration and angles](https://github.com/CQCL/phir/pull/9)
+- feat: [include units for duration and angles](https://github.com/quantinuum/phir/pull/9)
 
 ## [0.1.4] - 2023-10-20
 
 ### Changed
 
-- [Better validation for tuples](https://github.com/CQCL/phir/pull/8)
+- [Better validation for tuples](https://github.com/quantinuum/phir/pull/8)
 
 ## [0.1.3] - 2023-10-18
 
@@ -99,17 +99,17 @@ First release.
 - Pydantic model and JSON schema of the PHIR Specification.
 - `phir-cli` for validation against that model and pretty printing on the command line.
 
-[0.1.0]: https://github.com/CQCL/phir/commits/v0.1.0
-[0.1.1]: https://github.com/CQCL/phir/compare/v0.1.0...v0.1.1
-[0.1.2]: https://github.com/CQCL/phir/compare/v0.1.1...v0.1.2
-[0.1.3]: https://github.com/CQCL/phir/compare/v0.1.2...v0.1.3
-[0.1.4]: https://github.com/CQCL/phir/compare/v0.1.3...v0.1.4
-[0.1.5]: https://github.com/CQCL/phir/compare/v0.1.4...v0.1.5
-[0.1.6]: https://github.com/CQCL/phir/compare/v0.1.5...v0.1.6
-[0.2.0]: https://github.com/CQCL/phir/compare/v0.1.6...v0.2.0
-[0.2.1]: https://github.com/CQCL/phir/compare/v0.2.0...v0.2.1
-[0.3.0]: https://github.com/CQCL/phir/compare/v0.2.0...v0.3.0
-[0.3.1]: https://github.com/CQCL/phir/compare/v0.3.0...v0.3.1
-[unreleased]: https://github.com/CQCL/phir/compare/v0.3.1...HEAD
+[0.1.0]: https://github.com/quantinuum/phir/commits/v0.1.0
+[0.1.1]: https://github.com/quantinuum/phir/compare/v0.1.0...v0.1.1
+[0.1.2]: https://github.com/quantinuum/phir/compare/v0.1.1...v0.1.2
+[0.1.3]: https://github.com/quantinuum/phir/compare/v0.1.2...v0.1.3
+[0.1.4]: https://github.com/quantinuum/phir/compare/v0.1.3...v0.1.4
+[0.1.5]: https://github.com/quantinuum/phir/compare/v0.1.4...v0.1.5
+[0.1.6]: https://github.com/quantinuum/phir/compare/v0.1.5...v0.1.6
+[0.2.0]: https://github.com/quantinuum/phir/compare/v0.1.6...v0.2.0
+[0.2.1]: https://github.com/quantinuum/phir/compare/v0.2.0...v0.2.1
+[0.3.0]: https://github.com/quantinuum/phir/compare/v0.2.0...v0.3.0
+[0.3.1]: https://github.com/quantinuum/phir/compare/v0.3.0...v0.3.1
+[unreleased]: https://github.com/quantinuum/phir/compare/v0.3.1...HEAD
 
 <!-- markdownlint-configure-file {"MD024": {"siblings_only" : true}, "MD034": false} -->

@@ -17,7 +17,7 @@ from phir.model import PHIRModel
 
 
 def test_spec_example() -> None:
-    """From https://github.com/CQCL/phir/blob/main/spec.md .
+    """From https://github.com/quantinuum/phir/blob/main/spec.md .
 
     Specifically "Overall PHIR Example with Quantinuum's Extended OpenQASM 2.0"
     """

@@ -42,9 +42,9 @@ dev = [
 phir-cli = "phir.cli:main"
 
 [project.urls]
-Changelog = "https://github.com/CQCL/phir/blob/main/CHANGELOG.md"
-Documentation = "https://cqcl.github.io/phir/"
-Repository = "https://github.com/CQCL/phir"
+Changelog = "https://github.com/quantinuum/phir/blob/main/CHANGELOG.md"
+Documentation = "https://quantinuum.github.io/phir/"
+Repository = "https://github.com/quantinuum/phir"
 
 [tool.setuptools.packages.find]
 where = ["."]
